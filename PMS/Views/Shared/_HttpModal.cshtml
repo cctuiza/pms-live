@@ -1,0 +1,34 @@
+﻿
+<div id="modal-unauthorized" class="popup-basic popup-sm bg-none mfp-with-anim mfp-hide">
+    <div class="panel panel-warning">
+        <div class="panel-heading ">
+            <span class="panel-title"><i class="glyphicons glyphicon-tasks"></i>&nbsp; Unauthorized</span>
+        </div>
+        <div class="panel-body">
+            <p>  Your session has ended! Please re-login your account.</p>
+       
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="onSignOut()">OK</button>
+        </div>
+    </div>
+
+</div>
+
+<div id="modal-internalerror" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel panel-danger">
+        <div class="panel-heading ">
+            <span class="panel-title"><i class="glyphicons glyphicons-message_ban"></i>&nbsp; Internal server error</span>
+        </div>
+        <div class="panel-body">
+            <p>Error: {{errorMessage}}</p>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="closeModalForm()">OK</button>
+        </div>
+    </div>
+
+</div>
+
+

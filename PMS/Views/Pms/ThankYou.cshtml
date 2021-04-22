@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "PMS::Thank You";
+    Layout = "~/Views/Shared/_PmsLayoutMsg.cshtml";
+    PMS.Utils.Procedure procedure = new PMS.Utils.Procedure();
+}
+
+<link href="~/Style/behavioral-rate.css" rel="stylesheet" />
+
+<center><h3>Performance Appraisal System</h3></center>
+
+
+<div class="note">
+
+    <strong>Note:</strong> please rate the behavioural to complete this appraisal period.
+
+</div>
+
+<div style="margin-top: 20px;">
+    <div><strong>KRA Rating</strong>(complete) </div>
+    <div class="info-complete">
+    </div>
+</div>
+
+<div style="margin-top: 20px;">
+    <div><strong>Behavioral Rating</strong>(complete) </div>
+    <div class="info-complete">
+    </div>
+</div>
+
+<p style="text-align:center; margin-top:20px;"><strong>Thank you for using PMS</strong> </p>
+<p style="text-align:center"> click <a href="@Html.Raw(procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.PMSDomain) +"report/PafReport/" + ViewBag.pano)" target="_blank">here</a> to view appraisal report. </p>
+

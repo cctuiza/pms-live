@@ -1,0 +1,157 @@
+﻿@model List<PMS.Models.MenuModel>
+@{
+    PMS.Utils.Procedure procedure = new PMS.Utils.Procedure();
+    Layout = null;
+    
+}
+<!DOCTYPE html>
+<html id="apps" ng-app="apps">
+
+<head>
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title ng-cloak>@ViewBag.title</title>
+    <meta name="keywords" content="Fast Online Exam" />
+    <meta name="description" content="Monitor Meeting minutes, Escalate Issue , Follow up responsible ">
+    <meta name="author" content="FSC">
+    <meta name="email" content="rjgonzales@fastgroup.biz;mbpresado@fastgroup.biz;ncdelatorre@fastgroup.biz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
+    <script src="~/Scripts/lib/offline.min.js"></script>
+    <!-- Font CSS (Via CDN) -->
+
+
+
+    <link href="~/vendor/editors/summernote/summernote.css" rel="stylesheet" />
+    <link href="~/assets/skin/default_skin/css/theme.css" rel="stylesheet" />
+    <link href="~/vendor/plugins/magnific/magnific-popup.css" rel="stylesheet" />
+    <link href="~/assets/admin-tools/admin-forms/css/admin-forms.css" rel="stylesheet" />
+    <link href="~/assets/admin-tools/admin-plugins/admin-panels/adminpanels.css" rel="stylesheet" />
+    <link href="~/assets/admin-tools/admin-plugins/admin-dock/dockmodal.css" rel="stylesheet" />
+    <link href="~/assets/admin-tools/admin-plugins/admin-modal/adminmodal.css" rel="stylesheet" />
+    <link href="~/assets/ui.top/css/ui.totop.css" rel="stylesheet" />
+    <link href="~/assets/uigrid/css/ui-grid.css" rel="stylesheet" />
+    <link href="~/assets/chat-theme.css" rel="stylesheet" />
+    <link href="~/assets/ng-switch/css/angular-ui-switch.min.css" rel="stylesheet" />
+    <link href="~/assets/textAngular/textAngular.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/style.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/pacestyle.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/animate.min.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/customize-table.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/offline-theme-chrome.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/offline-language-english.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/angular-csp.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/angular-ui-notification.min.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/angular-block-ui.min.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/angularjs-datetime-picker.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/selectize.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+
+
+</head>
+
+<body ng-class="appClass" class="ui-alerts-page  sb-r-c">
+
+
+    @*@Html.Partial("_ThemeView")*@
+    <!-- Start: Main -->
+    <div id="main">
+
+        @Html.Partial("_Header")
+        @Html.Partial("_Sidebar")
+
+
+        <!-- Start: Content-Wrapper -->
+        <section id="content_wrapper">
+
+            @Html.Partial("_Breadcrumb")
+            <!-- Begin: Content -->
+            <section id="content" class="animated fadeIn" ui-view></section>
+            <!-- End: Content -->
+
+
+
+        </section>
+        @Html.Partial("_RightSideBar")
+
+    </div>
+    @Html.Partial("_AccountSetting")
+    @Html.Partial("_HttpModal")
+    <div id="spinnerTarget"></div>
+
+    <script>
+
+
+        var coreapi = '@procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.CoreApi)';;
+        var coredomain = '@procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.CoreDomain)'
+        var pmsdomain = '@procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.PMSDomain)'
+
+
+        paceOptions = {
+            ajax: { ignoreURLs: [coreapi + '/addon/getping'] }
+        };
+    </script>
+ 
+    
+    @Scripts.Render("~/js/lib")
+    @Scripts.Render("~/admin/panel")
+    @Scripts.Render("~/ng/lib")
+    @Scripts.Render("~/ng/ctrl")
+
+
+
+    @Html.Partial("_ContextMenu")
+
+
+
+    @* <script src="~/Scripts/linq-vsdoc.js"></script>*@
+    <script src="~/assets/js/selectize.js"></script>
+    <script src="~/assets/js/d3.js"></script>
+    <script src="~/Scripts/lib/linq.min.js"></script>
+    <script src="~/Scripts/lib/linq.jquery.js"></script>
+    <script src="~/Scripts/apps/module/angular-selectize.js"></script>
+    <script src="~/assets/js/html2canvas.min.js"></script>
+    <script src="~/assets/js/html2pdf.bundle.js"></script>
+    <script src="~/assets/js/pdfmake.min.js"></script>
+    <script src="~/assets/js/jspdf.min.js"></script>
+
+
+
+    <script type="text/javascript">
+
+        //var run = function () {
+        //    var req = new XMLHttpRequest();
+        //    req.timeout = 5000;
+        //    req.open('GET', coreapi +'addon/getping', true);
+        //    req.setRequestHeader("Token", 'MTMwMzgzMDplMTc0OGVlNC1kMjk1LTRjMWYtOGFhMC01ZjgzYWFlNzYwZTJ0c2Fm');
+        //    req.send();
+        //}
+
+        //setInterval(run, 3000);
+
+
+        $(function () {
+            Core.init();
+            // Init Theme Core
+            Demo.init();
+        });
+
+        $().UItoTop({ easingType: 'easeOutQuart' });
+
+
+
+    </script>
+    <!-- END: PAGE SCRIPTS -->
+
+</body>
+
+</html>
+

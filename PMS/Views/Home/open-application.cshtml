@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+
+}
+<section class="content">
+    <div class="panel box-solid">
+
+        <div class="panel-body" data-ng-init="view.onInitQuickAccess()">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h3>Quick Access</h3>
+
+                    <ul ng-show="view.isAdmin" class="lstrmvstyle">
+                        <li data-ng-repeat="menu in view.menuList">
+                            <a class="pointer" data-ng-click="view.onView(menu.menuID)">
+                                {{ menu.menuName}}
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul ng-show="!view.isAdmin" class="lstrmvstyle">
+                        <li data-ng-repeat="menu in view.menuList">
+
+                            {{ menu.parentMenu}}
+
+                            <ul>
+                                <li data-ng-repeat="submenu in menu.userChildMenuList">
+                                    <a class="pointer" data-ng-click="view.onView(submenu.menuID)">
+                                        {{ submenu.menuName}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</section>

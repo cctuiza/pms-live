@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="COREDBModelStoreContainer" CdmEntityContainer="COREDBEntities">
+    <EntitySetMapping Name="pms_indicators">
+      <EntityTypeMapping TypeName="COREDBModel.pms_indicators">
+        <MappingFragment StoreEntitySet="pms_indicators">
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="targetdef" ColumnName="targetdef" />
+          <ScalarProperty Name="indicatortype" ColumnName="indicatortype" />
+          <ScalarProperty Name="positioncode" ColumnName="positioncode" />
+          <ScalarProperty Name="positiondesc" ColumnName="positiondesc" />
+          <ScalarProperty Name="indicatorkra" ColumnName="indicatorkra" />
+          <ScalarProperty Name="createdby" ColumnName="createdby" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pms_mainkpi">
+      <EntityTypeMapping TypeName="COREDBModel.pms_mainkpi">
+        <MappingFragment StoreEntitySet="pms_mainkpi">
+          <ScalarProperty Name="KPIcode" ColumnName="KPIcode" />
+          <ScalarProperty Name="PANO" ColumnName="PANO" />
+          <ScalarProperty Name="KPITarget" ColumnName="KPITarget" />
+          <ScalarProperty Name="KPI_DESCRIPTION" ColumnName="KPI_DESCRIPTION" />
+          <ScalarProperty Name="PAGROUP" ColumnName="PAGROUP" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="crea_by" ColumnName="crea_by" />
+          <ScalarProperty Name="crea_date" ColumnName="crea_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pms_subkpi">
+      <EntityTypeMapping TypeName="COREDBModel.pms_subkpi">
+        <MappingFragment StoreEntitySet="pms_subkpi">
+          <ScalarProperty Name="SUBKPICODE" ColumnName="SUBKPICODE" />
+          <ScalarProperty Name="PA_CTRL_NO" ColumnName="PA_CTRL_NO" />
+          <ScalarProperty Name="SUBDESCRIPTION" ColumnName="SUBDESCRIPTION" />
+          <ScalarProperty Name="TARGET" ColumnName="TARGET" />
+          <ScalarProperty Name="OCCURENCE" ColumnName="OCCURENCE" />
+          <ScalarProperty Name="HTMSIND" ColumnName="HTMSIND" />
+          <ScalarProperty Name="HIT_PERCENTAGE" ColumnName="HIT_PERCENTAGE" />
+          <ScalarProperty Name="ORDERBY" ColumnName="ORDERBY" />
+          <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+          <ScalarProperty Name="AuthorityCde" ColumnName="AuthorityCde" />
+          <ScalarProperty Name="PaGroup" ColumnName="PaGroup" />
+          <ScalarProperty Name="pano" ColumnName="pano" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="isackhead" ColumnName="isackhead" />
+          <ScalarProperty Name="isacksub" ColumnName="isacksub" />
+          <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pms_subkpiperformancerate">
+      <EntityTypeMapping TypeName="COREDBModel.pms_subkpiperformancerate">
+        <MappingFragment StoreEntitySet="pms_subkpiperformancerate">
+          <ScalarProperty Name="SUB_KPICODE" ColumnName="SUB_KPICODE" />
+          <ScalarProperty Name="EVENT_CODE" ColumnName="EVENT_CODE" />
+          <ScalarProperty Name="ACTUAL_VALUE" ColumnName="ACTUAL_VALUE" />
+          <ScalarProperty Name="RESULT_VALUE" ColumnName="RESULT_VALUE" />
+          <ScalarProperty Name="CREA_DATE" ColumnName="CREA_DATE" />
+          <ScalarProperty Name="CREA_BY" ColumnName="CREA_BY" />
+          <ScalarProperty Name="WORKSTATION" ColumnName="WORKSTATION" />
+          <ScalarProperty Name="ISPOSTED" ColumnName="ISPOSTED" />
+          <ScalarProperty Name="ISPOSTED2" ColumnName="ISPOSTED2" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="KPITYPE" ColumnName="KPITYPE" />
+          <ScalarProperty Name="RATEID" ColumnName="RATEID" />
+          <ScalarProperty Name="ISREATED" ColumnName="ISREATED" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="pms_useraccess">
+      <EntityTypeMapping TypeName="COREDBModel.pms_useraccess">
+        <MappingFragment StoreEntitySet="pms_useraccess">
+          <ScalarProperty Name="accessId" ColumnName="accessId" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+          <ScalarProperty Name="employeename" ColumnName="employeename" />
+          <ScalarProperty Name="canedit" ColumnName="canedit" />
+          <ScalarProperty Name="createdate" ColumnName="createdate" />
+          <ScalarProperty Name="createdby" ColumnName="createdby" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

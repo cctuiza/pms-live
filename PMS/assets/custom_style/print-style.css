@@ -1,0 +1,38 @@
+﻿@media screen{
+    .printheader h1, .printheader h2, .printheader h3,.printheader h4, .printheader h5,.printheader h6,.printheader p {
+      display:none;
+           
+    }
+}
+
+@media print{
+    /*styles here*/
+    #SearchBox{
+        display:none;
+    }
+
+    .pagecounter{
+        display:none;
+    }
+
+  .hideTH{
+      display:none;
+  }
+     .printheader h1, .printheader h2, .printheader h3,.printheader h4, .printheader h5,.printheader h6,.printheader p{
+       font-family:Verdana, Geneva, Tahoma, sans-serif;
+           
+    }
+
+     .tablePrint table{
+         width:100%;
+     }
+
+     .printFooter{
+         width: 100%;
+     }
+     div.divFooter {
+            position: fixed;
+            bottom: 0;
+            width:100%;
+        }
+}

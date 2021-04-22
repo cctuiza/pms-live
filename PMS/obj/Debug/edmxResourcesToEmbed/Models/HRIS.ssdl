@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HRISDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="hrisPMSAppraisalDTL">
+    <Key>
+      <PropertyRef Name="PA_CTRL_NO" />
+    </Key>
+    <Property Name="PA_CTRL_NO" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SEQNO" Type="int" />
+    <Property Name="PANO" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="TYPE" Type="varchar" MaxLength="50" />
+    <Property Name="KPI" Type="varchar" MaxLength="250" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="250" />
+    <Property Name="ACTION_PLAN" Type="varchar" MaxLength="250" />
+    <Property Name="WEIGHT" Type="numeric" Precision="15" Scale="2" />
+    <Property Name="HIT_MISS" Type="numeric" Precision="15" Scale="2" />
+    <Property Name="FSCKPI" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="hrisPMSAppraisalMST">
+    <Key>
+      <PropertyRef Name="PANO" />
+    </Key>
+    <Property Name="PANO" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="EMPL_ID" Type="varchar" MaxLength="15" />
+    <Property Name="POSI_CODE" Type="varchar" MaxLength="15" />
+    <Property Name="EMPL_STATUS" Type="varchar" MaxLength="5" />
+    <Property Name="DEPT_CODE" Type="varchar" MaxLength="5" />
+    <Property Name="SEC_CODE" Type="varchar" MaxLength="15" />
+    <Property Name="EMPL_BRANCH" Type="varchar" MaxLength="10" />
+    <Property Name="DATE_HIRED" Type="datetime" />
+    <Property Name="EFF_DATE" Type="datetime" />
+    <Property Name="EMP_SBU" Type="varchar" MaxLength="5" />
+    <Property Name="HEAD_EMPL_ID" Type="varchar" MaxLength="15" />
+    <Property Name="HEAD_POSITION" Type="varchar" MaxLength="100" />
+    <Property Name="HEAD_DEPT" Type="varchar" MaxLength="100" />
+    <Property Name="HEAD_SEC" Type="varchar" MaxLength="50" />
+    <Property Name="HEAD_BRANCH" Type="varchar" MaxLength="30" />
+    <Property Name="HEAD_SBU" Type="varchar" MaxLength="70" />
+    <Property Name="COVERED_FROM" Type="datetime" />
+    <Property Name="COVERED_TO" Type="datetime" />
+    <Property Name="DT_OF_AP" Type="datetime" />
+    <Property Name="DT_OF_NX_AP" Type="datetime" />
+    <Property Name="COMMENTS" Type="varchar" MaxLength="250" />
+    <Property Name="RATED_BY" Type="varchar" MaxLength="250" />
+    <Property Name="VERIFIED_BY" Type="varchar" MaxLength="250" />
+    <Property Name="NOTED_BY_OPHEAD" Type="varchar" MaxLength="250" />
+    <Property Name="NOTED_BY_SBUHEAD" Type="varchar" MaxLength="250" />
+    <Property Name="ACKNOWLEDGEBY" Type="varchar" MaxLength="12" />
+    <Property Name="ACKNOWLEDGEDATE" Type="datetime" />
+    <Property Name="ACKNOWLEDGEBYSUP" Type="varchar" MaxLength="12" />
+    <Property Name="ACKNOWLEDGEDATESUP" Type="datetime" />
+    <Property Name="PAACKNOWLEDGEBY" Type="varchar" MaxLength="12" />
+    <Property Name="PAACKNOWLEDGEDATE" Type="datetime" />
+    <Property Name="STATUS" Type="varchar" MaxLength="5" />
+    <Property Name="SOURCE" Type="varchar" MaxLength="10" />
+    <Property Name="CREA_BY" Type="varchar" MaxLength="12" />
+    <Property Name="CREA_DT" Type="datetime" />
+    <Property Name="MODI_BY" Type="varchar" MaxLength="12" />
+    <Property Name="MODI_DT" Type="datetime" />
+  </EntityType>
+  <EntityType Name="hrisPMSAppraisalParams">
+    <Key>
+      <PropertyRef Name="PARCTRNo" />
+    </Key>
+    <Property Name="PARCTRNo" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PARPANO" Type="varchar" MaxLength="15" />
+    <Property Name="PARTYPE" Type="char" MaxLength="1" />
+    <Property Name="PARCODE" Type="varchar" MaxLength="50" />
+    <Property Name="PARWEIGHT" Type="numeric" Precision="18" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.V_hrisEMPLOYEE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="V_hrisEMPLOYEE">
+    <Key>
+      <PropertyRef Name="EMPL_ID" />
+      <PropertyRef Name="EmployeeName" />
+      <PropertyRef Name="LNAME" />
+      <PropertyRef Name="FNAME" />
+      <PropertyRef Name="SEX" />
+      <PropertyRef Name="CIVILSTATUS" />
+      <PropertyRef Name="EFFECTIVITYDATE" />
+      <PropertyRef Name="CorporateName" />
+      <PropertyRef Name="BRANCHNAME" />
+      <PropertyRef Name="SECTION" />
+      <PropertyRef Name="TYPEDESCRIPTION" />
+      <PropertyRef Name="EmployeePresentAddress" />
+      <PropertyRef Name="EmployeeHomeAddress" />
+      <PropertyRef Name="PicturePath" />
+    </Key>
+    <Property Name="EMPL_ID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="153" Nullable="false" />
+    <Property Name="EmployeeName2" Type="varchar" MaxLength="108" />
+    <Property Name="LNAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FNAME" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MNAME" Type="varchar" MaxLength="50" />
+    <Property Name="BIRTHDAY" Type="datetime" />
+    <Property Name="STATUS" Type="varchar" MaxLength="5" />
+    <Property Name="STATUSNAME" Type="varchar" MaxLength="50" />
+    <Property Name="STATUSNAMEEXT" Type="varchar" MaxLength="153" />
+    <Property Name="RELIGION" Type="varchar" MaxLength="40" />
+    <Property Name="SEX" Type="varchar" MaxLength="7" Nullable="false" />
+    <Property Name="CIVILSTATUS" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="CIVILSTATUSDESC" Type="varchar" MaxLength="9" />
+    <Property Name="BLOODTYPE" Type="varchar" MaxLength="10" />
+    <Property Name="EMAILADD" Type="varchar" MaxLength="50" />
+    <Property Name="DATEHIRED" Type="datetime" />
+    <Property Name="EFFECTIVITYDATE" Type="datetime" Nullable="false" />
+    <Property Name="MONTHS" Type="numeric" Precision="15" Scale="2" />
+    <Property Name="DAYS" Type="numeric" Precision="15" Scale="2" />
+    <Property Name="CORPORATE" Type="varchar" MaxLength="5" />
+    <Property Name="CorporateName" Type="varchar" MaxLength="70" Nullable="false" />
+    <Property Name="BRANCH" Type="varchar" MaxLength="10" />
+    <Property Name="BRANCHNAME" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="BRANCHAREA" Type="varchar" MaxLength="30" />
+    <Property Name="POSITION" Type="varchar" MaxLength="15" />
+    <Property Name="POSITIONNAME" Type="varchar" MaxLength="100" />
+    <Property Name="DEPARTMENT" Type="varchar" MaxLength="15" />
+    <Property Name="DEPARTMENTNAME" Type="varchar" MaxLength="100" />
+    <Property Name="SECTION" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="SECTIONNAME" Type="varchar" MaxLength="50" />
+    <Property Name="LEVELCODE" Type="varchar" MaxLength="15" />
+    <Property Name="LEVELNAME" Type="varchar" MaxLength="100" />
+    <Property Name="JobLevelGroup" Type="varchar" MaxLength="10" />
+    <Property Name="CLASS" Type="varchar" MaxLength="15" />
+    <Property Name="TYPE" Type="varchar" MaxLength="5" />
+    <Property Name="TYPEDESCRIPTION" Type="varchar" MaxLength="9" Nullable="false" />
+    <Property Name="RATECLASS" Type="varchar" MaxLength="5" />
+    <Property Name="SALARY" Type="numeric" Precision="15" Scale="2" />
+    <Property Name="ECOLA" Type="numeric" Precision="15" Scale="2" />
+    <Property Name="TIN" Type="varchar" MaxLength="20" />
+    <Property Name="SSS" Type="varchar" MaxLength="20" />
+    <Property Name="GSIS" Type="varchar" MaxLength="20" />
+    <Property Name="HDMF" Type="varchar" MaxLength="20" />
+    <Property Name="PHILHEALTH" Type="varchar" MaxLength="20" />
+    <Property Name="WTAXSTATUS" Type="varchar" MaxLength="5" />
+    <Property Name="EmployeePresentAddress" Type="varchar" MaxLength="329" Nullable="false" />
+    <Property Name="EmployeeHomeAddress" Type="varchar" MaxLength="345" Nullable="false" />
+    <Property Name="EmployeePresentContactNO" Type="varchar" MaxLength="50" />
+    <Property Name="HEIGHT" Type="varchar" MaxLength="10" />
+    <Property Name="WEIGHT" Type="varchar" MaxLength="10" />
+    <Property Name="SHOESSIZE" Type="varchar" MaxLength="10" />
+    <Property Name="SHIRTSIZE" Type="varchar" MaxLength="5" />
+    <Property Name="HAIRCOLOR" Type="varchar" MaxLength="5" />
+    <Property Name="EYECOLOR" Type="varchar" MaxLength="5" />
+    <Property Name="DISTMARK" Type="varchar" MaxLength="50" />
+    <Property Name="CITIZENSHIP" Type="varchar" MaxLength="5" />
+    <Property Name="MARRIAGEDATE" Type="datetime" />
+    <Property Name="HOME_CONTACT" Type="varchar" MaxLength="50" />
+    <Property Name="EMER_NAME" Type="varchar" MaxLength="100" />
+    <Property Name="EMER_ADDRESS" Type="varchar" MaxLength="100" />
+    <Property Name="EMER_RELATION" Type="varchar" MaxLength="100" />
+    <Property Name="EMER_CONTACT" Type="varchar" MaxLength="50" />
+    <Property Name="AGENCYCODE" Type="varchar" MaxLength="20" />
+    <Property Name="AGENCYNAME" Type="varchar" MaxLength="100" />
+    <Property Name="SEPARATIONTYPE" Type="varchar" MaxLength="50" />
+    <Property Name="SEPARATIONTDESC" Type="varchar" MaxLength="100" />
+    <Property Name="LASTPICUPDATED" Type="smalldatetime" />
+    <Property Name="ImmediateID" Type="varchar" MaxLength="15" />
+    <Property Name="ImmediateName" Type="varchar" MaxLength="104" />
+    <Property Name="ImmediateBDay" Type="datetime" />
+    <Property Name="ImmediateStatus" Type="varchar" MaxLength="50" />
+    <Property Name="ImmediateEmail" Type="varchar" MaxLength="50" />
+    <Property Name="ImmediateDHired" Type="datetime" />
+    <Property Name="ImmediateSBU" Type="varchar" MaxLength="70" />
+    <Property Name="ImmediateBranch" Type="varchar" MaxLength="30" />
+    <Property Name="ImmediatePosition" Type="varchar" MaxLength="100" />
+    <Property Name="ImmediateDepartment" Type="varchar" MaxLength="100" />
+    <Property Name="ImmediateSection" Type="varchar" MaxLength="50" />
+    <Property Name="ImmediateLevel" Type="varchar" MaxLength="100" />
+    <Property Name="CREATEDBY" Type="varchar" MaxLength="30" />
+    <Property Name="CREATEDDATE" Type="datetime" />
+    <Property Name="MODIFIEDBY" Type="varchar" MaxLength="30" />
+    <Property Name="MODIFIEDDATE" Type="datetime" />
+    <Property Name="PicturePath" Type="varchar" MaxLength="31" Nullable="false" />
+    <Property Name="EMPL_RELIGION" Type="varchar" MaxLength="5" />
+    <Property Name="SEPARATED_DATE" Type="datetime" />
+    <Property Name="EMAILNOTIFICATION" Type="varchar" MaxLength="255" />
+    <Property Name="Is_BLACKLISTED" Type="tinyint" />
+    <Property Name="CONTRACTENDDATE" Type="datetime" />
+    <Property Name="SEA" Type="numeric" Precision="15" Scale="2" />
+    <Property Name="EXITINTERVIEW" Type="tinyint" />
+    <Property Name="ISDESIRED" Type="tinyint" />
+    <Property Name="DESIREDREMARKS" Type="varchar" MaxLength="255" />
+    <Property Name="PAYROLL_TYPE" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <Association Name="FK_hrisPMSApprailsDTL_hrisPMSApprailsMST">
+    <End Role="hrisPMSAppraisalMST" Type="Self.hrisPMSAppraisalMST" Multiplicity="1" />
+    <End Role="hrisPMSAppraisalDTL" Type="Self.hrisPMSAppraisalDTL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="hrisPMSAppraisalMST">
+        <PropertyRef Name="PANO" />
+      </Principal>
+      <Dependent Role="hrisPMSAppraisalDTL">
+        <PropertyRef Name="PANO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="HRISDBModelStoreContainer">
+    <EntitySet Name="hrisPMSAppraisalDTL" EntityType="Self.hrisPMSAppraisalDTL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hrisPMSAppraisalMST" EntityType="Self.hrisPMSAppraisalMST" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="hrisPMSAppraisalParams" EntityType="Self.hrisPMSAppraisalParams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="V_hrisEMPLOYEE" EntityType="Self.V_hrisEMPLOYEE" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [V_hrisEMPLOYEE].[EMPL_ID] AS [EMPL_ID], 
+    [V_hrisEMPLOYEE].[EmployeeName] AS [EmployeeName], 
+    [V_hrisEMPLOYEE].[EmployeeName2] AS [EmployeeName2], 
+    [V_hrisEMPLOYEE].[LNAME] AS [LNAME], 
+    [V_hrisEMPLOYEE].[FNAME] AS [FNAME], 
+    [V_hrisEMPLOYEE].[MNAME] AS [MNAME], 
+    [V_hrisEMPLOYEE].[BIRTHDAY] AS [BIRTHDAY], 
+    [V_hrisEMPLOYEE].[STATUS] AS [STATUS], 
+    [V_hrisEMPLOYEE].[STATUSNAME] AS [STATUSNAME], 
+    [V_hrisEMPLOYEE].[STATUSNAMEEXT] AS [STATUSNAMEEXT], 
+    [V_hrisEMPLOYEE].[RELIGION] AS [RELIGION], 
+    [V_hrisEMPLOYEE].[SEX] AS [SEX], 
+    [V_hrisEMPLOYEE].[CIVILSTATUS] AS [CIVILSTATUS], 
+    [V_hrisEMPLOYEE].[CIVILSTATUSDESC] AS [CIVILSTATUSDESC], 
+    [V_hrisEMPLOYEE].[BLOODTYPE] AS [BLOODTYPE], 
+    [V_hrisEMPLOYEE].[EMAILADD] AS [EMAILADD], 
+    [V_hrisEMPLOYEE].[DATEHIRED] AS [DATEHIRED], 
+    [V_hrisEMPLOYEE].[EFFECTIVITYDATE] AS [EFFECTIVITYDATE], 
+    [V_hrisEMPLOYEE].[MONTHS] AS [MONTHS], 
+    [V_hrisEMPLOYEE].[DAYS] AS [DAYS], 
+    [V_hrisEMPLOYEE].[CORPORATE] AS [CORPORATE], 
+    [V_hrisEMPLOYEE].[CorporateName] AS [CorporateName], 
+    [V_hrisEMPLOYEE].[BRANCH] AS [BRANCH], 
+    [V_hrisEMPLOYEE].[BRANCHNAME] AS [BRANCHNAME], 
+    [V_hrisEMPLOYEE].[BRANCHAREA] AS [BRANCHAREA], 
+    [V_hrisEMPLOYEE].[POSITION] AS [POSITION], 
+    [V_hrisEMPLOYEE].[POSITIONNAME] AS [POSITIONNAME], 
+    [V_hrisEMPLOYEE].[DEPARTMENT] AS [DEPARTMENT], 
+    [V_hrisEMPLOYEE].[DEPARTMENTNAME] AS [DEPARTMENTNAME], 
+    [V_hrisEMPLOYEE].[SECTION] AS [SECTION], 
+    [V_hrisEMPLOYEE].[SECTIONNAME] AS [SECTIONNAME], 
+    [V_hrisEMPLOYEE].[LEVELCODE] AS [LEVELCODE], 
+    [V_hrisEMPLOYEE].[LEVELNAME] AS [LEVELNAME], 
+    [V_hrisEMPLOYEE].[JobLevelGroup] AS [JobLevelGroup], 
+    [V_hrisEMPLOYEE].[CLASS] AS [CLASS], 
+    [V_hrisEMPLOYEE].[TYPE] AS [TYPE], 
+    [V_hrisEMPLOYEE].[TYPEDESCRIPTION] AS [TYPEDESCRIPTION], 
+    [V_hrisEMPLOYEE].[RATECLASS] AS [RATECLASS], 
+    [V_hrisEMPLOYEE].[SALARY] AS [SALARY], 
+    [V_hrisEMPLOYEE].[ECOLA] AS [ECOLA], 
+    [V_hrisEMPLOYEE].[TIN] AS [TIN], 
+    [V_hrisEMPLOYEE].[SSS] AS [SSS], 
+    [V_hrisEMPLOYEE].[GSIS] AS [GSIS], 
+    [V_hrisEMPLOYEE].[HDMF] AS [HDMF], 
+    [V_hrisEMPLOYEE].[PHILHEALTH] AS [PHILHEALTH], 
+    [V_hrisEMPLOYEE].[WTAXSTATUS] AS [WTAXSTATUS], 
+    [V_hrisEMPLOYEE].[EmployeePresentAddress] AS [EmployeePresentAddress], 
+    [V_hrisEMPLOYEE].[EmployeeHomeAddress] AS [EmployeeHomeAddress], 
+    [V_hrisEMPLOYEE].[EmployeePresentContactNO] AS [EmployeePresentContactNO], 
+    [V_hrisEMPLOYEE].[HEIGHT] AS [HEIGHT], 
+    [V_hrisEMPLOYEE].[WEIGHT] AS [WEIGHT], 
+    [V_hrisEMPLOYEE].[SHOESSIZE] AS [SHOESSIZE], 
+    [V_hrisEMPLOYEE].[SHIRTSIZE] AS [SHIRTSIZE], 
+    [V_hrisEMPLOYEE].[HAIRCOLOR] AS [HAIRCOLOR], 
+    [V_hrisEMPLOYEE].[EYECOLOR] AS [EYECOLOR], 
+    [V_hrisEMPLOYEE].[DISTMARK] AS [DISTMARK], 
+    [V_hrisEMPLOYEE].[CITIZENSHIP] AS [CITIZENSHIP], 
+    [V_hrisEMPLOYEE].[MARRIAGEDATE] AS [MARRIAGEDATE], 
+    [V_hrisEMPLOYEE].[HOME_CONTACT] AS [HOME_CONTACT], 
+    [V_hrisEMPLOYEE].[EMER_NAME] AS [EMER_NAME], 
+    [V_hrisEMPLOYEE].[EMER_ADDRESS] AS [EMER_ADDRESS], 
+    [V_hrisEMPLOYEE].[EMER_RELATION] AS [EMER_RELATION], 
+    [V_hrisEMPLOYEE].[EMER_CONTACT] AS [EMER_CONTACT], 
+    [V_hrisEMPLOYEE].[AGENCYCODE] AS [AGENCYCODE], 
+    [V_hrisEMPLOYEE].[AGENCYNAME] AS [AGENCYNAME], 
+    [V_hrisEMPLOYEE].[SEPARATIONTYPE] AS [SEPARATIONTYPE], 
+    [V_hrisEMPLOYEE].[SEPARATIONTDESC] AS [SEPARATIONTDESC], 
+    [V_hrisEMPLOYEE].[LASTPICUPDATED] AS [LASTPICUPDATED], 
+    [V_hrisEMPLOYEE].[ImmediateID] AS [ImmediateID], 
+    [V_hrisEMPLOYEE].[ImmediateName] AS [ImmediateName], 
+    [V_hrisEMPLOYEE].[ImmediateBDay] AS [ImmediateBDay], 
+    [V_hrisEMPLOYEE].[ImmediateStatus] AS [ImmediateStatus], 
+    [V_hrisEMPLOYEE].[ImmediateEmail] AS [ImmediateEmail], 
+    [V_hrisEMPLOYEE].[ImmediateDHired] AS [ImmediateDHired], 
+    [V_hrisEMPLOYEE].[ImmediateSBU] AS [ImmediateSBU], 
+    [V_hrisEMPLOYEE].[ImmediateBranch] AS [ImmediateBranch], 
+    [V_hrisEMPLOYEE].[ImmediatePosition] AS [ImmediatePosition], 
+    [V_hrisEMPLOYEE].[ImmediateDepartment] AS [ImmediateDepartment], 
+    [V_hrisEMPLOYEE].[ImmediateSection] AS [ImmediateSection], 
+    [V_hrisEMPLOYEE].[ImmediateLevel] AS [ImmediateLevel], 
+    [V_hrisEMPLOYEE].[CREATEDBY] AS [CREATEDBY], 
+    [V_hrisEMPLOYEE].[CREATEDDATE] AS [CREATEDDATE], 
+    [V_hrisEMPLOYEE].[MODIFIEDBY] AS [MODIFIEDBY], 
+    [V_hrisEMPLOYEE].[MODIFIEDDATE] AS [MODIFIEDDATE], 
+    [V_hrisEMPLOYEE].[PicturePath] AS [PicturePath], 
+    [V_hrisEMPLOYEE].[EMPL_RELIGION] AS [EMPL_RELIGION], 
+    [V_hrisEMPLOYEE].[SEPARATED_DATE] AS [SEPARATED_DATE], 
+    [V_hrisEMPLOYEE].[EMAILNOTIFICATION] AS [EMAILNOTIFICATION], 
+    [V_hrisEMPLOYEE].[Is_BLACKLISTED] AS [Is_BLACKLISTED], 
+    [V_hrisEMPLOYEE].[CONTRACTENDDATE] AS [CONTRACTENDDATE], 
+    [V_hrisEMPLOYEE].[SEA] AS [SEA], 
+    [V_hrisEMPLOYEE].[EXITINTERVIEW] AS [EXITINTERVIEW], 
+    [V_hrisEMPLOYEE].[ISDESIRED] AS [ISDESIRED], 
+    [V_hrisEMPLOYEE].[DESIREDREMARKS] AS [DESIREDREMARKS], 
+    [V_hrisEMPLOYEE].[PAYROLL_TYPE] AS [PAYROLL_TYPE]
+    FROM [dbo].[V_hrisEMPLOYEE] AS [V_hrisEMPLOYEE]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_hrisPMSApprailsDTL_hrisPMSApprailsMST" Association="Self.FK_hrisPMSApprailsDTL_hrisPMSApprailsMST">
+      <End Role="hrisPMSAppraisalMST" EntitySet="hrisPMSAppraisalMST" />
+      <End Role="hrisPMSAppraisalDTL" EntitySet="hrisPMSAppraisalDTL" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

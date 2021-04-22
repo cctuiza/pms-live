@@ -1,0 +1,134 @@
+﻿
+@{
+    Layout = null;
+}
+
+<section class="content" ng-init="ctrl.onInit(1)">
+    <div class="panel box-solid">
+
+        <div class="panel-body ">
+
+            <div class="row margin">
+                <div class="col-lg-2">
+                    <a class="btn btn-info btn-sm pointer btn-rounded btn-gradient" ng-click="ctrl.onNew()" ng-show="canAdd">New</a>
+                </div>
+            </div>
+
+            <span><br /></span>
+            <dir-pagination-controls max-size="7" ng-hide="search.$.length > 0"
+                                     direction-links="true"
+                                     boundary-links="true"
+                                     on-page-change="ctrl.onInit(newPageNumber)">
+            </dir-pagination-controls>
+
+            <div id="exportable">
+                <table class="table table-condensed " context-menu data-target="menu-table">
+
+                    <tr>
+                        <th>Action</th>
+                        <th>Description</th>
+                        <th>Grp KRA</th>
+                        <th>Is Active</th>
+                        <th>Created By</th>
+                        <th>Created Date</th>
+                    </tr>
+
+
+                    <tr ng-show="ctrl.AddBehavioralAssessment.length <= 0"><td colspan="8" style="text-align:center;">NO data!!</td></tr>
+
+                    <tr dir-paginate="m in ctrl.AddBehavioralAssessment | itemsPerPage: ctrl.itemsPerPage| filter:search:strict " total-items="ctrl.total_count">
+                        <td>
+                            <a class="pointer" ng-show="canEdit" ng-click="ctrl.onEdit(m)">edit</a>
+                            &nbsp;&nbsp;
+                            <a class="pointer" ng-show="canDelete" ng-click="ctrl.onDelete(m.baId)">delete</a>
+                        </td>
+                        <td>{{m.badescription}}</td>
+                        <td>{{m.grpkra}}</td>
+                        <td>{{m.isactive}}</td>
+                        <td>{{m.create_by}}</td>
+                        <td>{{m.create_date | date:'MM/dd/yyyy'}}</td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <dir-pagination-controls max-size="7" ng-hide="search.$.length > 0"
+                                     direction-links="true"
+                                     boundary-links="true"
+                                     on-page-change="ctrl.onInit(newPageNumber)">
+            </dir-pagination-controls>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+<!--Behavioral Assessment setup-->
+<div id="modal-behavioralassessment-setup" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; {{ctrl.setupTitle}}</span>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Period ID:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" ng-model="ctrl.AddBehavioralAssessmentField.baId" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Period Description:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" ng-model="ctrl.AddBehavioralAssessmentField.badescription" required maxlength="50">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Group Kra</label>
+                    <div class="col-lg-6">
+                        <select class="form-control" ng-model="ctrl.AddBehavioralAssessmentField.grpkra">
+                            <option value="1">1. Skills and work competency areas</option>
+                            <option value="2">2. Behaviours, attitudes and personal style</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-1 checkbox">
+
+                        <label>
+                            <input type="checkbox" ng-model="ctrl.AddBehavioralAssessmentField.isactive" class="ng-pristine ng-untouched ng-valid">
+                            Active
+                        </label>
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" ng-click="closeModalForm()">Cancel</button>
+            <button class="btn btn-success btn-rounded btn-gradient" ng-click="ctrl.onSave()">Save</button>
+        </div>
+    </div>
+</div>
+
+<!--source type delete-->
+<div id="modal-sourcetype-delete-confirm" class="popup-basic popup-sm bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-trash"></i>&nbsp; System Message</span>
+        </div>
+        <div class="panel-body">
+            <p>Are you sure you want to delete source type &nbsp;<strong><b>{{ctrl.aliascode}}</b></strong></p>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" ng-click="closeModalForm()">No</button>
+            <button class="btn btn-success btn-rounded btn-gradient" ng-click="ctrl.confirm()">Yes</button>
+        </div>
+    </div>
+</div>

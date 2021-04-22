@@ -1,0 +1,385 @@
+﻿@{
+    Layout = null;
+}
+
+
+<script src="~/assets/js/table2excel.js"></script>
+<section class="content">
+    <div class="panel panel-solid">
+        <div class="panel-body" ng-init="onInit();">
+            <div class="row margin">
+                <div class="panel">
+                    <h3 style="padding: 0 15px;"></h3>
+                    <div class="panel-body">
+
+
+                        <div>
+                            <h2>PMS Utilization District 3</h2>
+
+
+
+
+
+
+                            <form class="form-horizontal" autocomplete="off">
+
+
+                                <div class="form-group">
+
+                                    <div class="row">
+
+                                        <label class="col-lg-2 control-label">Search:</label>
+                                        <div class="col-lg-2">
+                                            <input class="form-control" type="text" ng-model="searchBar" />
+                                        </div>
+                                        <label class="col-lg-2 control-label">Year:</label>
+                                        <div class="col-lg-2">
+                                            <selectize placeholder='--Select Year--' options='yearcoveredOptions' config="{maxItems: 1}" ng-model="yearcovered" ng-change="ChangeYear();" required>  </selectize>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+
+
+
+                            <!--Personal Info-->
+                            <table class="table table-condensed table-hover" ng-if="pmsutilization.length > 0">
+                                <tr>
+
+
+                                    <th ng-click="sort('employeeId')">
+                                        Employee ID
+                                        <i ng-show="sortBy=='employeeId'" ng-class="{'fa fa-angle-up':reverse,'fa fa-angle-down':!reverse}"></i>
+                                    </th>
+
+                                    <th ng-click="sort('LastName')">
+                                        Employee Name
+                                        <i ng-show="sortBy=='LastName'" ng-class="{'fa fa-angle-up':reverse,'fa fa-angle-down':!reverse}"></i>
+                                    </th>
+
+                                    <th ng-click="sort('BranchName')">
+                                        Branch
+                                        <i ng-show="sortBy=='BranchName'" ng-class="{'fa fa-angle-up':reverse,'fa fa-angle-down':!reverse}"></i>
+                                    </th>
+
+                                    <th>
+                                        Covered
+                                    </th>
+
+                                    <th>
+                                        KRA Rating
+                                    </th>
+
+                                    <th>
+                                        Behavioral Rating
+                                    </th>
+
+                                    <th>
+                                        Final Rating
+                                    </th>
+                                </tr>
+                                <tr dir-paginate="pmsutilizationList in pmsutilization | orderBy:sortBy:reverse |  filter :searchBar | itemsPerPage: pageSize" current-page="currentPage">
+
+                                    <td>{{pmsutilizationList.employeeId}}</td>
+                                    <td>{{pmsutilizationList.EmployeeName}}</td>
+                                    <td>{{pmsutilizationList.BranchName}}</td>
+                                    <td>{{pmsutilizationList.PeriodFrom}} - {{pmsutilizationList.PeriodTo}}</td>
+
+                                    <td>
+                                        <div ng-init="krapercent = pmsutilizationList.BusinesssProcess + pmsutilizationList.PeopleDevelopment + pmsutilizationList.Customer + pmsutilizationList.Financial">
+                                            <div ng-init="krarating = 1" ng-if="krapercent<70" ng-show="krapercent<70">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                                                    {{kraweight}}
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 2" ng-if="krapercent>=70 && krapercent <80" ng-show="krapercent>=70 && krapercent <80">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                                                    {{kraweight}}
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 3" ng-if="krapercent >=80 && krapercent <90" ng-show="krapercent >=80 && krapercent <90">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                                                    {{kraweight}}
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 4" ng-if="krapercent >=90 && krapercent <100" ng-show="krapercent >=90 && krapercent <100">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                                                    {{kraweight}}
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 5" ng-if=" krapercent >=100" ng-show=" krapercent >=100">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                                                    {{kraweight}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+                                    <td>
+                                        <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                            {{behavioralrating}}
+                                        </div>
+                                    </td>
+                                    <td>
+
+
+                                        <div ng-init="krapercent = pmsutilizationList.BusinesssProcess + pmsutilizationList.PeopleDevelopment + pmsutilizationList.Customer + pmsutilizationList.Financial">
+                                            <div ng-init="krarating = 1" ng-if="krapercent<70" ng-show="krapercent<70">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                                                    <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                                        {{kraweight + behavioralrating  | number : 2}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 2" ng-if="krapercent>=70 && krapercent <80" ng-show="krapercent>=70 && krapercent <80">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                                                    <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                                        {{kraweight + behavioralrating  | number : 2}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 3" ng-if="krapercent >=80 && krapercent <90" ng-show="krapercent >=80 && krapercent <90">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                                                    <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                                        {{kraweight + behavioralrating  | number : 2}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 4" ng-if="krapercent >=90 && krapercent <100" ng-show="krapercent >=90 && krapercent <100">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                                                    <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                                        {{kraweight + behavioralrating  | number : 2}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div ng-init="krarating = 5" ng-if=" krapercent >=100" ng-show=" krapercent >=100">
+                                                <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                                                    <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                                        {{kraweight + behavioralrating  | number : 2}}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+
+
+
+                                    </td>
+
+                                </tr>
+
+                            </table>
+
+
+                            <table class="table table-condensed table-hover" ng-if="pmsutilization.length < 1">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            No Data Found
+                                        </th>
+                                    </tr>
+
+
+                                </thead>
+
+
+                            </table>
+
+                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/custompagination.html"></dir-pagination-controls>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        <button class="btn btn-success btn-rounded btn-gradient" ng-click="Export();">Export</button>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div style="display:none">
+
+    <table class="table table-bordered" id="PmsUtilization">
+        <tr>
+
+
+            <th>PAFNumber</th>
+            <th>Employee Id</th>
+            <th>Employee Name</th>
+            <th>BranchName</th>
+            <th>BusinessGroup</th>
+            <th>DepartmentName</th>
+            <th>SectionName</th>
+            <th>EffectivityDate</th>
+            <th>DateHired</th>
+            <th>Covered Date</th>
+            <th>PeriodFromYear</th>
+            <th>PeriodFromMonth</th>
+            <th>PAFStatus</th>
+            <th>DateOfAppraisal</th>
+            <th>DateOfNextAppraisal</th>
+            <th>BusinesssProcess</th>
+            <th>PeopleDevelopment</th>
+            <th>Customer</th>
+            <th>Financial</th>
+            <th>Behavioral</th>
+            <th>IsRateBehavioral</th>
+            <th>KRA Rating</th>
+            <th>Behavioral Rating</th>
+            <th>Final Rating</th>
+
+        </tr>
+        <tr ng-repeat="pmsutilizationList in pmsutilization |  filter :searchBar ">
+
+
+            <td>{{pmsutilizationList.PAFNumber}}</td>
+            <td>{{pmsutilizationList.employeeId}}</td>
+            <td>{{pmsutilizationList.EmployeeName}}</td>
+            <td>{{pmsutilizationList.BranchName}}</td>
+            <td>{{pmsutilizationList.BusinessGroup}}</td>
+            <td>{{pmsutilizationList.DepartmentName}}</td>
+            <td>{{pmsutilizationList.SectionName}}</td>
+            <td>{{pmsutilizationList.EffectivityDate}}</td>
+            <td>{{pmsutilizationList.DateHired}}</td>
+            <td>{{pmsutilizationList.PeriodFrom}} - {{pmsutilizationList.PeriodTo}}</td>
+            <td>{{pmsutilizationList.PeriodFromYear}}</td>
+            <td>{{pmsutilizationList.PeriodFromMonth}}</td>
+            <td>{{pmsutilizationList.PAFStatus}}</td>
+            <td>{{pmsutilizationList.DateOfAppraisal}}</td>
+            <td>{{pmsutilizationList.DateOfNextAppraisal}}</td>
+            <td>{{pmsutilizationList.BusinesssProcess}}</td>
+            <td>{{pmsutilizationList.PeopleDevelopment}}</td>
+            <td>{{pmsutilizationList.Customer}}</td>
+            <td>{{pmsutilizationList.Financial}}</td>
+            <td>{{pmsutilizationList.Behavioral}}</td>
+            <td>
+
+                {{(pmsutilizationList.IsRateBehavioral==1) ? TRUE:FALSE}}
+
+
+            </td>
+
+
+
+            <td>
+                <div ng-init="krapercent = pmsutilizationList.BusinesssProcess + pmsutilizationList.PeopleDevelopment + pmsutilizationList.Customer + pmsutilizationList.Financial">
+                    <div ng-init="krarating = 1" ng-if="krapercent<70" ng-show="krapercent<70">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                            {{kraweight}}
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 2" ng-if="krapercent>=70 && krapercent <80" ng-show="krapercent>=70 && krapercent <80">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                            {{kraweight}}
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 3" ng-if="krapercent >=80 && krapercent <90" ng-show="krapercent >=80 && krapercent <90">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                            {{kraweight}}
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 4" ng-if="krapercent >=90 && krapercent <100" ng-show="krapercent >=90 && krapercent <100">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                            {{kraweight}}
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 5" ng-if=" krapercent >=100" ng-show=" krapercent >=100">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+                            {{kraweight}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </td>
+            <td>
+                <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                    {{behavioralrating}}
+                </div>
+            </td>
+            <td>
+
+
+                <div ng-init="krapercent = pmsutilizationList.BusinesssProcess + pmsutilizationList.PeopleDevelopment + pmsutilizationList.Customer + pmsutilizationList.Financial">
+                    <div ng-init="krarating = 1" ng-if="krapercent<70" ng-show="krapercent<70">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                            <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                {{kraweight + behavioralrating  | number : 2}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 2" ng-if="krapercent>=70 && krapercent <80" ng-show="krapercent>=70 && krapercent <80">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                            <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                {{kraweight + behavioralrating  | number : 2}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 3" ng-if="krapercent >=80 && krapercent <90" ng-show="krapercent >=80 && krapercent <90">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                            <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                {{kraweight + behavioralrating  | number : 2}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 4" ng-if="krapercent >=90 && krapercent <100" ng-show="krapercent >=90 && krapercent <100">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                            <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                {{kraweight + behavioralrating  | number : 2}}
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-init="krarating = 5" ng-if=" krapercent >=100" ng-show=" krapercent >=100">
+                        <div ng-init="kraweight=(krarating * pmsutilizationList.KRWeight)/100">
+
+                            <div ng-init="behavioralrating = (pmsutilizationList.Behavioral * pmsutilizationList.BIWeight)/100">
+                                {{kraweight + behavioralrating  | number : 2}}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+

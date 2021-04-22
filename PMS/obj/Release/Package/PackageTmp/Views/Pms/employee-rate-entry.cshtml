@@ -1,0 +1,197 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<section class="content" ng-init="onInit()" >
+    <div class="panel panel-primary">
+
+        <form class="form-horizontal">
+            <div class="panel-body">
+                <h2 class="page-header">Recored Performance</h2>
+
+                <!--Prompt Message after save-->
+                <div class="callout callout-info" ng-show="msgOK">
+                    <h4><span class="rjg-check-1"></span> Success</h4>
+                    <p><strong>New Applicant Save Complete</strong>  </p>
+                </div>
+                <div class="callout callout-danger" ng-show="msgInvalid">
+                    <h4><span class="rjg-cancel"></span> Invalid</h4>
+                    <p>{{errorMsg}}</p>
+                </div>
+                <!--End Prompt Message-->
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Employee ID:</label>
+                    <div class="col-lg-3" >
+                            <input type="text" class="form-control"  autocomplete="off" id="txtsearch" ng-model="employeeDtl.employeeId">    
+                    </div>
+ 
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Name:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" ng-model="employeeName" required>
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Position:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" ng-model="employeeDtl.positionname" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Covered From:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" placeholder="YYYY/MM/DD" ng-model="employeeDtl.pmsperiodfrom | date:'yyyy/MM/dd' " ng-disabled="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Covered To:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" placeholder="YYYY/MM/DD" ng-model="employeeDtl.pmsperiodto | date:'yyyy/MM/dd' " ng-disabled="true" />
+
+                    </div>
+                </div>
+
+
+                <tabset>
+                    <tab ng-repeat="tab in kraData" heading="{{tab.kra_name}}">
+      
+                            <accordion>
+                                <accordion-group ng-repeat="subkpi in tab.masterEntry">
+                                    <accordion-heading>
+                                        {{subkpi.subkpidescription}}
+                                    </accordion-heading>
+
+                                    <div style="width: 100%; text-anchor: start; text-decoration-line: none; display: block;" class="text-blue">
+                                        <p style="font-family:Verdana,Tahoma; font-size:11px; padding:0 0 0 5px;">Target:{{subkpi.target}} HIT:{{onCountHit(subkpi.RateEntry)}} MISSED:{{onCountMissed(subkpi.RateEntry)}} AVERAGE:{{onGetAverage(subkpi.RateEntry,subkpi.hitmissind,subkpi.computeType,subkpi.target) | number:2}}%</p>
+                                    </div>
+                                    <div class="accordion-inner" style="max-height: 500px; overflow-y: scroll; overflow-x: hidden;">
+                                        <div class="col-lg-9">
+                                            <table class="table table-condensed table-striped">
+                                                <tr>
+                                                    <th>#.</th>
+                                                    <th>Event Code</th>
+                                                    <th>Actual Target</th>
+                                                    <th>Actual Rate</th>
+                                                    <th>Result</th>
+                                                    <th>Remarks</th>
+                                                </tr>
+                                                <tr ng-repeat="rEntry in subkpi.RateEntry">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{rEntry.eventcode}}</td>
+                                                    <td><input type="number" step="any" class="form-control input-sm" min="0" ng-model="rEntry.actialtarget " ng-disabled="rEntry.isTargetLock" ng-blur="onSetEntryResult(rEntry,rEntry.actialtarget,subkpi.hitmissind,subkpi.subkpi)"></td>
+                                                    <td><input type="number" step="any" class="form-control input-sm" min="0" ng-model="rEntry.actualrate " ng-blur="onSetEntryResult(rEntry,rEntry.actialtarget,subkpi.hitmissind,subkpi.subkpi)" ng-disabled="rEntry.isPosted"></td>
+                                                    <td>
+                                                        <label ng-class="onKPIResult(rEntry.rate_result) == 'HIT' ? 'rate-hit' : 'rate-miss' ">{{onKPIResult(rEntry.rate_result)}}</label>
+                                                    </td>
+                                                    <td><textarea rows="1" class="form-control input-sm" ng-model="rEntry.remarks" ng-blur="onSetEntryResult(rEntry,subkpi.target,subkpi.hitmissind,subkpi.subkpi)" ng-disabled="rEntry.isPosted"></textarea></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </accordion-group>
+
+                                <accordion-group ng-if="tab.kra_name=='BEHAVIORAL INDICATORS' && isbehavioralrate==false" ng-repeat="kpi in tab.kpi_list">
+                                    <accordion-heading>
+                                        {{kpi.KEY_INDICATOR}}
+                                    </accordion-heading>
+                                    <div class="accordion-inner" style="max-height: 500px; overflow-y: scroll; overflow-x: hidden;">
+
+                                        <div class="col-lg-11">
+                                            <table class="table table-condensed table-striped">
+
+                                                <tr>
+                                                    <th>Details</th>
+                                                    <th>Action</th>
+                                                </tr>
+
+
+                                                <tr ng-repeat="xx in kpi.behaviorlog | filter:{iflag:0}">
+                                                    <td><textarea class="form-control" ng-disabled="!xx.isEdit" ng-model="xx.details"  maxlength="500" ng-trim="false" ng-blur="onUpdateBehavioralLog(kpi.KPI_MASTER_ID,xx)" /> <span> {{xx.details.length==null? 0 :xx.details.length }}/500 </span></td>
+                                                    <td><button class="btn btn-danger" ng-show="!xx.isEdit" ng-click="onDeleteLog(xx)"><span class="glyphicon glyphicon-trash"></span></button>
+                                                        <button class="btn btn-primary" ng-show="!xx.isEdit"  ng-click="xx.isEdit=true"><span class="glyphicons glyphicons-pencil"></span></button>
+                                                        <button class="btn btn-success" ng-show="xx.isEdit" ng-click="onSaveUpdateLog(xx)"><span class="glyphicon glyphicon-check"></span></button>
+                                                    </td>
+                                                  
+                                                </tr>
+
+                                                <tr>
+                                                    <td><textarea class="form-control " ng-model="newDetails" ng-trim="false" maxlength="500" /> <span> {{newDetails.length==null? 0 :newDetails.length }}/500 </span></td>
+                                                    <td><button class="btn btn-success" ng-click="onSaveBehaviorLog(kpi.KPI_MASTER_ID,newDetails);newDetails=''"><span class="fa fa-plus"></span></button></td>
+                                                </tr>
+
+
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </accordion-group>
+
+                            </accordion>
+                    </tab>
+
+                </tabset>
+
+            </div>
+            <div class="panel-footer text-right">
+                <button class="btn btn-success btn-gradient btn-rounded" ng-show="isChanges" ng-click="onSaveChanges()">Save Changes</button>
+                <button class="btn btn-danger btn-gradient btn-rounded" ng-show="DesAckBtn" ng-click="onDisAcknowledge()">Cancel Acknowledgement Request</button>
+                <button class="btn btn-warning btn-gradient btn-rounded" ng-show="AckBtn" ng-click="onAcknowledge()">Acknowledge Rating</button>
+                <button class="btn btn-warning btn-gradient btn-rounded" ng-show="AckPostBtn" ng-click="onAcknowledgeAndPost()">Acknowledge and Post</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Modal get modalSubordinates list -->
+<div id="modal-panel-subordinates" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; Subordinate List</span>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="search.$" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary " type="button" ng-click="onSearchPosition()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-padding">
+                <div style="height:300px; overflow: scroll; overflow-x: hidden;">
+                    <table class="table table-condensed">
+                        <tr class="tr-head-info">
+                            <th class="col-lg-1">Action</th>
+                            <th class="col-lg-1">Emp ID</th>
+                            <th class="col-lg-1">Name</th>
+                            <th class="col-lg-1">Department</th>
+                            <th class="col-lg-1">Position</th>
+                        </tr>
+                        <tr ng-repeat="x in subData | filter:search:strict">
+                            <td class="col-lg-1"><button class="btn btn-info btn-sm btn-gradient btn-rounded" data-dismiss="modal" ng-click="onSelectSubordinate(x); closeModalForm();">select</button></td>
+                            <td class="col-lg-1">{{x.empId}}</td>
+                            <td class="col-lg-1">{{x.empName}}</td>
+                            <td class="col-lg-1">{{x.department}}</td>
+                            <td class="col-lg-1">{{x.position}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <div style="position:fixed; float:left;">Total No. {{subData.length | number}}</div>
+            <button class="btn" ng-click="closeModalForm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+

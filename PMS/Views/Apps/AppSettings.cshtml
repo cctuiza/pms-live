@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+
+<section class="content ">
+    <div class="panel panel-solid">
+        <div class="panel-body" ng-init="ctrl.onInit()">
+            <h2 class="page-header">App Settings</h2>
+        </div>
+        <table class="table table-condensed table-striped">
+            <tr>
+                <th>Setting Name</th>
+                <th>Description</th>
+                <th>Value</th>
+            </tr>
+            <tr ng-repeat="setting in ctrl.appSetting">
+                <td>{{setting.SittingName}}</td>
+                <td>{{setting.SettingDescription}}</td>
+                <td><input type="text" ng-model="setting.SettingValue" /></td>
+            </tr>
+        </table>
+        <div class="panel-footer text-right" >
+            <button class="btn btn-success btn-gradient btn-rounded" ng-click="ctrl.onSave()">Save</button>
+        </div>
+    </div>
+    </section>
+          

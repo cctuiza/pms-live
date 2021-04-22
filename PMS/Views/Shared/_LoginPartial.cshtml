@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Session.Count > 0)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="~/Account/Logout">Logout</a></li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="~/Account/Login">Login</a></li>
+    </ul>
+}

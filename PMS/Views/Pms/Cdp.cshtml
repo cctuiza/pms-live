@@ -1,0 +1,672 @@
+﻿@{
+    Layout = null;
+
+}
+
+<section class="content">
+    <div class="panel panel-solid">
+        <div class="panel-body" ng-init="onInit();">
+            <h2 class="page-header" style="margin: 0; padding-bottom: 0">Career Development Plan</h2>
+            <div class="row margin">
+                <div class="panel">
+                    <h3 style="padding: 0 15px;"></h3>
+                    <div class="panel-body">
+
+
+                        <div>
+                            <h2>Personal Info</h2>
+
+                            <!--Personal Info-->
+                            <table class="table table-condensed table-hover">
+                                <tr>
+                                    <th></th>
+                                    <th>Employee ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Department</th>
+                                    <th>Position</th>
+
+                                </tr>
+                                <tr ng-repeat-start="personalinfoList in personalInfo">
+                                    <td>
+                                        <a class="pointer"  ng-click="ViewCdpPersonal()">View CDP</a>
+                                    </td>
+                                    @*<td><a class="pointer" ng-show="onCheckOpenPaf(xx.pmsPafMaster)" ng-click="onViewPaf(xx,x.pmsLstType)">Open</a></td>*@
+                                    <td>{{personalinfoList.employeeId}}</td>
+                                    <td>{{personalinfoList.employeename}}</td>
+                                    <td>{{personalinfoList.departmentname}}</td>
+                                    <td>{{personalinfoList.employeeposition}}</td>
+
+                                </tr>
+                                <tr ng-repeat-end>
+                                    <td colspan="5" ng-if="employeeId == personalinfoList.employeeId" ng-show="showCdp">
+                                        <form autocomplete="off">
+                                            <div class="panel-body">
+                                                <div style="margin-bottom:5px;">
+                                                    <a class="btn btn-primary btn-sm btn-gradient btn-rounded pointer" ng-click="OpenAddGoalModal()">Add Goal Plan</a>
+                                                    <h2 ng-hide="category.length <= 0">Category</h2>
+                                                </div>
+
+
+                                                <accordion class="row margin">
+                                                    <accordion-group ng-repeat="categories in category | groupBy:'categoryname'">
+                                                        <accordion-heading style="text-decoration:none;" ng-repeat="categoryList in categories  | unique:'categoryname'">
+                                                            {{$parent.$index + 1}}.
+                                                            &nbsp; {{categoryList.categoryname}}
+                                                        </accordion-heading>
+                                                        <div class="accordion-inner" overflow-y scroll; overflow-x hidden;">
+                                                            <div class="row margin">
+                                                                <div class="col-lg-2">
+                                                                    <h2>Goal Plan</h2>
+
+                                                                </div>
+                                                            </div>
+                                                            <accordion class="row margin">
+
+                                                                <accordion-group ng-repeat="goalplanList in categories track by $index">
+                                                                    <accordion-heading style="text-decoration:none;">
+                                                                        {{$index + 1}}.
+                                                                        &nbsp; {{goalplanList.goaldescription}}
+                                                                    </accordion-heading>
+                                                                    <div class="accordion-inner" overflow-y scroll; overflow-x hidden;">
+
+                                                                        <div class="row margin">
+                                                                            <div class="col-lg-2">
+                                                                                <h2 ng-hide="goalplanList.actionplan.length <=0">Action Plan</h2>
+                                                                                <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-click="OpenAddActionModal();GetAllActionPlan(goalplanList);">Add Action Plan</a>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!--Action Plan List-->
+                                                                        <table class="table table-striped table-condensed" ng-hide="goalplanList.actionplan <= 0">
+                                                                            <tr>
+
+                                                                                <th>Action Plan</th>
+                                                                                <th>Target Completion Date</th>
+                                                                                <th>Actual Completion Date</th>
+                                                                                <th>Status</th>
+                                                                                <th>Remarks</th>
+                                                                                <th>Updated Date</th>
+                                                                                <th>Action</th>
+                                                                            </tr>
+                                                                            <tr ng-repeat="actionplanList in goalplanList.actionplan">
+                                                                                <td>{{actionplanList.actiondescription}}</td>
+                                                                                <td>{{actionplanList.targetdate | date:'mediumDate'}}</td>
+                                                                                <td>{{actionplanList.completedate === null ? 'Not yet Completed':actionplanList.completedate| date:'mediumDate'}}</td>
+                                                                                <td>{{actionplanList.iscompleted === 0 ? 'Open':'Close'}}</td>
+                                                                                <td style="white-space:pre-wrap">{{actionplanList.comment === null ? 'No Remarks':actionplanList.comment}}</td>
+                                                                                <td>{{actionplanList.modifieddate === null? 'Not yet Updated':actionplanList.modifieddate | date:'mediumDate'}}</td>
+                                                                                <td>
+                                                                                    <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-hide="actionplanList.iscompleted === 1" ng-click="OpenUpdateActionModal();GetActionPlan(actionplanList);">Update</a>
+                                                                                    <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-hide="actionplanList.iscompleted === 1" ng-click="OpenCloseActionModal();GetActionPlan(actionplanList);">Close</a>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <!--Show this if the Action plan list is empty-->
+                                                                        <H1 ng-show="goalplanList.actionplan.length <= 0">NO data!</H1>
+                                                                    </div>
+                                                                </accordion-group>
+                                                                <H1 ng-show="categories.length <= 0">NO data!</H1>
+                                                            </accordion>
+                                                        </div>
+                                                    </accordion-group>
+                                                    <H1 ng-show="category.length <= 0">NO data!</H1>
+                                                </accordion>
+
+
+                                            </div>
+                                            <div class="panel-footer text-right">
+                                                <button class="btn" ng-click="showCdp=false">Close</button>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div ng-show="subordinateInfo.length > 0">
+
+
+                            <div class="form-inline">
+                                <h2 style="display:inline">Subordinate Info</h2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <button  ng-hide="true" class="btn btn-primary btn-sm btn-gradient btn-rounded" ng-click="AddAllSubordinateCDP();closeModalForm();">Create Subordinate CDP</button>
+
+
+                            </div>
+                         
+
+
+
+
+                            <!--Subordinate Info-->
+                            <table class="table table-condensed table-hover">
+                                <tr>
+                                    <th></th>
+                                    <th>Employee ID</th>
+                                    <th>Employee Name</th>
+                                    <th>Department</th>
+                                    <th>Position</th>
+                                </tr>
+                                <tr ng-repeat-start="subordinateinfoList in subordinateInfo">
+                                    <td>
+                                        @*<a class="pointer" ng-click="OpenSubordinateCD(subordinateinfoList);">View CDP</a>*@
+                                        <a class="pointer" ng-click="ViewCdpSubordinate(subordinateinfoList)">View CDP</a>
+                                    </td>
+                                    <td>{{subordinateinfoList.employeeId}}</td>
+                                    <td>{{subordinateinfoList.employeename}}</td>
+                                    <td>{{subordinateinfoList.departmentname}}</td>
+                                    <td>{{subordinateinfoList.employeeposition}}</td>
+                                </tr>
+                                <tr ng-repeat-end>
+                                    <td colspan="5" ng-if="employeeId == subordinateinfoList.employeeId" ng-show="showCdp">
+                                        <form autocomplete="off">
+                                            <div class="panel-body">
+                                                <div style="margin-bottom:5px;">
+                                                    <a class="btn btn-primary btn-sm btn-gradient btn-rounded pointer" ng-click="OpenAddGoalModal()">Add Goal Plan</a>
+                                                    <h2 ng-hide="category.length <= 0">Category</h2>
+                                                </div>
+
+
+                                                <accordion class="row margin">
+                                                    <accordion-group ng-repeat="categories in category | groupBy:'categoryname'">
+                                                        <accordion-heading style="text-decoration:none;" ng-repeat="categoryList in categories  | unique:'categoryname'">
+                                                            {{$index + 1}}.
+                                                            &nbsp; {{categoryList.categoryname}}
+                                                        </accordion-heading>
+                                                        <div class="accordion-inner" overflow-y scroll; overflow-x hidden;">
+                                                            <div class="row margin">
+                                                                <div class="col-lg-2">
+                                                                    <h2>Goal Plan</h2>
+
+                                                                </div>
+                                                            </div>
+                                                            <accordion class="row margin">
+
+                                                                <accordion-group ng-repeat="goalplanList in categories track by $index">
+                                                                    <accordion-heading style="text-decoration:none;">
+                                                                        {{$index + 1}}.
+                                                                        &nbsp; {{goalplanList.goaldescription}}
+                                                                    </accordion-heading>
+                                                                    <div class="accordion-inner" overflow-y scroll; overflow-x hidden;">
+
+                                                                        <div class="row margin">
+                                                                            <div class="col-lg-2">
+                                                                                <h2 ng-hide="goalplanList.actionplan.length <=0">Action Plan</h2>
+                                                                                <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-click="OpenAddActionModal();GetAllActionPlan(goalplanList);">Add Action Plan</a>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <!--Action Plan List-->
+                                                                        <table class="table table-striped table-condensed" ng-hide="goalplanList.actionplan <= 0">
+                                                                            <tr>
+
+                                                                                <th>Action Plan</th>
+                                                                                <th>Target Completion Date</th>
+                                                                                <th>Actual Completion Date</th>
+                                                                                <th>Status</th>
+                                                                                <th>Remarks</th>
+                                                                                <th>Updated Date</th>
+                                                                                <th>Action</th>
+                                                                            </tr>
+                                                                            <tr ng-repeat="actionplanList in goalplanList.actionplan">
+                                                                                <td>{{actionplanList.actiondescription}}</td>
+                                                                                <td>{{actionplanList.targetdate | date:'mediumDate'}}</td>
+                                                                                <td>{{actionplanList.completedate === null ? 'Not yet Completed':actionplanList.completedate| date:'mediumDate'}}</td>
+                                                                                <td>{{actionplanList.iscompleted === 0 ? 'Open':'Close'}}</td>
+                                                                                <td style="white-space:pre-wrap">{{actionplanList.comment === null ? 'No Remarks':actionplanList.comment}}</td>
+                                                                                <td>{{actionplanList.modifieddate === null? 'Not yet Updated':actionplanList.modifieddate | date:'mediumDate'}}</td>
+                                                                                <td>
+                                                                                    <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-hide="actionplanList.iscompleted === 1" ng-click="OpenUpdateActionModal();GetActionPlan(actionplanList);">Update</a>
+                                                                                    <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-hide="actionplanList.iscompleted === 1" ng-click="OpenCloseActionModal();GetActionPlan(actionplanList);">Close</a>
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                        <!--Show this if the Action plan list is empty-->
+                                                                        <H1 ng-show="goalplanList.actionplan.length <= 0">NO data!</H1>
+                                                                    </div>
+                                                                </accordion-group>
+                                                                <H1 ng-show="categories.length <= 0">NO data!</H1>
+                                                            </accordion>
+                                                        </div>
+                                                    </accordion-group>
+                                                    <H1 ng-show="category.length <= 0">NO data!</H1>
+                                                </accordion>
+
+
+                                            </div>
+                                            <div class="panel-footer text-right">
+                                                <button class="btn" ng-click="showCdp=false">Close</button>
+                                            </div>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<!-- Add  Career Development Plan modal view-->
+<div id="modal-panel-addcd" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{ctrl.title}}
+            </span>
+        </div>
+        <form class="form-horizontal" name="GoalActionPlan" autocomplete="off">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Goal:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="goaldesc" class="form-control" ng-model=goaldesc required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Year:</label>
+                    <div class="col-lg-6">
+                        <selectize placeholder='--Select Category--' options='yearOptions' config="{maxItems: 1}" ng-model="categoryId" ng-change="ChangeCategoryDropdown()" required>  </selectize>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-footer text-right">
+                    <a class="btn-link btn btn-gradient btn-rounded" ng-click="closeModalForm()">Close</a>
+                    <button type="submit" class="btn btn-success btn-gradient btn-rounded" ng-hide="isSuccess" ng-click="AddGoalPlan();" ng-disabled="GoalActionPlan.$pristine || GoalActionPlan.$invalid">
+                        <i class="glyphicon glyphicon-saved"></i> Add Goal
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add  Goal Plan modal view-->
+<div id="modal-panel-addgoalplan" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{ctrl.title}}
+            </span>
+        </div>
+        <form class="form-horizontal" name="GoalActionPlan" autocomplete="off">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Goal:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="goaldesc" class="form-control" ng-model=goaldesc required>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Category:</label>
+                    <div class="col-lg-6">
+                        <selectize placeholder='--Select Category--' options='categoryOptions' config="{maxItems: 1}" ng-model="categoryId" ng-change="ChangeCategoryDropdown()" required>  </selectize>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-footer text-right">
+                    <a class="btn-link btn btn-gradient btn-rounded" ng-click="closeModalForm()">Close</a>
+                    <button type="submit" class="btn btn-success btn-gradient btn-rounded" ng-hide="isSuccess" ng-click="AddGoalPlan();" ng-disabled="GoalActionPlan.$pristine || GoalActionPlan.$invalid">
+                        <i class="glyphicon glyphicon-saved"></i> Add Goal
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add  Action Plan modal view-->
+<div id="modal-panel-addactionplan" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{ctrl.title}}
+            </span>
+        </div>
+        <form class="form-horizontal" name="ActionPlan" autocomplete="off">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Goal:</label>
+                    <div class="col-lg-6">
+                        <input type="text" name="goaldesc" class="form-control" ng-model=goaldesc ng-disabled="true" required>
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Action:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="actiondesc" ng-model=actiondesc>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Target Date:</label>
+                    <div class="col-lg-6">
+                        <input type="date" class="form-control" name="actiontargetdate" ng-model=actiontargetdate>
+                    </div>
+                </div>
+                <div class="panel panel-footer text-right">
+                    <a class="btn-link btn btn-gradient btn-rounded" ng-click="closeModalForm()">Close</a>
+                    <button type="submit" class="btn btn-success btn-gradient btn-rounded" ng-click="AddActionPlan();">
+                        <i class="glyphicon glyphicon-saved"></i> Add Action
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Update  Action Plan modal view-->
+<div id="modal-panel-updateactionplan" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{ctrl.title}}
+            </span>
+        </div>
+        <form class="form-horizontal" name="UpdateActionPlanForm" autocomplete="off">
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Action:</label>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" name="actiondesc" ng-model=actiondesc ng-disabled="true">
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">Comment:</label>
+                    <div class="col-lg-6">
+                        <textarea class="form-control" name="comment" ng-model=comment> </textarea>
+                    </div>
+
+                </div>
+
+                <div class="panel panel-footer text-right">
+                    <a class="btn-link btn btn-gradient btn-rounded" ng-click="closeModalForm()">Close</a>
+                    <button type="submit" class="btn btn-success btn-gradient btn-rounded" ng-click="UpdateActionPlan();closeModalForm();">
+                        <i class="glyphicon glyphicon-saved"></i> Update Action
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Close  Action Plan modal view-->
+<div id="modal-panel-closeactionplan" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{ctrl.title}}
+            </span>
+        </div>
+        <form class="form-horizontal" name="CloseActionPlanForm" autocomplete="off">
+            <div class="panel-body">
+
+
+
+                <div class="panel panel-footer text-right">
+                    <h2 class="text-left"> Do you want to Close Action?</h2>
+                    <a class="btn-link btn btn-gradient btn-rounded" ng-click="closeModalForm()">No</a>
+                    <button type="submit" class="btn btn-success btn-gradient btn-rounded" ng-click="CloseActionPlan();UpdateGoalPlan();closeModalForm();">
+                        <i class="glyphicon glyphicon-saved"></i> Yes
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- View  CDP per Year-->
+<div id="modal-panel-viewcdp" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>CDP per Year
+            </span>
+        </div>
+        <form class="form-horizontal" name="AddCdp" autocomplete="off">
+            <div class="panel-body">
+                <div style="margin-bottom:5px;">
+                    <button class="btn btn-primary btn-sm btn-gradient btn-rounded" ng-click="AddCDP();closeModalForm();">Create CDP</button>
+                </div>
+
+                <table class="table table-condensed table-hover" ng-show="cdplist.length > 0">
+                    <tr>
+                        <th>Action</th>
+                        <th>CD Id</th>
+                        <th>Year Covered</th>
+                        <th>Date Created</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr ng-repeat="cdList in cdplist">
+                        <td>
+                            <a class="pointer" ng-click="ViewCdpperyear(cdList);closeModalForm();" ng-show="cdList.status==='C'">View</a>
+                            <a class="pointer" ng-click="UpdateCdpperyear(cdList);closeModalForm();" ng-show="cdList.status==='O'">Update</a>
+
+                            @*<a class="pointer" ng-click="onEditPano(x.hashcode,x.status, x.pafId)">View</a>*@
+                        </td>
+
+
+                        <td>{{cdList.cdpid}}</td>
+                        <td>{{cdList.yearno}}</td>
+                        <td>{{cdList.createdate | date:'MM/dd/yyyy'}}</td>
+                        <td>{{cdList.status=='O'? 'OPEN':'CLOSE'}}</td>
+                    </tr>
+
+                </table>
+
+                <H1 ng-show="cdplist.length <= 0">NO data!</H1>
+
+
+            </div>
+            <div class="panel-footer text-right">
+                <button class="btn" ng-click="closeModalForm()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--View Details -->
+<div class="modal fade" id="ViewIssuanceDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel">View Order</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <span class="panel-title">
+                            <i class="glyphicon glyphicon-tasks">
+                            </i>{{ctrl.title}}
+                        </span>
+                    </div>
+                    <form class="form-horizontal" name="AddCdp" autocomplete="off">
+                        <div class="panel-body">
+                            <div style="margin-bottom:5px;">
+                                <button class="btn btn-primary btn-sm btn-gradient btn-rounded" ng-click="onNewPaf(tempEmpId)">Create Goal</button>
+                            </div>
+                            @*<table class="table table-condensed table-hover">
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Year Covered</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr ng-repeat="x in paflist | filter:{status:'O'}">
+                                        <td>
+                                            <a class="pointer" ng-click="onEditPano(x.hashcode,x.status, x.pafId)">Edit</a>
+
+                                            <a class="pointer" ng-click="onEditPano(x.hashcode,x.status, x.pafId)">View</a>
+                                        </td>
+
+
+                                        <td>{{x.pafId}}</td>
+                                        <td>{{x.pmsperiodfrom | date:'MM/dd/yyyy'}}&nbsp;to&nbsp;{{x.pmsperiodto | date:'MM/dd/yyyy'}}</td>
+                                        <td>{{x.dateappraisal | date:'MM/dd/yyyy'}}</td>
+                                        <td>{{x.status=='O'? 'OPEN':'ClOSE'}}</td>
+                                    </tr>
+
+                                </table>*@
+
+                            <accordion class="row margin">
+                                <accordion-group ng-repeat="categories in category">
+                                    <accordion-heading style="text-decoration:none;" ng-repeat="categoryList in categories track by $index">
+                                        {{$parent.$index + 1}}.
+                                        &nbsp; {{categoryList.categoryname}}
+                                    </accordion-heading>
+                                    <div class="accordion-inner" overflow-y scroll; overflow-x hidden;">
+                                        <accordion class="row margin">
+
+                                            <accordion-group ng-repeat="goalplanList in categories track by $index">
+                                                <accordion-heading style="text-decoration:none;">
+                                                    {{$index + 1}}.
+                                                    &nbsp; {{goalplanList.goaldescription}}
+                                                </accordion-heading>
+                                                <div class="accordion-inner" overflow-y scroll; overflow-x hidden;">
+
+                                                    <div class="row margin">
+                                                        <div class="col-lg-2">
+                                                            <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-click="OpenAddActionModal();GetAllActionPlan(goalplanList);">Add Action Plan</a>
+                                                        </div>
+                                                    </div>
+
+                                                    <!--Improvement Plan List-->
+                                                    <table class="table table-striped table-condensed" ng-hide="goalplanList.actionplan <= 0">
+                                                        <tr>
+
+                                                            <th>Action Plan</th>
+                                                            <th>Target Completion Date</th>
+                                                            <th>Actual Completion Date</th>
+                                                            <th>Status</th>
+                                                            <th>Remarks</th>
+                                                            <th>Updated Date</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                        <tr ng-repeat="actionplanList in goalplanList.actionplan">
+                                                            <td>{{actionplanList.actiondescription}}</td>
+                                                            <td>{{actionplanList.targetdate | date:'mediumDate'}}</td>
+                                                            <td>{{actionplanList.completedate === null ? 'Not yet Completed':actionplanList.completedate| date:'mediumDate'}}</td>
+                                                            <td>{{actionplanList.iscompleted === 0 ? 'Open':'Close'}}</td>
+                                                            <td style="white-space:pre-wrap">{{actionplanList.comment === null ? 'No Remarks':actionplanList.comment}}</td>
+                                                            <td>{{actionplanList.modifieddate === null? 'Not yet Updated':actionplanList.modifieddate | date:'mediumDate'}}</td>
+                                                            <td>
+                                                                <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-hide="actionplanList.iscompleted === 1" ng-click="GetActionPlan(actionplanList);">Update</a>
+                                                                <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" ng-hide="actionplanList.iscompleted === 1" ng-click="OpenCloseActionModal();GetActionPlan(actionplanList);">Close</a>
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <!--Show this if the improvement plan list is empty-->
+                                                    <H1 ng-show="cdpactionplan.length <= 0">NO data!</H1>
+                                                </div>
+                                            </accordion-group>
+                                        </accordion>
+                                    </div>
+                                </accordion-group>
+
+                            </accordion>
+
+
+                        </div>
+                        <div class="panel-footer text-right">
+                            <button class="btn" ng-click="closeModalForm()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+        </div>
+        <div class="modal-footer">
+
+            <div class="form-group col-md-6">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!--source type delete-->
+<div id="modal-sourcetype-signature" class="popup-basic popup-sm bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-trash"></i>&nbsp; System Message</span>
+        </div>
+        <div class="panel-body">
+            <div id="signature-pad" class="signature-pad">
+                <div class="signature-pad--body">
+                    <canvas></canvas>
+                </div>
+                <div class="signature-pad--footer">
+                    <div class="description">Sign above</div>
+
+                    <div class="signature-pad--actions">
+                        <div>
+                            <button type="button" class="button clear" data-action="clear">Clear</button>
+                            <button type="button" class="button" data-action="change-color">Change color</button>
+                            <button type="button" class="button" data-action="undo">Undo</button>
+
+                        </div>
+                        <div>
+                            <button type="button" class="button save" data-action="save-png">Save as PNG</button>
+                            <button type="button" class="button save" data-action="save-jpg">Save as JPG</button>
+                            <button type="button" class="button save" data-action="save-svg">Save as SVG</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" ng-click="closeModalForm()">Clear</button>
+            <button class="btn btn-success btn-rounded btn-gradient" ng-click="ctrl.confirm()">Save</button>
+        </div>
+    </div>
+</div>
+
+

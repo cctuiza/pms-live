@@ -1,0 +1,346 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<section class="content ">
+    <div class="panel panel-solid">
+        <div class="panel-body" data-ng-init="view.initSetup();">
+            <h2 class="page-header">KPI Indicator List</h2>
+            <div class="row margin">
+                <!--New Main KPI-->
+                <div class="col-lg-2">
+                    <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" data-ng-show="canAdd" data-ng-click="view.onNewMainKPI()">New Indicator</a>
+                </div>
+
+                <!--List of position view kpi-->
+                <div class="col-lg-5 pull-right">
+                    <div>
+                        <label class="col-lg-5 control-label" style="padding: 0; margin: 2px 0 0 0;">{{view.selectedPosition === true ? view.position : view.currentPosition}}</label>
+                        <a class="col-lg-2 btn btn-info btn-sm btn-gradient btn-rounded pointer" data-ng-click="view.onChoosePosition()">Positions</a>
+                    </div>
+                    @*<select class="form-control"
+                        ng-model="view.selectedPosition"
+                        ng-options="item.PositionCode as item.PositionName for item in view.positionwithKPIList"
+                        ng-change="view.onGetKPIList(view.selectedPosition)"></select>*@
+
+                    @*<div  custom-select="item.PositionCode as item.PositionName for item in view.positionList | filter: $searchTerm"  ng-change="view.onGetKPIList(view.selectedPosition)" ng-model="view.selectedPosition"></div>*@
+                </div>
+            </div>
+
+            <div class="row margin">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <!-- Begin: Add tab header-->
+                        <ul class="nav panel-tabs-border panel-tabs  panel-tabs panel-tabs-left hidden-md hidden-xs">
+                            <li ng-repeat="tab in view.kralist"
+                                ng-class="{active : view.selectedTabname === tab.status_code}"
+                                ng-click="view.onSelectedTab(tab)">
+                                <a class="pointer" data-toggle="tab">{{tab.status_display}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+                        <accordion class="row margin">
+
+                            <accordion-group ng-repeat="kpi in view.indicatorList |filter:{'kra':view.selectedTabname}">
+                                <accordion-heading style="text-decoration:none;">
+                                    {{$index + 1}}.
+                                    &nbsp; {{kpi.kpidescription}} <span class="bg-success" ng-class="kpi.status == 'A' ? 'bg-success': 'bg-danger'" style="padding: 0 5px; border-radius: 2px;">{{kpi.status == 'A' ? 'Active' : 'Inactive'}}</span>
+                                </accordion-heading>
+                                <div class="accordion-inner" overflow-y scroll; overflow-x hidden;">
+                                    <p class="align-right">
+                                        <span class="glyphicon glyphicons-pencil pointer" data-toggle="tooltip" title="Edit main KPI" ng-click="view.onEdit(kpi.posmainkpiId)"></span>&nbsp;
+                                        <span class="glyphicons glyphicons-bin pointer" data-toggle="tooltip" title="Delete main KPI" ng-click="view.onDeletekpi(kpi,'MainKPI',$index)" style="color:red;"></span>
+                                    </p>
+
+                                    <div class="row margin">
+                                        <div class="col-lg-2">
+                                            <a class="btn btn-info btn-sm btn-gradient btn-rounded pointer" data-ng-show="canAdd" ng-click="view.onNewSubKPI(kpi.posmainkpiId)">New Sub KPI</a>
+                                        </div>
+                                    </div>
+                                    <!--Sub kpi List-->
+                                    <table class="table table-striped table-condensed">
+                                        <tr>
+                                            <th>Action</th>
+                                            <th>ID</th>
+                                            <th>Description</th>
+                                            <th>Lock Description</th>
+                                            <th>Target</th>
+                                            <th>Lock Target</th>
+                                            <th>Status</th>
+                                        </tr>
+                                        <tr ng-repeat="sub in kpi.pms_positionsubkpi">
+                                            <td><a class="pointer" ng-click="view.onEditSubkpi(sub)">Edit</a>&nbsp;<a class="pointer" ng-click="view.onDeletekpi(sub,'SubKPI',$index)" style="color:red">Delete</a></td>
+                                            <td>{{sub.possubkpiId}}</td>
+                                            <td>{{sub.subkpidescription}}</td>
+                                            <td>{{sub.iseditdesc}}</td>
+                                            <td>{{sub.targetvalue}}</td>
+                                            <td>{{sub.istargetlock}}</td>
+                                            <td>{{sub.status}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </accordion-group>
+                        </accordion>
+
+                        <H1 ng-show="view.indicatorList.length <= 0">NO data!</H1>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- modal view for positions-->
+<div id="modal-panel-position" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{view.transTitle}}
+            </span>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-lg-12">
+                    <input type="text" class="form-control" placeholder="Filter" ng-model="$searchTerm"/>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Positions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in view.positionList | filter: $searchTerm">
+                            <td>
+                                <button class="btn btn-success btn-sm btn-gradient btn-rounded pointer" ng-click="view.onGetKPIList(item.PositionCode, item.PositionName)" ng-model="view.selectedPosition" >Select</button>
+                            </td>
+                            <td>{{item.PositionName}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal view for applicant remove prompt-->
+<div id="modal-panel-removekpi" class="popup-basic  popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicons glyphicons-bin">
+                </i>System Mesage
+            </span>
+        </div>
+        <div class="panel-body">
+            <p>Want to delete {{view.kpigroup}} "{{view.kpidesc}}"?</p>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-gradient btn-rounded" ng-click="closeModalForm()">Cancel</button>
+            <button class="btn btn-danger btn-gradient btn-rounded" ng-click="view.onDeleteConfirm()">OK</button>
+        </div>
+    </div>
+</div>
+
+<!-- sub kpi modal view-->
+<div id="modal-panel-subkpi-setup" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{view.transTitle}}
+            </span>
+        </div>
+        <form class="form-horizontal" ng-submit="view.onSaveSubKPI()">
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Description:</label>
+                    <div class="col-lg-5">
+                        <textarea class="form-control" rows="3" required ng-model="view.info.subkpidescription"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-5 checkbox">
+                        <label><input type="checkbox" ng-model="view.info.iseditdesc">&nbsp; Enable Edit Description</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Target</label>
+                    <div class="col-lg-5">
+                        <input type="number" class="form-control" min="0" required ng-model="view.info.targetvalue" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-5 checkbox">
+                        <label><input type="checkbox" ng-model="view.info.istargetlock">&nbsp; Target Lock</label>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"> Compute Type:</label>
+                    <div class="col-lg-6">
+                        <select ng-options="item.value as item.display for item in view.computeType" ng-model="view.info.computetype" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Occurrence:</label>
+                    <div class="col-lg-6">
+                        <select ng-options="item.status_code as item.status_display for item in view.occurrence" ng-model="view.info.occurence" class="form-control"></select>
+                        <small ng-show="isviewchange" class="text-danger">{{occurenceChange}}</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Hit Indicator:</label>
+                    <div class="col-lg-6">
+                        <select ng-options="item.status_code as item.status_display for item in view.hit_indecator" ng-model="view.info.hitmisind" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Authority To Rate:</label>
+                    <div class="col-lg-6">
+                        <select ng-options="item.status_code as item.status_display for item in view.tempautority" ng-model="view.info.authoritytorate" class="form-control"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Status:</label>
+                    <div class="col-lg-5">
+                        <select class="form-control" required ng-model="view.info.status">
+                            <option value="A">Active</option>
+                            <option value="I">InActive</option>
+                            <option value="H">Hold</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="panel panel-footer text-right">
+                <a class="btn-link btn btn-gradient btn-rounded" ng-click="closeModalForm()">Close</a>
+                <button type="submit" class="btn btn-success btn-gradient btn-rounded" ng-hide="isSuccess">
+                    <i class="glyphicon glyphicon-saved"></i> Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- main kpi modal view-->
+<div id="modal-panel-mainkpi-setup" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title">
+                <i class="glyphicon glyphicon-tasks">
+                </i>{{view.transTitle}}
+            </span>
+        </div>
+        <form class="form-horizontal" ng-submit="view.onSave()">
+            <div class="panel-body" ng-hide="view.isShowPosition">
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Position:</label>
+                    <div class="col-lg-5">
+                        <input type="hidden" ng-model="view.info.positioncode" />
+                        <input type="text" class="form-control" disabled ng-model="view.info.positionname" />
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">KRA:</label>
+                    <div class="col-lg-5">
+                        <select class="form-control" required ng-options="item.status_code as item.status_display for item in view.kralist" ng-model="view.info.kra"></select>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Description:</label>
+                    <div class="col-lg-5">
+                        <textarea class="form-control" rows="3" required ng-model="view.info.kpidescription"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-5 checkbox">
+                        <label><input type="checkbox" ng-model="view.info.iseditdesc">&nbsp; Enable Edit Description</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-lg-3">Target</label>
+                    <div class="col-lg-5">
+                        <input type="number" class="form-control" min="0" required ng-model="view.info.targetvalue" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-5 checkbox">
+                        <label><input type="checkbox" ng-model="view.info.istargetlock">&nbsp; Target Lock</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label"></label>
+                    <div class="col-lg-5 checkbox">
+                        <label><input type="checkbox" ng-model="view.info.iswithsubkpi">&nbsp; With sub KPI</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Status:</label>
+                    <div class="col-lg-5">
+                        <select class="form-control" required ng-model="view.info.status">
+                            <option value="A">Active</option>
+                            <option value="I">InActive</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="panel-body" ng-show="view.isShowPosition">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="search.$" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary " type="button"><i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-padding">
+                    <div style="height:300px; overflow: scroll; overflow-x: hidden;">
+                        <table class="table table-condensed table-striped">
+                            <tr>
+                                <th class="col-lg-1">Action</th>
+                                <th class="col-lg-1">Code</th>
+                                <th class="col-lg-1">Position</th>
+                            </tr>
+                            <tr ng-repeat="x in view.positionList | filter:search:strict">
+                                <td class="col-lg-1"><button class="btn btn-info btn-xs btn-gradient btn-rounded" data-dismiss="modal" ng-click="view.onSelectPosition(x.PositionCode,x.PositionName); view.isShowPosition=false;">select</button></td>
+                                <td class="col-lg-1">{{x.PositionCode}}</td>
+                                <td class="col-lg-1">{{x.PositionName}}</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-footer text-right">
+                <a class="btn-link btn btn-gradient btn-rounded" ng-click="closeModalForm()">Close</a>
+                <button type="submit" class="btn btn-success btn-gradient btn-rounded" ng-hide="view.isShowPosition">
+                    <i class="glyphicon glyphicon-saved"></i> Save
+                </button>
+                <a class="btn-primary btn btn-gradient btn-rounded" ng-click="view.isShowPosition=false" ng-show="view.isShowPosition">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

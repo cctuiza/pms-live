@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<section class="content ">
+    <div class="panel panel-solid">
+        <div class="panel-body" data-ng-init="ctrl.onInit()">
+            <h2 class="page-header">Potential Assessment (Employee List)</h2>
+
+
+            <div ng-repeat="x in ctrl.pafMaster" ng-show="ctrl.onViewDetails(x.pmsEmployeeDtl,this)">
+                <h3>Personal Info</h3>
+                <table class="table table-condensed">
+                    <tr>
+                        <th></th>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                    </tr>
+                    <tr data-ng-repeat="xx in x.pmsEmployeeDtl">
+                        <td><a class="pointer" data-ng-click="ctrl.onViewPaf(xx)">View PAF</a></td>
+                        <td>{{xx.empId}}</td>
+                        <td>{{xx.empName}}</td>
+                        <td>{{xx.department}}</td>
+                        <td>{{xx.position}}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+<!-- modal view for applicant prompt-->
+<div id="modal-panel-paflist" class="popup-basic bg-none mfp-with-anim mfp-hide" style="max-width: 500px;">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>PAF List</span>
+        </div>
+        <div class="panel-body">
+            <p class="text-red">{{stopnote}}</p>
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>PAF ID</th>
+                    <th>Covered</th>
+                    <th>Created Date</th>
+                    <th>Status</th>
+                </tr>
+                <tr data-ng-repeat="x in ctrl.panoList" ng-if="x.Status=='C'">
+                    {{x}}
+                    <td><a class="pointer" ng-click="ctrl.onViewCurrentStanding(x.hashcode)">preview</a></td>
+                    <td>{{x.pafId}}</td>
+                    <td>{{x.COVERED_FROM | date:'MM/dd/yyyy'}}&nbsp;to&nbsp;{{x.COVERED_TO | date:'MM/dd/yyyy'}}</td>
+                    <td>{{x.DT_OF_AP | date:'MM/dd/yyyy'}}</td>
+                    <td>{{x.Status == 'C' ? 'Complete': 'Open'}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn" data-ng-click="closeModalForm()">Cancel</button>
+        </div>
+    </div>
+</div>

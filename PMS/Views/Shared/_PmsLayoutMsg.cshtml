@@ -1,0 +1,62 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>@ViewBag.Title</title>
+    <link href="~/assets/pms/message.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="../" class="navbar-brand"></a>
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav">
+                 
+                    <li>
+                        <a href="../help/">Login</a>
+                    </li>
+                   </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+     <br />
+        <div class="page-header " id="banner">
+    
+            <div class="row ">
+                <div class="col-lg-8 col-md-7 col-sm-6">
+                 <img src="~/Images/apps/2.png" />
+                </div>
+                
+            </div>
+
+            @RenderBody()
+        </div>
+        </div>
+    <script src="~/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <script src="~/Scripts/lib/bootstrap.min.js"></script>
+    <script src="~/Scripts/lib/angular.min.js"></script>
+
+    @RenderSection("js", false)
+</body>
+</html>

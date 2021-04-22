@@ -1,0 +1,551 @@
+﻿@{
+
+    Layout = null;
+}
+
+
+<section class="content" ng-init="onInit()" ng-hide="isclose">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span class="panel-title">{{fromtitle}}</span>
+
+        </div>
+        <form class="form-horizontal">
+            <div class="panel-body">
+                <h2 style="margin-top: 0;" class="page-header">PAF Setup for PAF ID: {{self.pafId}}</h2>
+
+                <!--Begin:Prompt Message-->
+                <div class="alert alert-danger alert-sm" ng-show="isError">
+                    <i class="fa fa-remove pr10"></i>
+                    <strong>ERROR!</strong>    {{errorMessage}}
+                </div>
+                <div class="alert alert-info alert-sm" ng-show="isSuccess">
+                    <i class="fa fa-check"></i>
+                    <strong>SUCCESS!</strong>    {{successMessage}}
+                </div>
+                <!--End:Prompt Message-->
+
+
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Employee ID:</label>
+                    <div class="col-lg-3" ng-hide="isEdit">
+
+                        <input type="text" class="form-control" disabled id="empId" ng-model="self.empId">
+
+                    </div>
+
+                    <div class="col-lg-3" ng-show="isEdit">
+
+                        <input type="text" class="form-control" disabled ng-model="self.empId">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Name:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" ng-model="self.empName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Year:</label>
+                    <div class="col-lg-3">
+                        <select class="form-control" ng-options="item as item for item in self.lstYr | orderBy" ng-model="self.selectYr" ng-disabled="!isview"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Cycle:</label>
+                    <div class="col-lg-3">
+                        <select class="form-control" ng-options="item.cycleValue as item.cycleDisplay for item in self.lstCycle | filter:{periodYr:self.selectYr}" ng-model="self.selectCycle" ng-disabled="!isview" ng-change="onChangeCycle(self.selectCycle)"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Covered From:</label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" placeholder="YYYY/MM/DD" ng-model="self.pafPeriodFrm | date:'yyyy/MM/dd' " ng-disabled="true" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Covered To:</label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" placeholder="YYYY/MM/DD" ng-model="self.pafPeriodTo | date:'yyyy/MM/dd' " ng-disabled="true" />
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Date of Appraisal:</label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" ng-click="openDateStart($event,'opened3')" placeholder="YYYY/MM/DD" datepicker-popup="{{dateFormat}}" datepicker-options="{{dateOption}}" ng-model="self.appDate" is-open="opened3" ng-required="true" close-text="&times" ng-disabled="!isview" />
+                        @*<input type="text" id="appDate" class="form-control" ng-model="self.appDate |date:'MM/dd/yyyy'" required ng-disabled="!isview">*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Date of Next Appraisal:</label>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" ng-click="openDateStart($event,'opened4')" placeholder="YYYY/MM/DD" datepicker-popup="{{dateFormat}}" datepicker-options="{{dateOption}}" ng-model="self.appNext" is-open="opened4" ng-required="true" close-text="&times" ng-disabled="!isview" />
+                        @*<input type="text" id="appNext" class="form-control" ng-model="self.appNext |date:'MM/dd/yyyy'" required ng-disabled="!isview">*@
+                    </div>
+                </div>
+                <div class="form-group" ng-show="isview">
+                    <label class="col-lg-2 control-label"></label>
+                    <div class="checkbox col-lg-5">
+                        <label><input type="checkbox" ng-model="self.isbehavioralrate" value="true"  ng-click="ChangeIsBehavioral()">Include Behavioral Rating </label>
+                    </div>
+                </div>
+                @*<div class="form-group" ng-show="isview && onGetSetting('isShowCopyPreviousPeriod')==1">
+
+                    <label class="col-lg-2 control-label"></label>
+                    <div class="col-lg-3">
+                        Copy Previous Period Click<a class="pointer" ng-click="onCopyPrevious()">&nbsp;here.</a>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="isview && onGetSetting('isShowCopySelectedKPIFromPeriod')==1">
+                    <label class="col-lg-2 control-label"></label>
+                    <div class="col-lg-4">
+                        Copy Selected KPI from Previous Period Click<a class="pointer" ng-click="onCopyPreviousPeriodPaf()">&nbsp;here.</a>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="isview && onGetSetting('isShowCopyKPIFromSpecificUser')==1">
+                    <label class="col-lg-2 control-label"></label>
+                    <div class="col-lg-4">
+                        Copy KPI from Specific User Click<a class="pointer" ng-click="onSelectKPIFromSpecificUser()">&nbsp;here.</a>
+                    </div>
+                </div>*@
+                <div class="form-group" ng-show="isview && onGetSetting('isShowSelectMaintenanceIndicator')==1">
+                    <label class="col-lg-2 control-label"></label>
+                    <div class="col-lg-4">
+                        Select Maintenance Indicator<a class="pointer" ng-click="onSelectMaintenanceIndicator()">&nbsp;here.</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--KRA KPI List-->
+                        <table style="width:100%; background-color: #3333FF; color:#FFF8DC;">
+                            <tbody>
+                                <tr>
+                                    <th style="padding-left:2px; text-align:left;">KRA</th>
+                                    <th>
+                                        <div style="float:right;padding-rigth:0;">
+                                            <input style="margin-right:0px;width:80px; color:#000000;" type="number" ng-model="self.KRAPercentage" ng-disabled="!isview">
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div ng-repeat="x in self.kpiMasterKraList " ng-if="x.KRA_ID !='BEHAVIORAL'">
+                            <table style="width:100%;">
+
+                                <tr class="tr-head-info">
+                                    <th style="padding-left:2px; text-align:left;">{{x.kra}}</th>
+                                    <th>
+                                        <div style="float:right;padding-rigth:0;">
+                                            <input style="margin-right:0px;width:80px;color:#000000;" type="number" ng-model="x.kra_percent" ng-disabled="!isview">
+                                        </div>
+                                    </th>
+                                </tr>
+
+                            </table>
+                            <div>
+                                <table class="table table-bordered table-condensed table-striped" context-menu="onRightClick(x.KRA_ID,x.kra)" data-target="menu-option">
+                                    <tr>
+                                        <th colspan="2">KEY INDICATORS</th>
+                                        <th class="col-lg-1">WEIGHT %</th>
+                                        <th class="col-lg-1">TARGET %</th>
+                                    </tr>
+                                    <tr ng-repeat="xx in x.kpi_lst | filter:{delFlag:0}">
+                                        <td style="width:30px;">
+                                            <a ng-click="xx.delFlag=1;" class="pointer"><span class="text-red  glyphicon glyphicon-trash" ng-disabled="!isview"></span></a>
+                                        </td>
+                                        <td>
+                                            @*{{xx.KEY_INDICATOR}}*@
+                                            <input type="text" style="border:none; width:100%;" placeholder="KPI Description" ng-model="xx.KEY_INDICATOR" ng-disabled="!xx.iseditdesc" />
+                                        </td>
+                                        <td style="margin-right:0px;width:80px;">
+                                            @*{{xx.KEY_PERCENT}}*@
+                                            <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Percentage" ng-disabled="!isview" ng-model="xx.KEY_PERCENT" />
+                                        </td>
+                                        <td style="margin-right:0px;width:80px;">
+
+                                            <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Target" ng-disabled="xx.istargetlock" ng-model="xx.KPI_TARGET" />
+                                        </td>
+                                 
+                                    </tr>
+
+
+                                   
+
+
+
+
+                                    @*<tfoot><tr><td colspan="4"><input type="button" onclick="setkra(&quot;STATUS10&quot;);" value="Add KPI" data-toggle="modal" data-target="#myModal"></td></tr></tfoot>*@
+                                    <tfoot ng-show="isview">
+                                        <tr>
+                                            <td style="width:30px;">
+                                                <a ng-click="onAddKpi(x.kpi_lst,newKpi,newPercentage,0,newTarget,true,false); newKpi=''; newPercentage='';newTarget='';" class="pointer"><span class="text-green fa fa-check"></span></a>
+                                            </td>
+                                            <td>
+                                                <input type="text" style="border:none; width:100%;" placeholder="KPI Description" ng-model="newKpi" />
+                                            </td>
+                                            <td class="col-lg-1">
+                                                <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Percentage" ng-model="newPercentage" />
+                                            </td>
+                                            <td style="margin-right:0px;width:80px;">
+
+                                                <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Target" ng-model="newTarget" />
+                                            </td>
+
+                                        </tr>
+
+                                    </tfoot>
+                                </table>
+                      
+                            </div>
+                            
+                        </div>
+
+
+
+                        
+
+
+
+
+
+
+
+
+                        <!--End KRA KPI List-->
+                        <!--Behaviral KPI List-->
+                        <table style="width:100%; background-color: #3333FF; color:#FFF8DC;">
+                            <tbody>
+                                <tr>
+                                    <th style="padding-left:2px; text-align:left;">BEHAVIORAL INDICATORS</th>
+                                    <th>
+                                        <div style="float:right;padding-rigth:0;">
+                                            <input style="margin-right:0px;width:80px; color:#000000;" type="number" ng-model="self.behaveKRA.kra_percent" ng-disabled="!isview">
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+
+                            <table class="table table-bordered table-condensed table-striped">
+                                <tr>
+                                    <th colspan="2">Please select at least two behavioral indicators from the Fast "ECCITE" values.</th>
+                                    <th class="col-lg-1">WEIGHT %</th>
+                                    <th class="col-lg-1" ng-show="self.isbehavioralrate">TARGET %</th>
+                                </tr>
+                                <tr ng-repeat="xx in self.behaveKRA.kpi_lst| filter:{delFlag:0}">
+                                    <td>
+                                        <a ng-click="xx.delFlag=1;" class="pointer"><span class="text-red glyphicon glyphicon-trash" ng-disabled="!isview"></span></a>
+                                    </td>
+                                    <td>
+                                        @* {{xx.KEY_INDICATOR}}*@
+                                        <input type="text" style="border:none; width:100%;" placeholder="KPI Description" ng-disabled="!isview" ng-model="xx.KEY_INDICATOR" />
+                                    </td>
+                                    <td class="col-lg-1">
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" ng-disabled="!isview" placeholder="Percentage" ng-model="xx.KEY_PERCENT" />
+                                        @*{{xx.KEY_PERCENT}}*@
+                                    </td>
+                                    <td style="margin-right:0px;width:80px;" ng-show="self.isbehavioralrate">
+
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Target" ng-disabled="!isview" ng-model="xx.KPI_TARGET" />
+                                    </td>
+                                </tr>
+                                <tfoot ng-show="isview">
+                                    <tr>
+                                        <td style="width:30px;">
+                                            <a ng-click="onAddKpi(self.behaveKRA.kpi_lst,newbehave,newBehavePercentage,0,0,true,false); newbehave=''; newBehavePercentage='';" class="pointer"><span class="text-green fa fa-check"></span></a>
+                                        </td>
+                                        <td>
+                                            <input type="text" style="border:none; width:100%;" placeholder="KPI Description" ng-model="newbehave" />
+                                        </td>
+                                        <td class="col-lg-1">
+                                            <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Percentage" ng-model="newBehavePercentage" />
+                                        </td>
+                                        <td style="margin-right:0px;width:80px;" ng-show="self.isbehavioralrate">
+
+                                            <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Target" ng-disabled="!isview" ng-model="xx.KPI_TARGET" />
+                                        </td>
+                                    </tr>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!--End Behaviral KPI List-->
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer text-right" ng-show="isview">
+                <div class="pull-left">
+                    <button class="btn btn-default " ng-click="onResit()">Reset PAF</button>
+                </div>
+
+                <button class="btn btn-default btn-gradient btn-rounded" ng-click="onBackList()">Back to List</button>
+                <button class="btn btn-success btn-gradient btn-rounded" ng-click="onSavePaf()">Save</button>
+            </div>
+        </form>
+    </div>
+    @*<pre>{{self | json}}</pre>*@
+    <!--context menu for main kpi -->
+    <div class="dropdown position-fixed" id="menu-option">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="pointer" role="menuitem"
+                   ng-click="onViewKPIMaintenance()">
+                    <span class="glyphicons glyphicons-file_import"></span>&nbsp; Import KPI Maintenance
+                </a>
+
+            </li>
+
+        </ul>
+    </div>
+
+</section>
+
+<section ng-show="isclose">
+    <div class="panel panel-success">
+        <h2 class="text-success">PAF successfully Save.</h2>
+        <h5><a class="pointer" ui-sref="paf-list">Back to List</a></h5>
+    </div>
+
+</section>
+<!-- Modal get modalSubordinates list -->
+<div id="modal-panel-subordinates" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; Subordinate List</span>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" ng-model="search.$" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary " type="button" ng-click="onSearchPosition()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-padding">
+                <div style="height:300px; overflow: scroll; overflow-x: hidden;">
+                    <table class="table table-condensed">
+                        <tr class="tr-head-info">
+                            <th class="col-lg-1">Action</th>
+                            <th class="col-lg-1">Emp ID</th>
+                            <th class="col-lg-1">Name</th>
+                            <th class="col-lg-1">Department</th>
+                            <th class="col-lg-1">Position</th>
+                        </tr>
+                        <tr ng-repeat="x in subData | filter:search:strict">
+                            <td class="col-lg-1"><button class="btn btn-info btn-sm" data-dismiss="modal" ng-click="onSelectSubordinate(x); closeModalForm();">select</button></td>
+                            <td class="col-lg-1">{{x.empId}}</td>
+                            <td class="col-lg-1">{{x.empName}}</td>
+                            <td class="col-lg-1">{{x.department}}</td>
+                            <td class="col-lg-1">{{x.position}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <div style="position:fixed; float:left;">Total No. {{subData.length | number}}</div>
+            <button class="btn" ng-click="closeModalForm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal get KPI Maintenace -->
+<div id="modal-panel-kpiMaintenance" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; {{kraDescription}}</span>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-condensed">
+                <tr>
+                    <th>
+                        <input type="checkbox" ng-click="onSelectAll()" ng-model="chkBoxKpiAll" />
+                    </th>
+                    <th>
+                        Indicator
+                    </th>
+                    <th>Target %</th>
+                </tr>
+                <tr ng-repeat="kpi in KPIMaintenanceList">
+                    <td>
+                        <input type="checkbox" ng-model="kpi.select" />
+
+                    </td>
+                    <td>{{kpi.description}}</td>
+                    <td>{{kpi.targetdef}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-primary" ng-click="onSelectMainKPI()">OK</button>
+            <button class="btn" ng-click="closeModalForm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Open Previous Period Paf-->
+<div id="modal-panel-previous-period-paf" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; Select Previous Appraisal</span>
+        </div>
+        <div class="panel-body">
+            <div ng-repeat="previousPeriodPaf in previousPeriodPafList" >
+               <input type="radio" name="previousPeriodPafRadioButton" style="height:35px; width:35px; vertical-align: middle;" ng-model="selectedpafId" value="{{previousPeriodPaf.pafId}}" ng-click="previousPaf(selectedpafId)"/> <label style="text-align:right">{{previousPeriodPaf.yr}}&nbsp;{{previousPeriodPaf.period}}</label>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-success btn-gradient btn-rounded" ng-click="onSelectPreviousPafDetail()">OK</button>
+            <button class="btn btn-gradient btn-rounded" ng-click="closeModalForm()">Cancel</button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal Open Previous Period Paf  with Details-->
+<div id="modal-panel-previous-period-paf-with-details" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; Select Previous Appraisal</span>
+        </div>
+        <div class="panel-body">
+            <accordion>
+                <accordion-group ng-repeat="x in previousPeriodPafList">
+                    <accordion-heading>
+                        {{x.yr}}&nbsp;{{x.period}}
+                    </accordion-heading>
+                    <accordion>
+                        <accordion-group ng-repeat="xx in x.Dtl">
+                            <accordion-heading>
+                                {{xx.kra}}
+                            </accordion-heading>
+                            <table class="table table-hover table-condensed">
+                                <tr>
+                                    <th>
+
+                                        <span class="glyphicon glyphicon-check" ng-click="onCheckAll(xx.kpi)"></span>
+                                    </th>
+                                    <th>
+                                        KPI
+                                    </th>
+                                    <th>
+                                        WEIGHT
+                                    </th>
+                                </tr>
+                                <tr ng-repeat="xxx in xx.kpi">
+                                    <td>
+                                        <input type="checkbox" ng-model="xxx.selected" />
+                                    </td>
+                                    <td>
+                                        {{xxx.kpidescription}}
+                                    </td>
+                                    <td>
+                                        {{xxx.weight}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </accordion-group>
+                        <accordion>
+                </accordion-group>
+            </accordion>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-success btn-gradient btn-rounded" ng-click="onSelectPreviousPafDtl()">OK</button>
+            <button class="btn btn-gradient btn-rounded" ng-click="closeModalForm()">Cancel</button>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- Modal Open Maintenance Indicator-->
+<div id="modal-panel-maintenance-indicator" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; Select Previous Appraisal</span>
+        </div>
+        <div class="panel-body">
+
+            <accordion>
+                <accordion-group ng-repeat="xx in mainIndicator">
+                    <accordion-heading>
+                        {{xx.kra}}
+                    </accordion-heading>
+                    <table class="table table-hover table-condensed">
+                        <tr>
+                            <th>
+
+                                <span class="glyphicon glyphicon-check" ng-click="onCheckAll(xx.kpi)"></span>
+                            </th>
+                            <th>
+                                KPI
+                            </th>
+                            <th>
+                                Target
+                            </th>
+                        </tr>
+                        <tr ng-repeat="xxx in xx.kpi">
+                            <td>
+                                <input type="checkbox" ng-model="xxx.selected" />
+                            </td>
+                            <td>
+                                {{xxx.kpidescription}}
+                            </td>
+                            <td>
+                                {{xxx.targetvalue}}
+                            </td>
+                        </tr>
+                    </table>
+                </accordion-group>
+                <accordion>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-success btn-gradient btn-rounded" ng-click="onSelectedMaintenanceIndicator()">OK</button>
+            <button class="btn btn-gradient btn-rounded" ng-click="closeModalForm()">Cancel</button>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="modal-panel-kpi-from-specific-user" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>&nbsp; Select KPI from Specific User</span>
+        </div>
+        <div class="panel-body">
+
+            <div class="form-box">
+                <input type="text" placeholder="search..." ng-model="user_search" class="form-control" />
+            </div>
+            <div style="height:50vh; overflow-x:auto;">
+                <ul style="list-style:none; display:inline">
+                    <li ng-repeat="user in kpiFromSpecificUser|orderBy:'employeeName' | filter:user_search:strict  ">
+                        <div class="radio-custom radio-primary mb5">
+                            <input type="radio" id="{{user.empID}}" name="employee" ng-model="user.selected" value="true">
+                            <label for="{{user.empID}}">{{user.employeeName}}</label>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-success btn-gradient btn-rounded" ng-click="onSelectSpecificUserKP()">OK</button>
+            <button class="btn btn-gradient btn-rounded" ng-click="closeModalForm()">Cancel</button>
+        </div>
+
+    </div>
+</div>

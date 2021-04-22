@@ -1,0 +1,234 @@
+﻿
+@{
+
+    Layout = null;
+}
+
+
+<section class="content" data-ng-init="onInit();isOverride=false;" data-ng-hide="isclose">
+    <div class="panel panel-primary">
+        
+        <form class="form-horizontal" >
+            <div class="panel-body">
+                <h2 class="page-header">Manual Rating Setup</h2>
+
+                <!--Begin:Prompt Message-->
+                <div class="alert alert-danger alert-sm" ng-show="isError">
+                    <i class="fa fa-remove pr10"></i>
+                    <strong>ERROR!</strong>    {{errorMessage}}
+                </div>
+                <div class="alert alert-info alert-sm" ng-show="isSuccess">
+                    <i class="fa fa-check"></i>
+                    <strong>SUCCESS!</strong>    {{successMessage}}
+                </div>
+                <!--End:Prompt Message-->
+
+
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Employee ID:</label>
+                    <div class="col-lg-3">
+
+                        <input type="text" class="form-control" id="empId" data-ng-model="self.empId">
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Name:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" data-ng-model="self.empName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Year:</label>
+                    <div class="col-lg-3">
+                        <select class="form-control" ng-options="item as item for item in self.lstYr" data-ng-model="self.selectYr" ng-disabled="!isOverride"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Cycle:</label>
+                    <div class="col-lg-3">
+                        <select class="form-control" ng-options="item.cycleValue as item.cycleDisplay for item in self.lstCycle" data-ng-model="self.selectCycle" ng-disabled="!isOverride"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Date of Appraisal:</label>
+                    <div class="col-lg-3">
+                        <input type="text" id="appDate" class="form-control" data-ng-model="self.appDate |date:'MM/dd/yyyy'" required ng-disabled="!isOverride">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Date of Next Appraisal:</label>
+                    <div class="col-lg-3">
+                        <input type="text" id="appNext" class="form-control" data-ng-model="self.appNext |date:'MM/dd/yyyy'" required ng-disabled="!isOverride">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!--KRA KPI List-->
+                        <table style="width:100%; background-color: #3333FF; color:#FFF8DC;">
+                            <tbody>
+                                <tr>
+                                    <th style="padding-left:2px; text-align:left;">KRA</th>
+                                    <th>
+                                        <div style="float:right;padding-rigth:0;">
+                                            <input style="margin-right:0px;width:80px; color:#000000;" type="number" data-ng-model="self.KRAPercentage " ng-disabled="!isOverride">
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div data-ng-repeat="x in self.kpiMasterKraList">
+                            <table style="width:100%;">
+
+                                <tr class="tr-head-info">
+                                    <th style="padding-left:2px; text-align:left;">{{x.kra}}</th>
+                                    <th>
+                                        <div style="float:right;padding-rigth:0;">
+                                            <input style="margin-right:0px;width:80px;color:#000000;" type="number" data-ng-model="x.kra_percent" ng-disabled="!isOverride">
+                                        </div>
+                                    </th>
+                                </tr>
+
+                            </table>
+                            <table class="table table-bordered table-condensed table-striped" context-menu="onRightClick(x.KRA_ID,x.kra)" data-target="menu-option">
+                                <tr>
+                                    <th colspan="1">KEY INDICATORS</th>
+                                    <th class="col-lg-1">%</th>
+                                    <th class="col-lg-1">Target</th>
+                                    <th class="col-lg-1">Actual Rating</th>
+                                    <th class="col-lg-1">Override?</th>
+                                    <th class="col-lg-1">Override Rating</th>
+                                    <th class="col-lg-1">Hit/Miss</th>
+                                </tr>
+                                <tr data-ng-repeat="xx in x.kpi_lst | filter:{delFlag:0}">
+
+                                    <td>
+                                        @*{{xx.KEY_INDICATOR}}*@
+                                        <input type="text" style="border:none; width:100%;" placeholder="KPI Description" data-ng-model="xx.KEY_INDICATOR" ng-disabled="!isOverride" ng-disabled="xx.indicatorID==0? false:true" />
+                                    </td>
+                                    <td style="margin-right:0px;width:80px;">
+                                        @*{{xx.KEY_PERCENT}}*@
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Percentage" ng-disabled="!isOverride" data-ng-model="xx.KEY_PERCENT" />
+                                    </td>
+                                    <td style="margin-right:0px;width:80px;">
+
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Target" ng-disabled="!isOverride" data-ng-model="xx.KPI_TARGET" />
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <input type="number" string-to-number min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Actual" ng-disabled="!isOverride"  data-ng-model="xx.kpirating " />
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <input type="checkbox" data-ng-model="xx.IsOveride">
+
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <input type="number" string-to-number min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Override" ng-disabled="!xx.IsOveride"  data-ng-model="xx.kpiratingoverride" />
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <span class="rate-hit" ng-show="xx.kpirating >=xx.KPI_TARGET">HIT</span>
+                                        <span class="rate-miss" ng-show="xx.kpirating < xx.KPI_TARGET">MISS</span>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <!--End KRA KPI List-->
+
+                        <table style="width:100%; background-color: #3333FF; color:#FFF8DC;">
+                            <tbody>
+                                <tr>
+                                    <th style="padding-left:2px; text-align:left;">BEHAVIORAL INDICATORS</th>
+                                    <th>
+                                        <div style="float:right;padding-rigth:0;">
+                                            <input style="margin-right:0px;width:80px; color:#000000;" type="number" data-ng-model="self.behaveKRA.kra_percent" ng-disabled="!isOverride">
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div>
+                        
+                            <table class="table table-bordered table-condensed table-striped" context-menu="onRightClick(x.KRA_ID,x.kra)" data-target="menu-option">
+                                <tr>
+                                    <th colspan="1">KEY INDICATORS</th>
+                                    <th class="col-lg-1">%</th>
+                                    <th class="col-lg-1">Target</th>
+                                    <th class="col-lg-1">Actual Rating</th>
+                                    <th class="col-lg-1">Override?</th>
+                                    <th class="col-lg-1">Override Rating</th>
+                                    <th class="col-lg-1">Hit/Miss</th>
+                                </tr>
+                                <tr data-ng-repeat="xx in self.behaveKRA.kpi_lst | filter:{delFlag:0}">
+
+                                    <td>
+                                        @*{{xx.KEY_INDICATOR}}*@
+                                        <input type="text" style="border:none; width:100%;" placeholder="KPI Description" data-ng-model="xx.KEY_INDICATOR" ng-disabled="!isOverride"  />
+                                    </td>
+                                    <td style="margin-right:0px;width:80px;">
+                                        @*{{xx.KEY_PERCENT}}*@
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Percentage" ng-disabled="!isOverride" data-ng-model="xx.KEY_PERCENT" />
+                                    </td>
+                                    <td style="margin-right:0px;width:80px;">
+
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Target" ng-disabled="!isOverride" data-ng-model="xx.KPI_TARGET" />
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Actual" ng-disabled="!isOverride" data-ng-model="xx.kpirating " />
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <input type="checkbox" data-ng-model="xx.IsOveride">
+
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <input type="number" min="0" style="border:none; margin-right:0px;width:80px;" placeholder="Override" ng-disabled="!xx.IsOveride" ng-model="xx.kpiratingoverride" />
+                                    </td>
+                                    <td style="text-align:center;width:80px;">
+                                        <span class="rate-hit" ng-show="xx.kpirating >=xx.KPI_TARGET">HIT</span>
+                                        <span class="rate-miss" ng-show="xx.kpirating < xx.KPI_TARGET">MISS</span>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer text-right">
+                <button class="btn btn-default btn-gradient btn-rounded" ng-click="onBackList()">Back to List</button>
+                <button class="btn btn-success btn-gradient btn-rounded" ng-click="onSaveOveridePaf(false)">Save</button>
+                <button class="btn btn-success btn-gradient btn-rounded" ng-click="onSaveOveridePaf(true)">Save & Close</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <!--context menu for main kpi -->
+    <div class="dropdown position-fixed" id="menu-option">
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="pointer" role="menuitem"
+                   ng-click="onViewKPIMaintenance()">
+                    <span class="glyphicons glyphicons-file_import"></span>&nbsp; Import KPI Maintenance
+                </a>
+
+            </li>
+
+        </ul>
+    </div>
+
+</section>
+
+<section ng-show="isclose">
+    <div class="panel panel-success">
+        <h2 class="text-success">Override update successfully saved.</h2>
+        <h5><a class="pointer" ui-sref="161300000036">Back to List</a></h5>
+    </div>
+
+</section>

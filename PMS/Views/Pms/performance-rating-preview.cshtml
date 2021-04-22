@@ -1,0 +1,106 @@
+﻿@{
+    Layout = null;
+}
+
+    <div class="panel">
+
+        <div class="panel-body no-padding" data-ng-init="onInit()">
+            <h2 class="page-header">Performance Rating Report</h2>
+            <!--Prompt Message after save-->
+            <div class="callout callout-info" ng-show="msgOK">
+                <h4><span class="rjg-check-1"></span> Success</h4>
+                <p><strong>User details and right's successfully update. </strong>  </p>
+            </div>
+            <div class="callout callout-danger" ng-show="msgInvalid">
+                <h4><span class="rjg-cancel"></span> Invalid</h4>
+                <p>{{errorMsg}}</p>
+            </div>
+            <!--End Prompt Message-->
+            <fieldset class="margin">
+                <legend><strong>Employee Details</strong> </legend>
+                <h4>PANO: {{PANO}}</h4>
+                <h4>Employee ID: {{EmpDtl.empId}}</h4>
+                <h4>Employee Name: {{EmpDtl.empName}}</h4>
+                <h4>Department: {{EmpDtl.department}}</h4>
+                <h4>Position: {{EmpDtl.position}}</h4>
+            </fieldset>
+            <fieldset class="margin">
+                <legend><strong>PAF Details</strong> </legend>
+                <div data-ng-repeat="x in PmsKPIGroup">
+                    <h4>{{x.KPIGroup}}</h4>
+                    <table class="table table-condensed">
+                        <tr class="tr-head-info">
+                            <th>CTRL #</th>
+                            <th>Description</th>
+                            <th>Percentage</th>
+                        </tr>
+                        <tr data-ng-repeat="xx in x.PmsPerformancePercentage">
+                            <td class="col-lg-1">{{xx.PA_CTRL_NO}}</td>
+                            <td class="text-left">{{xx.DESCRIPTION}}</td>
+                            <td class="text-right"><a class="pointer link-label" data-ng-click="onSummaryView(xx.PA_CTRL_NO)"><span class="fa fa-link"></span> {{xx.Percentage | number:2}}&nbsp;%</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+
+<!-- modal view for subkpi details t-->
+<div id="modal-panel-subkpidetails" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>Sub KPI Details</span>
+        </div>
+        <div class="panel-body">
+            <accordion class="no-padding">
+                <accordion-group data-ng-repeat="x in SubkpiDtl.pmsAppraisalSubKpi">
+                    <accordion-heading>
+                        {{x.SUBDESCRIPTION}}
+                    </accordion-heading>
+                    <table class="table table-condensed">
+                        <tr>
+                            <td>Target:&nbsp; {{x.TARGET}}</td>
+                            <td>Occurence:&nbsp;{{x.OCCURENCE}}</td>
+                        </tr>
+                        <tr>
+                            <td>Hit /miss indicator:&nbsp; {{x.HTMSIND}}</td>
+                            <td>Hit Percentage:&nbsp;{{x.HIT_PERCENTAGE}}%</td>
+                        </tr>
+                        <tr>
+                            <td>Actual Percentage:&nbsp;{{x.ActualPercentage | number:2}}%</td>
+                            <td data-ng-class="onValidateActualResult(x.HIT_PERCENTAGE,x.ActualPercentage)==1 ? 'rate-hit' : 'rate-miss'">Actual Result:&nbsp;{{onValidateActualResult(x.HIT_PERCENTAGE,x.ActualPercentage)==1 ? 'Hit' : 'Miss'}}</td>
+                        </tr>
+                    </table>
+                    <table class="table table-condensed">
+                        <tr class="tr-head-info">
+                            <th class="col-lg-1">Event Code</th>
+                            <th class="col-lg-1">Actual Value</th>
+                            <th class="col-lg-1">Result</th>
+                            <th class="col-lg-1">Created Date</th>
+                        </tr>
+                    </table>
+                    <div style="height:300px; overflow: scroll; overflow-x: hidden;">
+
+                        <table class="table table-condensed table-striped">
+
+                            <tr data-ng-repeat="xx in x.pmsAppraisalDetails">
+                                <td class="col-lg-1">{{xx.EVENT_CODE}}</td>
+                                <td class="col-lg-1">{{onValidateActualValue(xx.ACTUAL_VALUE)}}</td>
+                                <td class="col-lg-1" ng-class="onValidateResult(xx.RESULT_VALUE)==1 ? 'rate-hit' : 'rate-miss'">{{onValidateResult(xx.RESULT_VALUE)==1 ? 'Hit' : 'Miss'}}</td>
+                                <td class="col-lg-1">{{xx.CREA_DATE | date:'MM/dd/yyyy'}}</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </accordion-group>
+            </accordion>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn" data-ng-click="closeModalForm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+

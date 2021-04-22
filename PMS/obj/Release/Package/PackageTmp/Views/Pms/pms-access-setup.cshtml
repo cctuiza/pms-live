@@ -1,0 +1,104 @@
+﻿@{
+    Layout = null;
+}
+<section class="content" data-ng-init="view.getAccessUserList()">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span class="panel-icon">
+                <i class="glyphicon glyphicon-user"></i>
+            </span>
+            <span class="panel-title">Update User Right's</span>
+        </div>
+        <div class="panel-body">
+            <!--Begin:Prompt Message-->
+            <div class="alert alert-danger alert-sm" ng-show="view.isError">
+                <i class="fa fa-remove pr10"></i>
+                <strong>ERROR!</strong>    {{view.errorMessage}}
+            </div>
+            <div class="alert alert-info alert-sm" ng-show="view.isSuccess">
+                <i class="fa fa-check"></i>
+                <strong>SUCCESS!</strong>    {{view.successMessage}} <span><code><a class="pointer" data-ng-click="view.isError=false;view.isSuccess=false;">Update Again</a></code></span>
+            </div>
+            <!--End:Prompt Message-->
+
+            <div data-ng-hide="view.isSuccess">
+                <div class="row margin">
+                    <div class="col-lg-2">
+                        <a class="btn btn-info btn-xs pointer" data-ng-click="view.onAddEmployee()">Add Employee</a>
+                    </div>
+                </div>
+                <table class="table  table-condensed table-striped table-hover">
+                    <tr>
+                        <th>Action</th>
+                        <th>Can Edit</th>
+                        <th>Emp ID</th>
+                        <th>Name</th>
+                        <th>SBU</th>
+                        <th>Positon</th>
+                    </tr>
+                    <tr data-ng-repeat="x in view.PmsUserAccess | filter:flatView ">
+                        <td><a class="pointer text-danger" data-ng-click="x.flag=1"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        <td><input type="checkbox" data-ng-model="x.canedit"></td>
+                        <td>{{x.employeeid}}</td>
+                        <td>{{x.employeename}}</td>
+                        <td>{{x.SBU}}</td>
+                        <td>{{x.Position}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer text-center">
+            <a class="btn-link btn pointer" data-ng-click="view.onBack()">Back</a>
+            <button type="button" data-ng-click="view.onSave()" class="btn btn-success" ng-hide="view.isSuccess">
+                <i class="glyphicon glyphicon-saved"></i> Save
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- modal view employee list-->
+<div id="modal-panel-employeeList" class="popup-basic  popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>Employee List</span>
+        </div>
+        <div class="panel-body">
+            <div class="row margin">
+
+                <div class="col-lg-4" style="float:right;">
+
+                    <div class="input-group">
+
+                        <input type="text" class="form-control" ng-enter="view.searchUser()" autocomplete="off" placeholder="Search for..." id="txtsearch" ng-model="view.txtsearch" data-provide="typeahead">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary " type="button" ng-click="view.searchUser()"><i class="fa fa-search"></i></button>
+                        </span>
+
+                    </div>
+
+                </div>
+            </div>
+            <table class="table table-condensed table-striped table-hover">
+                <tr>
+                    <th><a class="pointer" data-ng-click="view.onCheckAllEmpList()"><span class="glyphicon glyphicon-check"></span></a></th>
+                    <th>Emp ID</th>
+                    <th>Name</th>
+                    <th>SBU</th>
+                    <th>Position</th>
+                </tr>
+                <tr data-ng-repeat="x in view.querySearchEmp | filter:{isShow:0}">
+                    <td><input type="checkbox" data-ng-model="x.Selected"></td>
+                    <td>{{x.EmpID}}</td>
+                    <td>{{x.EmpName}}</td>
+                    <td>{{x.SBU}}</td>
+                    <td>{{x.Position}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn" data-ng-click="closeModalForm()">Cancel</button>
+            <button class="btn btn-primary" data-ng-click="view.onSelectEmployee()">OK</button>
+        </div>
+    </div>
+</div>

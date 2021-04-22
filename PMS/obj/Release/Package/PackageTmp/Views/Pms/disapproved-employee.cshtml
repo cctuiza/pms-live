@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "PMS::Disapproved-Form";
+    Layout = "~/Views/Shared/_PmsLayoutMsg.cshtml";
+    PMS.Utils.Procedure procedure = new PMS.Utils.Procedure();
+}
+
+
+<div ng-app="pms" ng-cloak>
+    <div data-ng-controller="pms.disapproved">
+        <div class="panel panel-primary" ng-show="!isShow">
+            <div class="panel-heading">
+                <h2 class="panel-title">Reason for Disapproved</h2>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+
+                    <div class="col-lg-12">
+                        <textarea rows="3" class="form-control" placeholder="Enter your reason" data-ng-model="comment"></textarea>
+                    </div>
+                </form>
+
+
+            </div>
+            <div class="panel-footer text-right">
+                <input data-ng-click="onCommit()" class="btn btn-success btn-gradient btn-rounded" type="button" value="Save" />
+            </div>
+        </div>
+
+        <div class="panel panel-success" data-ng-show="isShow">
+            <div class="panel-body">
+                <h2 class="text-success">Disapproved complete.</h2>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+@section js{
+    <script>
+        var coreapi = '@procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.CoreApi)';
+        var app = angular.module('pms',[])
+        .config(function ($httpProvider) {
+            $httpProvider.defaults.headers.common = {};
+            $httpProvider.defaults.headers.post = { 'Content-Type': 'application/json' };
+            $httpProvider.defaults.headers.put = { 'Content-Type': 'application/json' };
+            $httpProvider.defaults.headers.patch = {};
+            $httpProvider.defaults.headers.get = {};
+
+            //add global token
+            $httpProvider.interceptors.push(function ($q) {
+                return {
+                    'request': function (config) {
+
+                        config.headers['Token'] = 'MTMwMzgzMDplMTc0OGVlNC1kMjk1LTRjMWYtOGFhMC01ZjgzYWFlNzYwZTJ0c2Fm';
+                        return config;
+                    }
+                };
+            });
+        })
+        .controller('pms.disapproved', ['$scope', '$http', function ($scope, $http) {
+            var userid = '@ViewBag.userid';
+            var employeeID = '@ViewBag.employeeID';
+            var pano = '@ViewBag.pano';
+
+           
+
+            //set disaprove have commit
+            $scope.onCommit = function () {
+                var params = pano + ',' + userid + ',' + $scope.comment;
+                $http.get(coreapi +'pms/post-desapproved/?p=' + params).success(function (data, status, headers, config) {
+                    if (!data.hasError) {
+                        $scope.isShow = data.isShow;
+                    } else {
+                        console.log('error:onCommit \n' + data.errorMessage);
+                    }
+
+                }).error(function (data, status, headers, config) {
+                    console.log('error:onCommit');
+                });
+            };
+
+        }]);
+
+    </script>
+}
+

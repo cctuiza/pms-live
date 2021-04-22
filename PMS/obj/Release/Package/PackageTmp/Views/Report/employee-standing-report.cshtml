@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = null;
+    PMS.Utils.Procedure procedure = new PMS.Utils.Procedure();
+}
+<style>
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+    }
+
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2
+    }
+</style>
+<section class="content ">
+    <div id="skin-toolbox">
+        <div class="panel">
+            <div class="panel-heading" unselectable="on" style="user-select: none;">
+                <span class="panel-icon">
+                    <i class="glyphicons glyphicons-filter"></i>
+                </span>
+                <span class="panel-title">FILTER</span>
+            </div>
+            <div class="panel-body pn">
+
+
+                <form>
+                    <div class="form-group">
+                        <label for="sel1">Period Cycle:</label>
+                        <select class="form-control" data-ng-model="ctrl.period">
+                            <option ng-repeat="period in ctrl.cyclePeriod | orderBy:'-periodyear'" value="{{period.periodId}}">{{period.periodyear + ' - ' + period.perioddescription}}</option>
+                        </select>
+                    </div>
+                    <div style=" margin:0 0 10px 0; ">
+                        <input class="btn btn-primary" style="width:100%;" type="submit" value="Generate" ng-click="ctrl.onGenerateReport()">
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-solid">
+        <div class="panel-body" ng-init="ctrl.onInit()">
+            <h2 class="page-header">Final PAF Report</h2>
+
+
+            <div style="overflow-x:auto;">
+                <h3>{{onType(x.pmsLstType)}}</h3>
+                <table class="table table-condensed">
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Employee FullName</th>
+                        <th>Period From</th>
+                        <th>Paf Status</th>
+                        <th>BP</th>
+                        <th>PD</th>
+                        <th>CU</th>
+                        <th>FI</th>
+                        <th>Bebaviral</th>
+                        <th>KRA Total Rate</th>
+                        <th>KRA Scale Rate</th>
+                        <th>Final Rate</th>
+                        <th>PA Final Rate</th>
+                    </tr>
+                    <tr ng-repeat="info in ctrl.reporData">
+                        <td>
+                            {{info.employeeId}}</td>
+                        <td>{{info.FirstName + ' '+ info.LastName}}</td>
+                        <td>{{info.PeriodFrom}}</td>
+                        <td>
+                            {{info.PAFStatus}}</td>
+                        <td>
+                            {{info.BusinesssProcess}}</td>
+                        <td>{{info.PeopleDevelopment}}</td>
+                        <td>{{info.Customer}}</td>
+                        <td>{{info.Financial}}</td>
+                        <td>
+                            {{info.Behavioral}}</td>
+                        <td>{{info.KRATotalRate}}</td>
+                        <td>
+                            {{info.KRAScaleRate}}</td>
+                        <td>
+                            {{info.FinalRate}}
+                        </td>
+                        <td>{{info.PotentialAssessment}}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+
+        // Toggles Theme Settings Tray
+        $('#skin-toolbox .panel-heading').on('click', function () {
+            $('#skin-toolbox').toggleClass('toolbox-open');
+        });
+        // Disable text selection
+        $('#skin-toolbox .panel-heading').disableSelection();
+
+
+    </script>
+</section>

@@ -1,0 +1,249 @@
+﻿    <!--member setup-->
+<div id="modal-embed-youtube" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicons-youtube"></i>&nbsp; Embed Youtube Video</span>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+
+                <div class="form-group row">
+                    <div class="col-lg-12">
+
+
+                        <input type="text" class="form-control" placeholder="Paste your youtube URL here" data-ng-model="ctrl.pickYoutube" ng-enter="ctrl.onSearchEmployee()">
+
+                    </div>
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" placeholder="Message" data-ng-model="ctrl.message" data-ng-model="ctrl.embedMsg">
+                    </div>
+                </div>
+
+
+            </form>
+           
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm()">Close</button>
+            <button class="btn btn-primary btn-rounded btn-gradient" data-ng-click="ctrl.onSaveEmbed()">Response</button>
+        </div>
+
+    </div>
+</div>
+
+<!--modal youtube player-->
+<div id="modal-embed-youtube-play" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicon-play"></i>&nbsp; Play Now</span>
+        </div>
+        <div class="panel-body">
+
+            <div class="embed-responsive embed-responsive-16by9">
+                <youtube-video video-url="ctrl.playNow" player-vars="ctrl.playerVars" class="embed-responsive-item"></youtube-video>
+            </div>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm();ctrl.playNow='';">Close</button>
+        </div>
+    </div>
+</div>
+
+<!--Modal Response with attachmet-->
+<div id="modal-response-with-attachment" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicons-paperclip"></i>&nbsp; Response With Attachment</span>
+        </div>
+        <div class="panel-body">
+            <p><i>Note: Please upload less than <b>4MB</b> per file for better performance</i></p>
+            <form class="form-horizontal">
+
+                <div class="form-group row ">
+
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" placeholder="Message" data-ng-model="ctrl.message">
+                    </div>
+                    <div class="col-lg-12 text-center " style="margin-top:5px;">
+                        <button class="btn btn-primary btn-gradient btn-rounded " data-ng-model="ctrl.files" ngf-select ngf-multiple="true">Browse File</button>
+                    </div>
+                </div>
+                <div class="progress progress-striped active" ng-show="ctrl.isStartUpload">
+                    <div class="progress-bar progress-bar-warning" style="width: {{ctrl.dynamic}}%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="40" role="progressbar">
+                        {{ctrl.dynamic}} %
+                    </div>
+                </div>
+                <div style="max-height:300px; overflow-y:scroll;">
+                    <ul style="list-style:none;">
+                        <li ng-repeat="file in ctrl.files">
+                            <span ng-class="ctrl.onCheckFileSize(file.size)==true ? 'rate-hit fa fa-check': 'rate-miss fa-times'">&nbsp; {{$index + 1}}. &nbsp;{{file.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </form>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm()">Close</button>
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="ctrl.onResponseWithFile()">Response</button>
+        </div>
+    </div>
+
+</div>
+
+<!--Modal Response Disagree-->
+<div id="modal-response-defer" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicon-tasks"></i>&nbsp; Disagree</span>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-horizontal">
+
+                <div class="form-group row ">
+
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" placeholder="Reason" data-ng-model="ctrl.reason">
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm()">Close</button>
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="ctrl.onDefer()">Submit</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!--Modal Response Agree-->
+<div id="modal-response-agree" class="popup-basic popup-sm bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicon-tasks"></i>&nbsp; Park</span>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-horizontal">
+
+                <div class="form-group row ">
+
+                    <div class="col-lg-12">
+                        <label class="small">Resume<span class="text-danger">*</span></label>
+                        <div class=" input-group date" id="start_date">
+                            <input type="text" class="form-control" id="resume_date" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary " for="resume_date" type="button"><i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm()">Close</button>
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="ctrl.onSubmitPark()">Submit</button>
+        </div>
+    </div>
+
+</div>
+
+
+<!--Modal Closing Reason-->
+<div id="modal-dropreason" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicon-tasks"></i>&nbsp; Drop Reason</span>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-horizontal">
+
+                <div class="form-group row ">
+
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" placeholder="Reason" data-ng-model="ctrl.reason">
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm()">Close</button>
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="ctrl.onSubmitDrop()">Submit</button>
+        </div>
+    </div>
+
+</div>
+
+<!--Modal Drop Reason-->
+<div id="modal-drop-reason" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicon-tasks"></i>&nbsp; Drop Reason</span>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-horizontal">
+
+                <div class="form-group row ">
+
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" placeholder="Enter your reason" data-ng-model="ctrl.reason">
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm()">Close</button>
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="ctrl.onSubmitDrop()">Submit</button>
+        </div>
+    </div>
+
+</div>
+
+<!--Modal Drop Reason-->
+<div id="modal-closing-reason" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicon-tasks"></i>&nbsp; Reason To Close</span>
+        </div>
+        <div class="panel-body">
+
+            <form class="form-horizontal">
+
+                <div class="form-group row ">
+
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" placeholder="Enter your reason" data-ng-model="ctrl.reason">
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-default btn-rounded btn-gradient" data-ng-click="closeModalForm()">Close</button>
+            <button class="btn btn-success btn-rounded btn-gradient" data-ng-click="ctrl.onSubmitClose()">Submit</button>
+        </div>
+    </div>
+
+</div>

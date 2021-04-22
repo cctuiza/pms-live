@@ -1,0 +1,79 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+
+    <div class="panel panel-solid">
+        <div class="panel-body" data-ng-init="onInit()">
+            <h2 class="page-header">Performance Rating Report (Employee List)</h2>
+            <!--Prompt Message after save-->
+            <div class="callout callout-info" ng-show="msgOK">
+                <h4><span class="rjg-check-1"></span> Success</h4>
+                <p><strong>User details and right's successfully update. </strong>  </p>
+            </div>
+            <div class="callout callout-danger" ng-show="msgInvalid">
+                <h4><span class="rjg-cancel"></span> Invalid</h4>
+                <p>{{errorMsg}}</p>
+            </div>
+            <!--End Prompt Message-->
+
+            <div data-ng-repeat="x in pafMaster" data-ng-show="onViewDetails(x.pmsEmployeeDtl)">
+                <h3>{{onType(x.pmsLstType)}}</h3>
+                <table class="table table-condensed">
+                    <tr>
+                        <th></th>
+                        <th>Employee ID</th>
+                        <th>Employee Name</th>
+                        <th>Department</th>
+                        <th>Position</th>
+                    </tr>
+                    <tr data-ng-repeat="xx in x.pmsEmployeeDtl">
+                        <td><a class="pointer" data-ng-click="onViewPaf(xx);">View Paf</a></td>
+                        <td>{{xx.empId}}</td>
+                        <td>{{xx.empName}}</td>
+                        <td>{{xx.department}}</td>
+                        <td>{{xx.position}}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+        </div>
+</div>
+
+<!-- modal view for applicant paf list-->
+<div id="modal-panel-paflist" class="popup-basic bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>Paf List</span>
+        </div>
+        <div class="panel-body">
+            <p class="text-red">{{stopnote}}</p>
+            <table class="table">
+                <tr>
+                    <th></th>
+                    <th>Pano</th>
+                    <th>Covered</th>
+                    <th>Created Date</th>
+                </tr>
+                <tr data-ng-repeat="x in panoList">
+                    <td><a class="pointer" data-ng-click="onViewReport(x.PANO)">View</a></td>
+                    <td>{{x.PANO}}</td>
+                    <td>{{x.COVERED_FROM | date:'MM/dd/yyyy'}}&nbsp;to&nbsp;{{x.COVERED_TO | date:'MM/dd/yyyy'}}</td>
+                    <td>{{x.DT_OF_AP | date:'MM/dd/yyyy'}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn" data-ng-click="closeModalForm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

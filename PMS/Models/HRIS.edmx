@@ -1,0 +1,718 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HRISDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="hrisPMSAppraisalDTL">
+          <Key>
+            <PropertyRef Name="PA_CTRL_NO" />
+          </Key>
+          <Property Name="PA_CTRL_NO" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SEQNO" Type="int" />
+          <Property Name="PANO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="TYPE" Type="varchar" MaxLength="50" />
+          <Property Name="KPI" Type="varchar" MaxLength="250" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="250" />
+          <Property Name="ACTION_PLAN" Type="varchar" MaxLength="250" />
+          <Property Name="WEIGHT" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="HIT_MISS" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="FSCKPI" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="hrisPMSAppraisalMST">
+          <Key>
+            <PropertyRef Name="PANO" />
+          </Key>
+          <Property Name="PANO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EMPL_ID" Type="varchar" MaxLength="15" />
+          <Property Name="POSI_CODE" Type="varchar" MaxLength="15" />
+          <Property Name="EMPL_STATUS" Type="varchar" MaxLength="5" />
+          <Property Name="DEPT_CODE" Type="varchar" MaxLength="5" />
+          <Property Name="SEC_CODE" Type="varchar" MaxLength="15" />
+          <Property Name="EMPL_BRANCH" Type="varchar" MaxLength="10" />
+          <Property Name="DATE_HIRED" Type="datetime" />
+          <Property Name="EFF_DATE" Type="datetime" />
+          <Property Name="EMP_SBU" Type="varchar" MaxLength="5" />
+          <Property Name="HEAD_EMPL_ID" Type="varchar" MaxLength="15" />
+          <Property Name="HEAD_POSITION" Type="varchar" MaxLength="100" />
+          <Property Name="HEAD_DEPT" Type="varchar" MaxLength="100" />
+          <Property Name="HEAD_SEC" Type="varchar" MaxLength="50" />
+          <Property Name="HEAD_BRANCH" Type="varchar" MaxLength="30" />
+          <Property Name="HEAD_SBU" Type="varchar" MaxLength="70" />
+          <Property Name="COVERED_FROM" Type="datetime" />
+          <Property Name="COVERED_TO" Type="datetime" />
+          <Property Name="DT_OF_AP" Type="datetime" />
+          <Property Name="DT_OF_NX_AP" Type="datetime" />
+          <Property Name="COMMENTS" Type="varchar" MaxLength="250" />
+          <Property Name="RATED_BY" Type="varchar" MaxLength="250" />
+          <Property Name="VERIFIED_BY" Type="varchar" MaxLength="250" />
+          <Property Name="NOTED_BY_OPHEAD" Type="varchar" MaxLength="250" />
+          <Property Name="NOTED_BY_SBUHEAD" Type="varchar" MaxLength="250" />
+          <Property Name="ACKNOWLEDGEBY" Type="varchar" MaxLength="12" />
+          <Property Name="ACKNOWLEDGEDATE" Type="datetime" />
+          <Property Name="ACKNOWLEDGEBYSUP" Type="varchar" MaxLength="12" />
+          <Property Name="ACKNOWLEDGEDATESUP" Type="datetime" />
+          <Property Name="PAACKNOWLEDGEBY" Type="varchar" MaxLength="12" />
+          <Property Name="PAACKNOWLEDGEDATE" Type="datetime" />
+          <Property Name="STATUS" Type="varchar" MaxLength="5" />
+          <Property Name="SOURCE" Type="varchar" MaxLength="10" />
+          <Property Name="CREA_BY" Type="varchar" MaxLength="12" />
+          <Property Name="CREA_DT" Type="datetime" />
+          <Property Name="MODI_BY" Type="varchar" MaxLength="12" />
+          <Property Name="MODI_DT" Type="datetime" />
+        </EntityType>
+        <EntityType Name="hrisPMSAppraisalParams">
+          <Key>
+            <PropertyRef Name="PARCTRNo" />
+          </Key>
+          <Property Name="PARCTRNo" Type="numeric" Precision="18" Scale="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PARPANO" Type="varchar" MaxLength="15" />
+          <Property Name="PARTYPE" Type="char" MaxLength="1" />
+          <Property Name="PARCODE" Type="varchar" MaxLength="50" />
+          <Property Name="PARWEIGHT" Type="numeric" Precision="18" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HRISDB.dbo.V_hrisEMPLOYEE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_hrisEMPLOYEE">
+          <Key>
+            <PropertyRef Name="EMPL_ID" />
+            <PropertyRef Name="EmployeeName" />
+            <PropertyRef Name="LNAME" />
+            <PropertyRef Name="FNAME" />
+            <PropertyRef Name="SEX" />
+            <PropertyRef Name="CIVILSTATUS" />
+            <PropertyRef Name="EFFECTIVITYDATE" />
+            <PropertyRef Name="CorporateName" />
+            <PropertyRef Name="BRANCHNAME" />
+            <PropertyRef Name="SECTION" />
+            <PropertyRef Name="TYPEDESCRIPTION" />
+            <PropertyRef Name="EmployeePresentAddress" />
+            <PropertyRef Name="EmployeeHomeAddress" />
+            <PropertyRef Name="PicturePath" />
+          </Key>
+          <Property Name="EMPL_ID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="153" Nullable="false" />
+          <Property Name="EmployeeName2" Type="varchar" MaxLength="108" />
+          <Property Name="LNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MNAME" Type="varchar" MaxLength="50" />
+          <Property Name="BIRTHDAY" Type="datetime" />
+          <Property Name="STATUS" Type="varchar" MaxLength="5" />
+          <Property Name="STATUSNAME" Type="varchar" MaxLength="50" />
+          <Property Name="STATUSNAMEEXT" Type="varchar" MaxLength="153" />
+          <Property Name="RELIGION" Type="varchar" MaxLength="40" />
+          <Property Name="SEX" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="CIVILSTATUS" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="CIVILSTATUSDESC" Type="varchar" MaxLength="9" />
+          <Property Name="BLOODTYPE" Type="varchar" MaxLength="10" />
+          <Property Name="EMAILADD" Type="varchar" MaxLength="50" />
+          <Property Name="DATEHIRED" Type="datetime" />
+          <Property Name="EFFECTIVITYDATE" Type="datetime" Nullable="false" />
+          <Property Name="MONTHS" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="DAYS" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="CORPORATE" Type="varchar" MaxLength="5" />
+          <Property Name="CorporateName" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="BRANCH" Type="varchar" MaxLength="10" />
+          <Property Name="BRANCHNAME" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="BRANCHAREA" Type="varchar" MaxLength="30" />
+          <Property Name="POSITION" Type="varchar" MaxLength="15" />
+          <Property Name="POSITIONNAME" Type="varchar" MaxLength="100" />
+          <Property Name="DEPARTMENT" Type="varchar" MaxLength="15" />
+          <Property Name="DEPARTMENTNAME" Type="varchar" MaxLength="100" />
+          <Property Name="SECTION" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SECTIONNAME" Type="varchar" MaxLength="50" />
+          <Property Name="LEVELCODE" Type="varchar" MaxLength="15" />
+          <Property Name="LEVELNAME" Type="varchar" MaxLength="100" />
+          <Property Name="JobLevelGroup" Type="varchar" MaxLength="10" />
+          <Property Name="CLASS" Type="varchar" MaxLength="15" />
+          <Property Name="TYPE" Type="varchar" MaxLength="5" />
+          <Property Name="TYPEDESCRIPTION" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="RATECLASS" Type="varchar" MaxLength="5" />
+          <Property Name="SALARY" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="ECOLA" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="TIN" Type="varchar" MaxLength="20" />
+          <Property Name="SSS" Type="varchar" MaxLength="20" />
+          <Property Name="GSIS" Type="varchar" MaxLength="20" />
+          <Property Name="HDMF" Type="varchar" MaxLength="20" />
+          <Property Name="PHILHEALTH" Type="varchar" MaxLength="20" />
+          <Property Name="WTAXSTATUS" Type="varchar" MaxLength="5" />
+          <Property Name="EmployeePresentAddress" Type="varchar" MaxLength="329" Nullable="false" />
+          <Property Name="EmployeeHomeAddress" Type="varchar" MaxLength="345" Nullable="false" />
+          <Property Name="EmployeePresentContactNO" Type="varchar" MaxLength="50" />
+          <Property Name="HEIGHT" Type="varchar" MaxLength="10" />
+          <Property Name="WEIGHT" Type="varchar" MaxLength="10" />
+          <Property Name="SHOESSIZE" Type="varchar" MaxLength="10" />
+          <Property Name="SHIRTSIZE" Type="varchar" MaxLength="5" />
+          <Property Name="HAIRCOLOR" Type="varchar" MaxLength="5" />
+          <Property Name="EYECOLOR" Type="varchar" MaxLength="5" />
+          <Property Name="DISTMARK" Type="varchar" MaxLength="50" />
+          <Property Name="CITIZENSHIP" Type="varchar" MaxLength="5" />
+          <Property Name="MARRIAGEDATE" Type="datetime" />
+          <Property Name="HOME_CONTACT" Type="varchar" MaxLength="50" />
+          <Property Name="EMER_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="EMER_ADDRESS" Type="varchar" MaxLength="100" />
+          <Property Name="EMER_RELATION" Type="varchar" MaxLength="100" />
+          <Property Name="EMER_CONTACT" Type="varchar" MaxLength="50" />
+          <Property Name="AGENCYCODE" Type="varchar" MaxLength="20" />
+          <Property Name="AGENCYNAME" Type="varchar" MaxLength="100" />
+          <Property Name="SEPARATIONTYPE" Type="varchar" MaxLength="50" />
+          <Property Name="SEPARATIONTDESC" Type="varchar" MaxLength="100" />
+          <Property Name="LASTPICUPDATED" Type="smalldatetime" />
+          <Property Name="ImmediateID" Type="varchar" MaxLength="15" />
+          <Property Name="ImmediateName" Type="varchar" MaxLength="104" />
+          <Property Name="ImmediateBDay" Type="datetime" />
+          <Property Name="ImmediateStatus" Type="varchar" MaxLength="50" />
+          <Property Name="ImmediateEmail" Type="varchar" MaxLength="50" />
+          <Property Name="ImmediateDHired" Type="datetime" />
+          <Property Name="ImmediateSBU" Type="varchar" MaxLength="70" />
+          <Property Name="ImmediateBranch" Type="varchar" MaxLength="30" />
+          <Property Name="ImmediatePosition" Type="varchar" MaxLength="100" />
+          <Property Name="ImmediateDepartment" Type="varchar" MaxLength="100" />
+          <Property Name="ImmediateSection" Type="varchar" MaxLength="50" />
+          <Property Name="ImmediateLevel" Type="varchar" MaxLength="100" />
+          <Property Name="CREATEDBY" Type="varchar" MaxLength="30" />
+          <Property Name="CREATEDDATE" Type="datetime" />
+          <Property Name="MODIFIEDBY" Type="varchar" MaxLength="30" />
+          <Property Name="MODIFIEDDATE" Type="datetime" />
+          <Property Name="PicturePath" Type="varchar" MaxLength="31" Nullable="false" />
+          <Property Name="EMPL_RELIGION" Type="varchar" MaxLength="5" />
+          <Property Name="SEPARATED_DATE" Type="datetime" />
+          <Property Name="EMAILNOTIFICATION" Type="varchar" MaxLength="255" />
+          <Property Name="Is_BLACKLISTED" Type="tinyint" />
+          <Property Name="CONTRACTENDDATE" Type="datetime" />
+          <Property Name="SEA" Type="numeric" Precision="15" Scale="2" />
+          <Property Name="EXITINTERVIEW" Type="tinyint" />
+          <Property Name="ISDESIRED" Type="tinyint" />
+          <Property Name="DESIREDREMARKS" Type="varchar" MaxLength="255" />
+          <Property Name="PAYROLL_TYPE" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK_hrisPMSApprailsDTL_hrisPMSApprailsMST">
+          <End Role="hrisPMSAppraisalMST" Type="Self.hrisPMSAppraisalMST" Multiplicity="1" />
+          <End Role="hrisPMSAppraisalDTL" Type="Self.hrisPMSAppraisalDTL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hrisPMSAppraisalMST">
+              <PropertyRef Name="PANO" />
+            </Principal>
+            <Dependent Role="hrisPMSAppraisalDTL">
+              <PropertyRef Name="PANO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HRISDBModelStoreContainer">
+          <EntitySet Name="hrisPMSAppraisalDTL" EntityType="Self.hrisPMSAppraisalDTL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hrisPMSAppraisalMST" EntityType="Self.hrisPMSAppraisalMST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hrisPMSAppraisalParams" EntityType="Self.hrisPMSAppraisalParams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_hrisEMPLOYEE" EntityType="Self.V_hrisEMPLOYEE" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_hrisEMPLOYEE].[EMPL_ID] AS [EMPL_ID], 
+    [V_hrisEMPLOYEE].[EmployeeName] AS [EmployeeName], 
+    [V_hrisEMPLOYEE].[EmployeeName2] AS [EmployeeName2], 
+    [V_hrisEMPLOYEE].[LNAME] AS [LNAME], 
+    [V_hrisEMPLOYEE].[FNAME] AS [FNAME], 
+    [V_hrisEMPLOYEE].[MNAME] AS [MNAME], 
+    [V_hrisEMPLOYEE].[BIRTHDAY] AS [BIRTHDAY], 
+    [V_hrisEMPLOYEE].[STATUS] AS [STATUS], 
+    [V_hrisEMPLOYEE].[STATUSNAME] AS [STATUSNAME], 
+    [V_hrisEMPLOYEE].[STATUSNAMEEXT] AS [STATUSNAMEEXT], 
+    [V_hrisEMPLOYEE].[RELIGION] AS [RELIGION], 
+    [V_hrisEMPLOYEE].[SEX] AS [SEX], 
+    [V_hrisEMPLOYEE].[CIVILSTATUS] AS [CIVILSTATUS], 
+    [V_hrisEMPLOYEE].[CIVILSTATUSDESC] AS [CIVILSTATUSDESC], 
+    [V_hrisEMPLOYEE].[BLOODTYPE] AS [BLOODTYPE], 
+    [V_hrisEMPLOYEE].[EMAILADD] AS [EMAILADD], 
+    [V_hrisEMPLOYEE].[DATEHIRED] AS [DATEHIRED], 
+    [V_hrisEMPLOYEE].[EFFECTIVITYDATE] AS [EFFECTIVITYDATE], 
+    [V_hrisEMPLOYEE].[MONTHS] AS [MONTHS], 
+    [V_hrisEMPLOYEE].[DAYS] AS [DAYS], 
+    [V_hrisEMPLOYEE].[CORPORATE] AS [CORPORATE], 
+    [V_hrisEMPLOYEE].[CorporateName] AS [CorporateName], 
+    [V_hrisEMPLOYEE].[BRANCH] AS [BRANCH], 
+    [V_hrisEMPLOYEE].[BRANCHNAME] AS [BRANCHNAME], 
+    [V_hrisEMPLOYEE].[BRANCHAREA] AS [BRANCHAREA], 
+    [V_hrisEMPLOYEE].[POSITION] AS [POSITION], 
+    [V_hrisEMPLOYEE].[POSITIONNAME] AS [POSITIONNAME], 
+    [V_hrisEMPLOYEE].[DEPARTMENT] AS [DEPARTMENT], 
+    [V_hrisEMPLOYEE].[DEPARTMENTNAME] AS [DEPARTMENTNAME], 
+    [V_hrisEMPLOYEE].[SECTION] AS [SECTION], 
+    [V_hrisEMPLOYEE].[SECTIONNAME] AS [SECTIONNAME], 
+    [V_hrisEMPLOYEE].[LEVELCODE] AS [LEVELCODE], 
+    [V_hrisEMPLOYEE].[LEVELNAME] AS [LEVELNAME], 
+    [V_hrisEMPLOYEE].[JobLevelGroup] AS [JobLevelGroup], 
+    [V_hrisEMPLOYEE].[CLASS] AS [CLASS], 
+    [V_hrisEMPLOYEE].[TYPE] AS [TYPE], 
+    [V_hrisEMPLOYEE].[TYPEDESCRIPTION] AS [TYPEDESCRIPTION], 
+    [V_hrisEMPLOYEE].[RATECLASS] AS [RATECLASS], 
+    [V_hrisEMPLOYEE].[SALARY] AS [SALARY], 
+    [V_hrisEMPLOYEE].[ECOLA] AS [ECOLA], 
+    [V_hrisEMPLOYEE].[TIN] AS [TIN], 
+    [V_hrisEMPLOYEE].[SSS] AS [SSS], 
+    [V_hrisEMPLOYEE].[GSIS] AS [GSIS], 
+    [V_hrisEMPLOYEE].[HDMF] AS [HDMF], 
+    [V_hrisEMPLOYEE].[PHILHEALTH] AS [PHILHEALTH], 
+    [V_hrisEMPLOYEE].[WTAXSTATUS] AS [WTAXSTATUS], 
+    [V_hrisEMPLOYEE].[EmployeePresentAddress] AS [EmployeePresentAddress], 
+    [V_hrisEMPLOYEE].[EmployeeHomeAddress] AS [EmployeeHomeAddress], 
+    [V_hrisEMPLOYEE].[EmployeePresentContactNO] AS [EmployeePresentContactNO], 
+    [V_hrisEMPLOYEE].[HEIGHT] AS [HEIGHT], 
+    [V_hrisEMPLOYEE].[WEIGHT] AS [WEIGHT], 
+    [V_hrisEMPLOYEE].[SHOESSIZE] AS [SHOESSIZE], 
+    [V_hrisEMPLOYEE].[SHIRTSIZE] AS [SHIRTSIZE], 
+    [V_hrisEMPLOYEE].[HAIRCOLOR] AS [HAIRCOLOR], 
+    [V_hrisEMPLOYEE].[EYECOLOR] AS [EYECOLOR], 
+    [V_hrisEMPLOYEE].[DISTMARK] AS [DISTMARK], 
+    [V_hrisEMPLOYEE].[CITIZENSHIP] AS [CITIZENSHIP], 
+    [V_hrisEMPLOYEE].[MARRIAGEDATE] AS [MARRIAGEDATE], 
+    [V_hrisEMPLOYEE].[HOME_CONTACT] AS [HOME_CONTACT], 
+    [V_hrisEMPLOYEE].[EMER_NAME] AS [EMER_NAME], 
+    [V_hrisEMPLOYEE].[EMER_ADDRESS] AS [EMER_ADDRESS], 
+    [V_hrisEMPLOYEE].[EMER_RELATION] AS [EMER_RELATION], 
+    [V_hrisEMPLOYEE].[EMER_CONTACT] AS [EMER_CONTACT], 
+    [V_hrisEMPLOYEE].[AGENCYCODE] AS [AGENCYCODE], 
+    [V_hrisEMPLOYEE].[AGENCYNAME] AS [AGENCYNAME], 
+    [V_hrisEMPLOYEE].[SEPARATIONTYPE] AS [SEPARATIONTYPE], 
+    [V_hrisEMPLOYEE].[SEPARATIONTDESC] AS [SEPARATIONTDESC], 
+    [V_hrisEMPLOYEE].[LASTPICUPDATED] AS [LASTPICUPDATED], 
+    [V_hrisEMPLOYEE].[ImmediateID] AS [ImmediateID], 
+    [V_hrisEMPLOYEE].[ImmediateName] AS [ImmediateName], 
+    [V_hrisEMPLOYEE].[ImmediateBDay] AS [ImmediateBDay], 
+    [V_hrisEMPLOYEE].[ImmediateStatus] AS [ImmediateStatus], 
+    [V_hrisEMPLOYEE].[ImmediateEmail] AS [ImmediateEmail], 
+    [V_hrisEMPLOYEE].[ImmediateDHired] AS [ImmediateDHired], 
+    [V_hrisEMPLOYEE].[ImmediateSBU] AS [ImmediateSBU], 
+    [V_hrisEMPLOYEE].[ImmediateBranch] AS [ImmediateBranch], 
+    [V_hrisEMPLOYEE].[ImmediatePosition] AS [ImmediatePosition], 
+    [V_hrisEMPLOYEE].[ImmediateDepartment] AS [ImmediateDepartment], 
+    [V_hrisEMPLOYEE].[ImmediateSection] AS [ImmediateSection], 
+    [V_hrisEMPLOYEE].[ImmediateLevel] AS [ImmediateLevel], 
+    [V_hrisEMPLOYEE].[CREATEDBY] AS [CREATEDBY], 
+    [V_hrisEMPLOYEE].[CREATEDDATE] AS [CREATEDDATE], 
+    [V_hrisEMPLOYEE].[MODIFIEDBY] AS [MODIFIEDBY], 
+    [V_hrisEMPLOYEE].[MODIFIEDDATE] AS [MODIFIEDDATE], 
+    [V_hrisEMPLOYEE].[PicturePath] AS [PicturePath], 
+    [V_hrisEMPLOYEE].[EMPL_RELIGION] AS [EMPL_RELIGION], 
+    [V_hrisEMPLOYEE].[SEPARATED_DATE] AS [SEPARATED_DATE], 
+    [V_hrisEMPLOYEE].[EMAILNOTIFICATION] AS [EMAILNOTIFICATION], 
+    [V_hrisEMPLOYEE].[Is_BLACKLISTED] AS [Is_BLACKLISTED], 
+    [V_hrisEMPLOYEE].[CONTRACTENDDATE] AS [CONTRACTENDDATE], 
+    [V_hrisEMPLOYEE].[SEA] AS [SEA], 
+    [V_hrisEMPLOYEE].[EXITINTERVIEW] AS [EXITINTERVIEW], 
+    [V_hrisEMPLOYEE].[ISDESIRED] AS [ISDESIRED], 
+    [V_hrisEMPLOYEE].[DESIREDREMARKS] AS [DESIREDREMARKS], 
+    [V_hrisEMPLOYEE].[PAYROLL_TYPE] AS [PAYROLL_TYPE]
+    FROM [dbo].[V_hrisEMPLOYEE] AS [V_hrisEMPLOYEE]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_hrisPMSApprailsDTL_hrisPMSApprailsMST" Association="Self.FK_hrisPMSApprailsDTL_hrisPMSApprailsMST">
+            <End Role="hrisPMSAppraisalMST" EntitySet="hrisPMSAppraisalMST" />
+            <End Role="hrisPMSAppraisalDTL" EntitySet="hrisPMSAppraisalDTL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HRISDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="hrisPMSAppraisalDTL">
+          <Key>
+            <PropertyRef Name="PA_CTRL_NO" />
+          </Key>
+          <Property Name="PA_CTRL_NO" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SEQNO" Type="Int32" />
+          <Property Name="PANO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KPI" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ACTION_PLAN" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="WEIGHT" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="HIT_MISS" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="FSCKPI" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="hrisPMSAppraisalMST" Relationship="Self.FK_hrisPMSApprailsDTL_hrisPMSApprailsMST" FromRole="hrisPMSAppraisalDTL" ToRole="hrisPMSAppraisalMST" />
+        </EntityType>
+        <EntityType Name="hrisPMSAppraisalMST">
+          <Key>
+            <PropertyRef Name="PANO" />
+          </Key>
+          <Property Name="PANO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EMPL_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="POSI_CODE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EMPL_STATUS" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DEPT_CODE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SEC_CODE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EMPL_BRANCH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_HIRED" Type="DateTime" Precision="3" />
+          <Property Name="EFF_DATE" Type="DateTime" Precision="3" />
+          <Property Name="EMP_SBU" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="HEAD_EMPL_ID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="HEAD_POSITION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HEAD_DEPT" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HEAD_SEC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HEAD_BRANCH" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="HEAD_SBU" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="COVERED_FROM" Type="DateTime" Precision="3" />
+          <Property Name="COVERED_TO" Type="DateTime" Precision="3" />
+          <Property Name="DT_OF_AP" Type="DateTime" Precision="3" />
+          <Property Name="DT_OF_NX_AP" Type="DateTime" Precision="3" />
+          <Property Name="COMMENTS" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="RATED_BY" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="VERIFIED_BY" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="NOTED_BY_OPHEAD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="NOTED_BY_SBUHEAD" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ACKNOWLEDGEBY" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="ACKNOWLEDGEDATE" Type="DateTime" Precision="3" />
+          <Property Name="ACKNOWLEDGEBYSUP" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="ACKNOWLEDGEDATESUP" Type="DateTime" Precision="3" />
+          <Property Name="PAACKNOWLEDGEBY" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="PAACKNOWLEDGEDATE" Type="DateTime" Precision="3" />
+          <Property Name="STATUS" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SOURCE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CREA_BY" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="CREA_DT" Type="DateTime" Precision="3" />
+          <Property Name="MODI_BY" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="MODI_DT" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="hrisPMSAppraisalDTLs" Relationship="Self.FK_hrisPMSApprailsDTL_hrisPMSApprailsMST" FromRole="hrisPMSAppraisalMST" ToRole="hrisPMSAppraisalDTL" />
+        </EntityType>
+        <EntityType Name="hrisPMSAppraisalParam">
+          <Key>
+            <PropertyRef Name="PARCTRNo" />
+          </Key>
+          <Property Name="PARCTRNo" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PARPANO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PARTYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="PARCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PARWEIGHT" Type="Decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <Association Name="FK_hrisPMSApprailsDTL_hrisPMSApprailsMST">
+          <End Role="hrisPMSAppraisalMST" Type="Self.hrisPMSAppraisalMST" Multiplicity="1" />
+          <End Role="hrisPMSAppraisalDTL" Type="Self.hrisPMSAppraisalDTL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hrisPMSAppraisalMST">
+              <PropertyRef Name="PANO" />
+            </Principal>
+            <Dependent Role="hrisPMSAppraisalDTL">
+              <PropertyRef Name="PANO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HRISDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="hrisPMSAppraisalDTLs" EntityType="Self.hrisPMSAppraisalDTL" />
+          <EntitySet Name="hrisPMSAppraisalMSTs" EntityType="Self.hrisPMSAppraisalMST" />
+          <EntitySet Name="hrisPMSAppraisalParams" EntityType="Self.hrisPMSAppraisalParam" />
+          <AssociationSet Name="FK_hrisPMSApprailsDTL_hrisPMSApprailsMST" Association="Self.FK_hrisPMSApprailsDTL_hrisPMSApprailsMST">
+            <End Role="hrisPMSAppraisalMST" EntitySet="hrisPMSAppraisalMSTs" />
+            <End Role="hrisPMSAppraisalDTL" EntitySet="hrisPMSAppraisalDTLs" />
+          </AssociationSet>
+          <EntitySet Name="V_hrisEMPLOYEE" EntityType="HRISDBModel.V_hrisEMPLOYEE" />
+        </EntityContainer>
+        <EntityType Name="V_hrisEMPLOYEE">
+          <Key>
+            <PropertyRef Name="EMPL_ID" />
+            <PropertyRef Name="EmployeeName" />
+            <PropertyRef Name="LNAME" />
+            <PropertyRef Name="FNAME" />
+            <PropertyRef Name="SEX" />
+            <PropertyRef Name="CIVILSTATUS" />
+            <PropertyRef Name="EFFECTIVITYDATE" />
+            <PropertyRef Name="CorporateName" />
+            <PropertyRef Name="BRANCHNAME" />
+            <PropertyRef Name="SECTION" />
+            <PropertyRef Name="TYPEDESCRIPTION" />
+            <PropertyRef Name="EmployeePresentAddress" />
+            <PropertyRef Name="EmployeeHomeAddress" />
+            <PropertyRef Name="PicturePath" />
+          </Key>
+          <Property Name="EMPL_ID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="153" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName2" Type="String" MaxLength="108" FixedLength="false" Unicode="false" />
+          <Property Name="LNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BIRTHDAY" Type="DateTime" Precision="3" />
+          <Property Name="STATUS" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="STATUSNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="STATUSNAMEEXT" Type="String" MaxLength="153" FixedLength="false" Unicode="false" />
+          <Property Name="RELIGION" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="SEX" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="CIVILSTATUS" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="CIVILSTATUSDESC" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="BLOODTYPE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EMAILADD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DATEHIRED" Type="DateTime" Precision="3" />
+          <Property Name="EFFECTIVITYDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MONTHS" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="DAYS" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="CORPORATE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CorporateName" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="BRANCH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BRANCHNAME" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BRANCHAREA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="POSITION" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="POSITIONNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DEPARTMENT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DEPARTMENTNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SECTION" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SECTIONNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LEVELCODE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LEVELNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="JobLevelGroup" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CLASS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TYPE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TYPEDESCRIPTION" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="RATECLASS" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SALARY" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="ECOLA" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="TIN" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="SSS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="GSIS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HDMF" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PHILHEALTH" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="WTAXSTATUS" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeePresentAddress" Type="String" Nullable="false" MaxLength="329" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeHomeAddress" Type="String" Nullable="false" MaxLength="345" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeePresentContactNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HEIGHT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="WEIGHT" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SHOESSIZE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SHIRTSIZE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="HAIRCOLOR" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="EYECOLOR" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DISTMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CITIZENSHIP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="MARRIAGEDATE" Type="DateTime" Precision="3" />
+          <Property Name="HOME_CONTACT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EMER_ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EMER_RELATION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EMER_CONTACT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AGENCYCODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AGENCYNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SEPARATIONTYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SEPARATIONTDESC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LASTPICUPDATED" Type="DateTime" Precision="0" />
+          <Property Name="ImmediateID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateName" Type="String" MaxLength="104" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateBDay" Type="DateTime" Precision="3" />
+          <Property Name="ImmediateStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateDHired" Type="DateTime" Precision="3" />
+          <Property Name="ImmediateSBU" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateBranch" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediatePosition" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateDepartment" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateSection" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImmediateLevel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CREATEDBY" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CREATEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="MODIFIEDBY" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="MODIFIEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="PicturePath" Type="String" Nullable="false" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="EMPL_RELIGION" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="SEPARATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="EMAILNOTIFICATION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Is_BLACKLISTED" Type="Byte" />
+          <Property Name="CONTRACTENDDATE" Type="DateTime" Precision="3" />
+          <Property Name="SEA" Type="Decimal" Precision="15" Scale="2" />
+          <Property Name="EXITINTERVIEW" Type="Byte" />
+          <Property Name="ISDESIRED" Type="Byte" />
+          <Property Name="DESIREDREMARKS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PAYROLL_TYPE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HRISDBModelStoreContainer" CdmEntityContainer="HRISDBEntities">
+          <EntitySetMapping Name="hrisPMSAppraisalDTLs">
+            <EntityTypeMapping TypeName="HRISDBModel.hrisPMSAppraisalDTL">
+              <MappingFragment StoreEntitySet="hrisPMSAppraisalDTL">
+                <ScalarProperty Name="PA_CTRL_NO" ColumnName="PA_CTRL_NO" />
+                <ScalarProperty Name="SEQNO" ColumnName="SEQNO" />
+                <ScalarProperty Name="PANO" ColumnName="PANO" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="KPI" ColumnName="KPI" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ACTION_PLAN" ColumnName="ACTION_PLAN" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="HIT_MISS" ColumnName="HIT_MISS" />
+                <ScalarProperty Name="FSCKPI" ColumnName="FSCKPI" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hrisPMSAppraisalMSTs">
+            <EntityTypeMapping TypeName="HRISDBModel.hrisPMSAppraisalMST">
+              <MappingFragment StoreEntitySet="hrisPMSAppraisalMST">
+                <ScalarProperty Name="PANO" ColumnName="PANO" />
+                <ScalarProperty Name="EMPL_ID" ColumnName="EMPL_ID" />
+                <ScalarProperty Name="POSI_CODE" ColumnName="POSI_CODE" />
+                <ScalarProperty Name="EMPL_STATUS" ColumnName="EMPL_STATUS" />
+                <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+                <ScalarProperty Name="SEC_CODE" ColumnName="SEC_CODE" />
+                <ScalarProperty Name="EMPL_BRANCH" ColumnName="EMPL_BRANCH" />
+                <ScalarProperty Name="DATE_HIRED" ColumnName="DATE_HIRED" />
+                <ScalarProperty Name="EFF_DATE" ColumnName="EFF_DATE" />
+                <ScalarProperty Name="EMP_SBU" ColumnName="EMP_SBU" />
+                <ScalarProperty Name="HEAD_EMPL_ID" ColumnName="HEAD_EMPL_ID" />
+                <ScalarProperty Name="HEAD_POSITION" ColumnName="HEAD_POSITION" />
+                <ScalarProperty Name="HEAD_DEPT" ColumnName="HEAD_DEPT" />
+                <ScalarProperty Name="HEAD_SEC" ColumnName="HEAD_SEC" />
+                <ScalarProperty Name="HEAD_BRANCH" ColumnName="HEAD_BRANCH" />
+                <ScalarProperty Name="HEAD_SBU" ColumnName="HEAD_SBU" />
+                <ScalarProperty Name="COVERED_FROM" ColumnName="COVERED_FROM" />
+                <ScalarProperty Name="COVERED_TO" ColumnName="COVERED_TO" />
+                <ScalarProperty Name="DT_OF_AP" ColumnName="DT_OF_AP" />
+                <ScalarProperty Name="DT_OF_NX_AP" ColumnName="DT_OF_NX_AP" />
+                <ScalarProperty Name="COMMENTS" ColumnName="COMMENTS" />
+                <ScalarProperty Name="RATED_BY" ColumnName="RATED_BY" />
+                <ScalarProperty Name="VERIFIED_BY" ColumnName="VERIFIED_BY" />
+                <ScalarProperty Name="NOTED_BY_OPHEAD" ColumnName="NOTED_BY_OPHEAD" />
+                <ScalarProperty Name="NOTED_BY_SBUHEAD" ColumnName="NOTED_BY_SBUHEAD" />
+                <ScalarProperty Name="ACKNOWLEDGEBY" ColumnName="ACKNOWLEDGEBY" />
+                <ScalarProperty Name="ACKNOWLEDGEDATE" ColumnName="ACKNOWLEDGEDATE" />
+                <ScalarProperty Name="ACKNOWLEDGEBYSUP" ColumnName="ACKNOWLEDGEBYSUP" />
+                <ScalarProperty Name="ACKNOWLEDGEDATESUP" ColumnName="ACKNOWLEDGEDATESUP" />
+                <ScalarProperty Name="PAACKNOWLEDGEBY" ColumnName="PAACKNOWLEDGEBY" />
+                <ScalarProperty Name="PAACKNOWLEDGEDATE" ColumnName="PAACKNOWLEDGEDATE" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="SOURCE" ColumnName="SOURCE" />
+                <ScalarProperty Name="CREA_BY" ColumnName="CREA_BY" />
+                <ScalarProperty Name="CREA_DT" ColumnName="CREA_DT" />
+                <ScalarProperty Name="MODI_BY" ColumnName="MODI_BY" />
+                <ScalarProperty Name="MODI_DT" ColumnName="MODI_DT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hrisPMSAppraisalParams">
+            <EntityTypeMapping TypeName="HRISDBModel.hrisPMSAppraisalParam">
+              <MappingFragment StoreEntitySet="hrisPMSAppraisalParams">
+                <ScalarProperty Name="PARCTRNo" ColumnName="PARCTRNo" />
+                <ScalarProperty Name="PARPANO" ColumnName="PARPANO" />
+                <ScalarProperty Name="PARTYPE" ColumnName="PARTYPE" />
+                <ScalarProperty Name="PARCODE" ColumnName="PARCODE" />
+                <ScalarProperty Name="PARWEIGHT" ColumnName="PARWEIGHT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_hrisEMPLOYEE">
+            <EntityTypeMapping TypeName="HRISDBModel.V_hrisEMPLOYEE">
+              <MappingFragment StoreEntitySet="V_hrisEMPLOYEE">
+                <ScalarProperty Name="PAYROLL_TYPE" ColumnName="PAYROLL_TYPE" />
+                <ScalarProperty Name="DESIREDREMARKS" ColumnName="DESIREDREMARKS" />
+                <ScalarProperty Name="ISDESIRED" ColumnName="ISDESIRED" />
+                <ScalarProperty Name="EXITINTERVIEW" ColumnName="EXITINTERVIEW" />
+                <ScalarProperty Name="SEA" ColumnName="SEA" />
+                <ScalarProperty Name="CONTRACTENDDATE" ColumnName="CONTRACTENDDATE" />
+                <ScalarProperty Name="Is_BLACKLISTED" ColumnName="Is_BLACKLISTED" />
+                <ScalarProperty Name="EMAILNOTIFICATION" ColumnName="EMAILNOTIFICATION" />
+                <ScalarProperty Name="SEPARATED_DATE" ColumnName="SEPARATED_DATE" />
+                <ScalarProperty Name="EMPL_RELIGION" ColumnName="EMPL_RELIGION" />
+                <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+                <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+                <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+                <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+                <ScalarProperty Name="ImmediateLevel" ColumnName="ImmediateLevel" />
+                <ScalarProperty Name="ImmediateSection" ColumnName="ImmediateSection" />
+                <ScalarProperty Name="ImmediateDepartment" ColumnName="ImmediateDepartment" />
+                <ScalarProperty Name="ImmediatePosition" ColumnName="ImmediatePosition" />
+                <ScalarProperty Name="ImmediateBranch" ColumnName="ImmediateBranch" />
+                <ScalarProperty Name="ImmediateSBU" ColumnName="ImmediateSBU" />
+                <ScalarProperty Name="ImmediateDHired" ColumnName="ImmediateDHired" />
+                <ScalarProperty Name="ImmediateEmail" ColumnName="ImmediateEmail" />
+                <ScalarProperty Name="ImmediateStatus" ColumnName="ImmediateStatus" />
+                <ScalarProperty Name="ImmediateBDay" ColumnName="ImmediateBDay" />
+                <ScalarProperty Name="ImmediateName" ColumnName="ImmediateName" />
+                <ScalarProperty Name="ImmediateID" ColumnName="ImmediateID" />
+                <ScalarProperty Name="LASTPICUPDATED" ColumnName="LASTPICUPDATED" />
+                <ScalarProperty Name="SEPARATIONTDESC" ColumnName="SEPARATIONTDESC" />
+                <ScalarProperty Name="SEPARATIONTYPE" ColumnName="SEPARATIONTYPE" />
+                <ScalarProperty Name="AGENCYNAME" ColumnName="AGENCYNAME" />
+                <ScalarProperty Name="AGENCYCODE" ColumnName="AGENCYCODE" />
+                <ScalarProperty Name="EMER_CONTACT" ColumnName="EMER_CONTACT" />
+                <ScalarProperty Name="EMER_RELATION" ColumnName="EMER_RELATION" />
+                <ScalarProperty Name="EMER_ADDRESS" ColumnName="EMER_ADDRESS" />
+                <ScalarProperty Name="EMER_NAME" ColumnName="EMER_NAME" />
+                <ScalarProperty Name="HOME_CONTACT" ColumnName="HOME_CONTACT" />
+                <ScalarProperty Name="MARRIAGEDATE" ColumnName="MARRIAGEDATE" />
+                <ScalarProperty Name="CITIZENSHIP" ColumnName="CITIZENSHIP" />
+                <ScalarProperty Name="DISTMARK" ColumnName="DISTMARK" />
+                <ScalarProperty Name="EYECOLOR" ColumnName="EYECOLOR" />
+                <ScalarProperty Name="HAIRCOLOR" ColumnName="HAIRCOLOR" />
+                <ScalarProperty Name="SHIRTSIZE" ColumnName="SHIRTSIZE" />
+                <ScalarProperty Name="SHOESSIZE" ColumnName="SHOESSIZE" />
+                <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+                <ScalarProperty Name="HEIGHT" ColumnName="HEIGHT" />
+                <ScalarProperty Name="EmployeePresentContactNO" ColumnName="EmployeePresentContactNO" />
+                <ScalarProperty Name="EmployeeHomeAddress" ColumnName="EmployeeHomeAddress" />
+                <ScalarProperty Name="EmployeePresentAddress" ColumnName="EmployeePresentAddress" />
+                <ScalarProperty Name="WTAXSTATUS" ColumnName="WTAXSTATUS" />
+                <ScalarProperty Name="PHILHEALTH" ColumnName="PHILHEALTH" />
+                <ScalarProperty Name="HDMF" ColumnName="HDMF" />
+                <ScalarProperty Name="GSIS" ColumnName="GSIS" />
+                <ScalarProperty Name="SSS" ColumnName="SSS" />
+                <ScalarProperty Name="TIN" ColumnName="TIN" />
+                <ScalarProperty Name="ECOLA" ColumnName="ECOLA" />
+                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+                <ScalarProperty Name="RATECLASS" ColumnName="RATECLASS" />
+                <ScalarProperty Name="TYPEDESCRIPTION" ColumnName="TYPEDESCRIPTION" />
+                <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+                <ScalarProperty Name="CLASS" ColumnName="CLASS" />
+                <ScalarProperty Name="JobLevelGroup" ColumnName="JobLevelGroup" />
+                <ScalarProperty Name="LEVELNAME" ColumnName="LEVELNAME" />
+                <ScalarProperty Name="LEVELCODE" ColumnName="LEVELCODE" />
+                <ScalarProperty Name="SECTIONNAME" ColumnName="SECTIONNAME" />
+                <ScalarProperty Name="SECTION" ColumnName="SECTION" />
+                <ScalarProperty Name="DEPARTMENTNAME" ColumnName="DEPARTMENTNAME" />
+                <ScalarProperty Name="DEPARTMENT" ColumnName="DEPARTMENT" />
+                <ScalarProperty Name="POSITIONNAME" ColumnName="POSITIONNAME" />
+                <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+                <ScalarProperty Name="BRANCHAREA" ColumnName="BRANCHAREA" />
+                <ScalarProperty Name="BRANCHNAME" ColumnName="BRANCHNAME" />
+                <ScalarProperty Name="BRANCH" ColumnName="BRANCH" />
+                <ScalarProperty Name="CorporateName" ColumnName="CorporateName" />
+                <ScalarProperty Name="CORPORATE" ColumnName="CORPORATE" />
+                <ScalarProperty Name="DAYS" ColumnName="DAYS" />
+                <ScalarProperty Name="MONTHS" ColumnName="MONTHS" />
+                <ScalarProperty Name="EFFECTIVITYDATE" ColumnName="EFFECTIVITYDATE" />
+                <ScalarProperty Name="DATEHIRED" ColumnName="DATEHIRED" />
+                <ScalarProperty Name="EMAILADD" ColumnName="EMAILADD" />
+                <ScalarProperty Name="BLOODTYPE" ColumnName="BLOODTYPE" />
+                <ScalarProperty Name="CIVILSTATUSDESC" ColumnName="CIVILSTATUSDESC" />
+                <ScalarProperty Name="CIVILSTATUS" ColumnName="CIVILSTATUS" />
+                <ScalarProperty Name="SEX" ColumnName="SEX" />
+                <ScalarProperty Name="RELIGION" ColumnName="RELIGION" />
+                <ScalarProperty Name="STATUSNAMEEXT" ColumnName="STATUSNAMEEXT" />
+                <ScalarProperty Name="STATUSNAME" ColumnName="STATUSNAME" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="BIRTHDAY" ColumnName="BIRTHDAY" />
+                <ScalarProperty Name="MNAME" ColumnName="MNAME" />
+                <ScalarProperty Name="FNAME" ColumnName="FNAME" />
+                <ScalarProperty Name="LNAME" ColumnName="LNAME" />
+                <ScalarProperty Name="EmployeeName2" ColumnName="EmployeeName2" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EMPL_ID" ColumnName="EMPL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

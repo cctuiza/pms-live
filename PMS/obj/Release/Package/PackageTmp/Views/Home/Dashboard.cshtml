@@ -1,0 +1,298 @@
+﻿@{
+    Layout = null;
+
+}
+<style>
+    .p-info {
+        font-size: 18px;
+        font-family: 'Arial Rounded MT';
+        color:#ffffff;
+    }
+
+    .p-tille-dsk {
+        font-size: 20px;
+        text-align: center;
+    }
+    .panel-box-heading {
+        position: relative;
+        height: 40px;
+        line-height: 36px;
+        background: #f39c12;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 0 8px;
+        border: 1px solid #e5e5e5;
+        border-top-right-radius: 1px;
+        border-top-left-radius: 1px;
+    }
+    
+</style>
+<section class="content" data-ng-init="ctrl.onInit()">
+    <div class="panel panel-primary" style="background:#fff;">
+
+        <div class="panel-body">
+            <!--fill dashboard here-->
+            <div class="container-fluid animated fadeIn">
+                <div class="row">
+
+
+                    <div class="col-md-12 col-lg-12 admin-grid">
+                        <div class="panel panel-info" id="p1">
+
+                            <div class="panel-body" style="background-image:linear-gradient(#4ca1af,#c4e0e5)">
+
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-color:transparent;font-size:20px;">
+                                        <div class="row col-md-12" style="margin-top:30px;">
+                                            <div>  <p class="p-info" style="font-size:40px;"> PAF ID : {{ctrl.dashboardData[0].PAFNumber}}</p></div>
+                                            <br />
+                                            <div>  <p class="p-info"> Name : {{ctrl.dashboardData[0].EmployeeName}}</p></div>
+                                            <div>  <p class="p-info"> Department : {{ctrl.dashboardData[0].DepartmentName}}</p></div>
+                                            <div>  <p class="p-info"> Branch : {{ctrl.dashboardData[0].BranchName}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-6 col-sm-3 col-xs-3 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:250px;background-color:#23858c">
+                                        <div class="row col-md-12" style="margin:30px 0 0 30px;font-size:40px;">
+                                            <div><p class="p-info">CONGRATS&nbsp;:&nbsp;</div>
+                                            <div><p class="p-info">HIPO&nbsp;:&nbsp;{{ctrl.dashboardData[0].FinalRate}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md6 col-lg-6 admin-grid">
+                        <div class="panel panel-info" id="p2">
+
+                            <div class="panel-box-heading" align="center" style="font-size:25px; font-weight:bold;">
+                                <span>PERFORMANCE APPRAISAL FINAL RATE</span>
+                            </div>
+                            <div class="panel-body" style="background:#fff">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-image: linear-gradient(to right,#000046,#1cb5e0)">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:15px;">PREVIOUS</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[1].FinalRate == null ? 0 : ctrl.dashboardData[1].FinalRate}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-color: #1cb5e0">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:15px;">LATEST</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[0].FinalRate ==null ? 0 :ctrl.dashboardData[0].FinalRate}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md6 col-lg-6 admin-grid">
+                        <div class="panel panel-info" id="p2">
+                            <div class="panel-box-heading" align="center" style="font-size:25px; font-weight:bold">
+                                <span class="panel-title">POTENTIAL ASSESSMENT FINAL RATE</span>
+                            </div>
+                            <div class="panel-body" style="background:#fff">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-color: #1cb5e0">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:20px;">Previous</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[1].PotentialAssessment == null ? 0 : ctrl.dashboardData[1].PotentialAssessment}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-image: linear-gradient(to left,#000046,#1cb5e0)">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:20px;">Latest</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[0].PotentialAssessment == null ? 0 : ctrl.dashboardData[0].PotentialAssessment}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md6 col-lg-6 admin-grid">
+                        <div class="panel panel-info" id="p2">
+
+                            <div class="panel-box-heading" align="center" style="font-size:25px; font-weight:bold;">
+                                <span>KRA PERCENTAGE RATE</span>
+                            </div>
+                            <div class="panel-body" style="background:#fff">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-image: linear-gradient(#0f3443,#34e89e)">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:15px;">PREVIOUS</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[1].KRATotalRate}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-image: linear-gradient(#5b000a,#eb5757)">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:15px;">LATEST</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[0].KRATotalRate}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md6 col-lg-6 admin-grid">
+                        <div class="panel panel-info" id="p2">
+                            <div class="panel-box-heading" align="center" style="font-size:25px; font-weight:bold">
+                                <span class="panel-title">BEHAVIORAL RATE</span>
+                            </div>
+                            <div class="panel-body" style="background:#fff">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-image: linear-gradient(#000046,#1cb5e0)">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:20px;">Previous</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[1].Behavioral}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:200px;background-image: linear-gradient(#2f0743,#d721ef)">
+                                        <div class="row col-md-12" style="margin-top:10px; text-align:center;">
+                                            <div><p class="p-info" style="font-size:20px;">Latest</div>
+                                            <div><p class="p-info" style="font-size:100px;margin-top:60px;font-family: 'Arial Rounded MT';">{{ctrl.dashboardData[0].Behavioral}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md6 col-lg-3 admin-grid">
+                        <div class="panel panel-info" id="p2">
+                            <div class="panel-box-heading" align="center" style="font-size:18px;">
+                                <span class="panel-title">BUSINESS PROCESS</span>
+                            </div>
+                            <div class="panel-body" style="background:#FFF;">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto;">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">PREVIOUS</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:5px;font-family: 'Arial Rounded MT'; color:coral">{{ctrl.dashboardData[1].BusinesssProcess}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto;">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">LATEST</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:5px;font-family: 'Arial Rounded MT';color:coral">{{ctrl.dashboardData[0].BusinesssProcess}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md6 col-lg-3 admin-grid">
+                        <div class="panel panel-info" id="p2">
+                            <div class="panel-box-heading" align="center" style="font-size:18px;">
+                                <span class="panel-title">PEOPLE DEVELOPMENT</span>
+                            </div>
+                            <div class="panel-body" style="background:#fff">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto; ">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">PREVIOUS</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:10px;font-family: 'Arial Rounded MT'; color:coral">{{ctrl.dashboardData[1].PeopleDevelopment}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto; ">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">LATEST</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:10px;font-family: 'Arial Rounded MT';color:coral">{{ctrl.dashboardData[0].PeopleDevelopment}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-md6 col-lg-3 admin-grid">
+                        <div class="panel panel-info" id="p2">
+                            <div class="panel-box-heading" align="center" style="font-size:18px;">
+                                <span class="panel-title">CUSTOMER</span>
+                            </div>
+                            <div class="panel-body" style="background:#fff">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto; ">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">PREVIOUS</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:10px;font-family: 'Arial Rounded MT'; color:coral">{{ctrl.dashboardData[1].Customer}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto;">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">LATEST</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:10px;font-family: 'Arial Rounded MT'; color:coral">{{ctrl.dashboardData[0].Customer}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="col-md6 col-lg-3 admin-grid">
+                        <div class="panel panel-info" id="p2">
+                            <div class="panel-box-heading" align="center" style="font-size:18px;">
+                                <span class="panel-title">FINANCIAL</span>
+                            </div>
+                            <div class="panel-body" style="background:#fff">
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto;">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">PREVIOUS</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:10px;font-family: 'Arial Rounded MT'; color:coral">{{ctrl.dashboardData[1].Financial}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-4 col-xs-4 admin-grid">
+                                    <div class="panel  light of-h mb10" style="height:auto;">
+                                        <div class="row col-md-12" style=" text-align:center;">
+                                            <div><p class="p-info" style="font-size:10px; color:darkblue">LATEST</div>
+                                            <div><p class="p-info" style="font-size:40px;margin-top:10px;font-family: 'Arial Rounded MT'; color:coral">{{ctrl.dashboardData[0].Financial}}</p></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

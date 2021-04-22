@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HRISDBModelStoreContainer" CdmEntityContainer="HRISDBEntities">
+    <EntitySetMapping Name="hrisPMSAppraisalDTLs">
+      <EntityTypeMapping TypeName="HRISDBModel.hrisPMSAppraisalDTL">
+        <MappingFragment StoreEntitySet="hrisPMSAppraisalDTL">
+          <ScalarProperty Name="PA_CTRL_NO" ColumnName="PA_CTRL_NO" />
+          <ScalarProperty Name="SEQNO" ColumnName="SEQNO" />
+          <ScalarProperty Name="PANO" ColumnName="PANO" />
+          <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+          <ScalarProperty Name="KPI" ColumnName="KPI" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="ACTION_PLAN" ColumnName="ACTION_PLAN" />
+          <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+          <ScalarProperty Name="HIT_MISS" ColumnName="HIT_MISS" />
+          <ScalarProperty Name="FSCKPI" ColumnName="FSCKPI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hrisPMSAppraisalMSTs">
+      <EntityTypeMapping TypeName="HRISDBModel.hrisPMSAppraisalMST">
+        <MappingFragment StoreEntitySet="hrisPMSAppraisalMST">
+          <ScalarProperty Name="PANO" ColumnName="PANO" />
+          <ScalarProperty Name="EMPL_ID" ColumnName="EMPL_ID" />
+          <ScalarProperty Name="POSI_CODE" ColumnName="POSI_CODE" />
+          <ScalarProperty Name="EMPL_STATUS" ColumnName="EMPL_STATUS" />
+          <ScalarProperty Name="DEPT_CODE" ColumnName="DEPT_CODE" />
+          <ScalarProperty Name="SEC_CODE" ColumnName="SEC_CODE" />
+          <ScalarProperty Name="EMPL_BRANCH" ColumnName="EMPL_BRANCH" />
+          <ScalarProperty Name="DATE_HIRED" ColumnName="DATE_HIRED" />
+          <ScalarProperty Name="EFF_DATE" ColumnName="EFF_DATE" />
+          <ScalarProperty Name="EMP_SBU" ColumnName="EMP_SBU" />
+          <ScalarProperty Name="HEAD_EMPL_ID" ColumnName="HEAD_EMPL_ID" />
+          <ScalarProperty Name="HEAD_POSITION" ColumnName="HEAD_POSITION" />
+          <ScalarProperty Name="HEAD_DEPT" ColumnName="HEAD_DEPT" />
+          <ScalarProperty Name="HEAD_SEC" ColumnName="HEAD_SEC" />
+          <ScalarProperty Name="HEAD_BRANCH" ColumnName="HEAD_BRANCH" />
+          <ScalarProperty Name="HEAD_SBU" ColumnName="HEAD_SBU" />
+          <ScalarProperty Name="COVERED_FROM" ColumnName="COVERED_FROM" />
+          <ScalarProperty Name="COVERED_TO" ColumnName="COVERED_TO" />
+          <ScalarProperty Name="DT_OF_AP" ColumnName="DT_OF_AP" />
+          <ScalarProperty Name="DT_OF_NX_AP" ColumnName="DT_OF_NX_AP" />
+          <ScalarProperty Name="COMMENTS" ColumnName="COMMENTS" />
+          <ScalarProperty Name="RATED_BY" ColumnName="RATED_BY" />
+          <ScalarProperty Name="VERIFIED_BY" ColumnName="VERIFIED_BY" />
+          <ScalarProperty Name="NOTED_BY_OPHEAD" ColumnName="NOTED_BY_OPHEAD" />
+          <ScalarProperty Name="NOTED_BY_SBUHEAD" ColumnName="NOTED_BY_SBUHEAD" />
+          <ScalarProperty Name="ACKNOWLEDGEBY" ColumnName="ACKNOWLEDGEBY" />
+          <ScalarProperty Name="ACKNOWLEDGEDATE" ColumnName="ACKNOWLEDGEDATE" />
+          <ScalarProperty Name="ACKNOWLEDGEBYSUP" ColumnName="ACKNOWLEDGEBYSUP" />
+          <ScalarProperty Name="ACKNOWLEDGEDATESUP" ColumnName="ACKNOWLEDGEDATESUP" />
+          <ScalarProperty Name="PAACKNOWLEDGEBY" ColumnName="PAACKNOWLEDGEBY" />
+          <ScalarProperty Name="PAACKNOWLEDGEDATE" ColumnName="PAACKNOWLEDGEDATE" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="SOURCE" ColumnName="SOURCE" />
+          <ScalarProperty Name="CREA_BY" ColumnName="CREA_BY" />
+          <ScalarProperty Name="CREA_DT" ColumnName="CREA_DT" />
+          <ScalarProperty Name="MODI_BY" ColumnName="MODI_BY" />
+          <ScalarProperty Name="MODI_DT" ColumnName="MODI_DT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="hrisPMSAppraisalParams">
+      <EntityTypeMapping TypeName="HRISDBModel.hrisPMSAppraisalParam">
+        <MappingFragment StoreEntitySet="hrisPMSAppraisalParams">
+          <ScalarProperty Name="PARCTRNo" ColumnName="PARCTRNo" />
+          <ScalarProperty Name="PARPANO" ColumnName="PARPANO" />
+          <ScalarProperty Name="PARTYPE" ColumnName="PARTYPE" />
+          <ScalarProperty Name="PARCODE" ColumnName="PARCODE" />
+          <ScalarProperty Name="PARWEIGHT" ColumnName="PARWEIGHT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="V_hrisEMPLOYEE">
+      <EntityTypeMapping TypeName="HRISDBModel.V_hrisEMPLOYEE">
+        <MappingFragment StoreEntitySet="V_hrisEMPLOYEE">
+          <ScalarProperty Name="PAYROLL_TYPE" ColumnName="PAYROLL_TYPE" />
+          <ScalarProperty Name="DESIREDREMARKS" ColumnName="DESIREDREMARKS" />
+          <ScalarProperty Name="ISDESIRED" ColumnName="ISDESIRED" />
+          <ScalarProperty Name="EXITINTERVIEW" ColumnName="EXITINTERVIEW" />
+          <ScalarProperty Name="SEA" ColumnName="SEA" />
+          <ScalarProperty Name="CONTRACTENDDATE" ColumnName="CONTRACTENDDATE" />
+          <ScalarProperty Name="Is_BLACKLISTED" ColumnName="Is_BLACKLISTED" />
+          <ScalarProperty Name="EMAILNOTIFICATION" ColumnName="EMAILNOTIFICATION" />
+          <ScalarProperty Name="SEPARATED_DATE" ColumnName="SEPARATED_DATE" />
+          <ScalarProperty Name="EMPL_RELIGION" ColumnName="EMPL_RELIGION" />
+          <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+          <ScalarProperty Name="MODIFIEDDATE" ColumnName="MODIFIEDDATE" />
+          <ScalarProperty Name="MODIFIEDBY" ColumnName="MODIFIEDBY" />
+          <ScalarProperty Name="CREATEDDATE" ColumnName="CREATEDDATE" />
+          <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+          <ScalarProperty Name="ImmediateLevel" ColumnName="ImmediateLevel" />
+          <ScalarProperty Name="ImmediateSection" ColumnName="ImmediateSection" />
+          <ScalarProperty Name="ImmediateDepartment" ColumnName="ImmediateDepartment" />
+          <ScalarProperty Name="ImmediatePosition" ColumnName="ImmediatePosition" />
+          <ScalarProperty Name="ImmediateBranch" ColumnName="ImmediateBranch" />
+          <ScalarProperty Name="ImmediateSBU" ColumnName="ImmediateSBU" />
+          <ScalarProperty Name="ImmediateDHired" ColumnName="ImmediateDHired" />
+          <ScalarProperty Name="ImmediateEmail" ColumnName="ImmediateEmail" />
+          <ScalarProperty Name="ImmediateStatus" ColumnName="ImmediateStatus" />
+          <ScalarProperty Name="ImmediateBDay" ColumnName="ImmediateBDay" />
+          <ScalarProperty Name="ImmediateName" ColumnName="ImmediateName" />
+          <ScalarProperty Name="ImmediateID" ColumnName="ImmediateID" />
+          <ScalarProperty Name="LASTPICUPDATED" ColumnName="LASTPICUPDATED" />
+          <ScalarProperty Name="SEPARATIONTDESC" ColumnName="SEPARATIONTDESC" />
+          <ScalarProperty Name="SEPARATIONTYPE" ColumnName="SEPARATIONTYPE" />
+          <ScalarProperty Name="AGENCYNAME" ColumnName="AGENCYNAME" />
+          <ScalarProperty Name="AGENCYCODE" ColumnName="AGENCYCODE" />
+          <ScalarProperty Name="EMER_CONTACT" ColumnName="EMER_CONTACT" />
+          <ScalarProperty Name="EMER_RELATION" ColumnName="EMER_RELATION" />
+          <ScalarProperty Name="EMER_ADDRESS" ColumnName="EMER_ADDRESS" />
+          <ScalarProperty Name="EMER_NAME" ColumnName="EMER_NAME" />
+          <ScalarProperty Name="HOME_CONTACT" ColumnName="HOME_CONTACT" />
+          <ScalarProperty Name="MARRIAGEDATE" ColumnName="MARRIAGEDATE" />
+          <ScalarProperty Name="CITIZENSHIP" ColumnName="CITIZENSHIP" />
+          <ScalarProperty Name="DISTMARK" ColumnName="DISTMARK" />
+          <ScalarProperty Name="EYECOLOR" ColumnName="EYECOLOR" />
+          <ScalarProperty Name="HAIRCOLOR" ColumnName="HAIRCOLOR" />
+          <ScalarProperty Name="SHIRTSIZE" ColumnName="SHIRTSIZE" />
+          <ScalarProperty Name="SHOESSIZE" ColumnName="SHOESSIZE" />
+          <ScalarProperty Name="WEIGHT" ColumnName="WEIGHT" />
+          <ScalarProperty Name="HEIGHT" ColumnName="HEIGHT" />
+          <ScalarProperty Name="EmployeePresentContactNO" ColumnName="EmployeePresentContactNO" />
+          <ScalarProperty Name="EmployeeHomeAddress" ColumnName="EmployeeHomeAddress" />
+          <ScalarProperty Name="EmployeePresentAddress" ColumnName="EmployeePresentAddress" />
+          <ScalarProperty Name="WTAXSTATUS" ColumnName="WTAXSTATUS" />
+          <ScalarProperty Name="PHILHEALTH" ColumnName="PHILHEALTH" />
+          <ScalarProperty Name="HDMF" ColumnName="HDMF" />
+          <ScalarProperty Name="GSIS" ColumnName="GSIS" />
+          <ScalarProperty Name="SSS" ColumnName="SSS" />
+          <ScalarProperty Name="TIN" ColumnName="TIN" />
+          <ScalarProperty Name="ECOLA" ColumnName="ECOLA" />
+          <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+          <ScalarProperty Name="RATECLASS" ColumnName="RATECLASS" />
+          <ScalarProperty Name="TYPEDESCRIPTION" ColumnName="TYPEDESCRIPTION" />
+          <ScalarProperty Name="TYPE" ColumnName="TYPE" />
+          <ScalarProperty Name="CLASS" ColumnName="CLASS" />
+          <ScalarProperty Name="JobLevelGroup" ColumnName="JobLevelGroup" />
+          <ScalarProperty Name="LEVELNAME" ColumnName="LEVELNAME" />
+          <ScalarProperty Name="LEVELCODE" ColumnName="LEVELCODE" />
+          <ScalarProperty Name="SECTIONNAME" ColumnName="SECTIONNAME" />
+          <ScalarProperty Name="SECTION" ColumnName="SECTION" />
+          <ScalarProperty Name="DEPARTMENTNAME" ColumnName="DEPARTMENTNAME" />
+          <ScalarProperty Name="DEPARTMENT" ColumnName="DEPARTMENT" />
+          <ScalarProperty Name="POSITIONNAME" ColumnName="POSITIONNAME" />
+          <ScalarProperty Name="POSITION" ColumnName="POSITION" />
+          <ScalarProperty Name="BRANCHAREA" ColumnName="BRANCHAREA" />
+          <ScalarProperty Name="BRANCHNAME" ColumnName="BRANCHNAME" />
+          <ScalarProperty Name="BRANCH" ColumnName="BRANCH" />
+          <ScalarProperty Name="CorporateName" ColumnName="CorporateName" />
+          <ScalarProperty Name="CORPORATE" ColumnName="CORPORATE" />
+          <ScalarProperty Name="DAYS" ColumnName="DAYS" />
+          <ScalarProperty Name="MONTHS" ColumnName="MONTHS" />
+          <ScalarProperty Name="EFFECTIVITYDATE" ColumnName="EFFECTIVITYDATE" />
+          <ScalarProperty Name="DATEHIRED" ColumnName="DATEHIRED" />
+          <ScalarProperty Name="EMAILADD" ColumnName="EMAILADD" />
+          <ScalarProperty Name="BLOODTYPE" ColumnName="BLOODTYPE" />
+          <ScalarProperty Name="CIVILSTATUSDESC" ColumnName="CIVILSTATUSDESC" />
+          <ScalarProperty Name="CIVILSTATUS" ColumnName="CIVILSTATUS" />
+          <ScalarProperty Name="SEX" ColumnName="SEX" />
+          <ScalarProperty Name="RELIGION" ColumnName="RELIGION" />
+          <ScalarProperty Name="STATUSNAMEEXT" ColumnName="STATUSNAMEEXT" />
+          <ScalarProperty Name="STATUSNAME" ColumnName="STATUSNAME" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="BIRTHDAY" ColumnName="BIRTHDAY" />
+          <ScalarProperty Name="MNAME" ColumnName="MNAME" />
+          <ScalarProperty Name="FNAME" ColumnName="FNAME" />
+          <ScalarProperty Name="LNAME" ColumnName="LNAME" />
+          <ScalarProperty Name="EmployeeName2" ColumnName="EmployeeName2" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EMPL_ID" ColumnName="EMPL_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

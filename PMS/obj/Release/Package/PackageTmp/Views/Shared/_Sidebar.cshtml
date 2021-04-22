@@ -1,0 +1,74 @@
+﻿
+<aside id="sidebar_left" class="nano nano-primary">
+    <div class="nano-content">
+        <ul class="nav sidebar-menu">
+            <li class="sidebar-label pt20">Menu</li>
+            <li>
+                <a ui-sref="dashboard">
+                    <span class="fa fa-dashboard "></span>
+                    <span class="sidebar-title">Dashboard</span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="nav sidebar-menu">
+            @foreach (PMS.Models.MenuModel menurw in Model)
+            {
+
+                <li>
+                    <a class="accordion-toggle" href="#">
+                        <span class="@menurw.icon"></span>
+                        <span class="sidebar-title">@menurw.name</span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="nav sub-nav">
+                        @foreach (PMS.Models.MenuModel chldMenu in menurw.pages)
+                        {
+                            <li>
+                                <a ui-sref="@chldMenu.stage">
+                                    <span class="@chldMenu.icon"></span> @chldMenu.name
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </li>
+            }
+
+
+        </ul>
+
+        <ul class="nav sidebar-menu">
+
+            <li>
+                <a href="https://ticket.fastlogistics.com.ph/open.php" target="_blank" class="pointer">
+                    <span class="glyphicons glyphicons-book_open"></span>
+                    <span class="sidebar-title">Support Center</span>
+                </a>
+            </li>
+        </ul>
+
+
+
+
+
+        <!-- sidebar menu -->
+
+        <div class="sidebar-toggle-mini">
+            <a href="#">
+                <span class="fa fa-sign-out"></span>
+            </a>
+        </div>
+    </div>
+
+    @*<style>
+        div.versionnum {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+    <div class="versionnum"><a href="#" target="_blank">v.1.16.12.1</a></div>*@
+</aside>

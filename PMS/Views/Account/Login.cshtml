@@ -1,0 +1,138 @@
+﻿@{
+    Layout = null;
+    PMS.Utils.Procedure procedure = new PMS.Utils.Procedure();
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>PMS::Login</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/assets/bootstrap4/bootstrap.min.css" rel="stylesheet" />
+    <!-- Material Design Bootstrap -->
+    <link href="~/assets/custom_style/mdb.min.css" rel="stylesheet" />
+    <!-- Your custom styles (optional) -->
+    <link href="~/assets/custom_style/login-style.css" rel="stylesheet" />
+
+    <link href="~/assets/custom_style/animate.css" rel="stylesheet" />
+    <link href="~/assets/custom_style/toastr.css" rel="stylesheet" />
+
+    <link href="~/assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+
+<body ng-app="apps" ng-controller="loginController" ng-cloak>
+    <div class="preloader" id="pload">
+        <div class="loader"></div>
+        <span class="loadContent">Please wait! Launching PMS</span>
+    </div>
+    <!-- Start your project here-->
+    <section class="loginForm" id="pcontent" style="display:none;" ng-init="onInit()">
+        <div class="form-elegant">
+            <!--Form without header-->
+            <div class="card">
+
+                <div class="card-body mx-4">
+
+                    <!--Header-->
+                    <h3 class="dark-grey-text mb-2"><strong>{{transName}}</strong></h3>
+                    <!-- Fast Application -->
+                    <div class="row my-3">
+                        <!--Itsek-->
+                        <img src="~/assets/img/itsek.png" class="mr-md-3 animated  zoomIn" data-toggle="tooltip" title="Itsek" />
+                        <!--PISM-->
+                        <img src="~/assets/img/paloup.png" class="mr-md-3 animated  zoomIn" data-toggle="tooltip" title="Paloup" />
+                        <!--PISO-->
+                        <img src="~/assets/img/piso.png" class="mr-md-3 animated  zoomIn" data-toggle="tooltip" title="PISO" />
+                        <!--Paloup-->
+                        <img src="~/assets/img/pism.png" class="mr-md-3 animated  zoomIn" data-toggle="tooltip" title="PISM" />
+                        <!--PMS-->
+                        <img src="~/assets/img/pms.png" class="mr-md-3 animated  zoomIn" data-toggle="tooltip" title="PMS" />
+                    </div>
+
+                    <!--Body-->
+                    <div class="md-form username">
+                        <input type="text" id="Form-email1" class="form-control" placeholder="Username" required autofocus autocomplete="off" ng-model="emailAlias">
+                        <label for="Form-email1">Username / Email address</label>
+                        <p class="font-small blue-text d-flex justify-content-end" ng-show="enum!=1"> <a ng-click="enum=1; transName = 'Sign in'" class="blue-text ml-1">Back to Sign in</a></p>
+                    </div>
+
+                    <div class="md-form pb-3 password" ng-hide="enum!=1">
+                        <input type="password" id="Form-pass1" class="form-control" placeholder="Password" required ng-model="pass" ng-enter="onLogin()">
+                        <label for="Form-pass1">Your password</label>
+                        <p class="font-small blue-text d-flex justify-content-end"> <a ng-click="onForgotPassword()" class="blue-text ml-1">Forgot Password?</a></p>
+                    </div>
+
+                    <div class="row d-flex align-items-center mb-4">
+                        <!--Grid column-->
+                        <div class="text-center mb-3 col-md-12">
+                            <button type="button"
+                                    ng-show="enum==1"
+                                    class="btn btn-primary btn-block btn-rounded z-depth-1 waves-effect waves-light"
+                                    ng-disabled="txtbuttonLogin=='Loading...'? true : false"
+                                    ng-click="onLogin()">
+                                {{txtbuttonLogin}}
+                            </button>
+
+                            <button type="button"
+                                    ng-show="enum==2 || enum==3"
+                                    class="btn btn-primary btn-block btn-rounded z-depth-1 waves-effect waves-light"
+                                    ng-disabled="txtbuttonLogin=='Loading...'? true : false"
+                                    ng-click="onSubmitRequest()">
+                                SUBMIT
+                            </button>
+                        </div>
+                        <!--Grid column-->
+                    </div>
+
+                </div>
+
+                <!--Footer-->
+                <div class="modal-footer mx-5 pt-3 mb-1">
+                    <p class="font-small grey-text d-flex justify-content-end">Not yet register? <a ng-click="onRequest()" class="blue-text ml-1">Request</a></p>
+                </div>
+
+            </div>
+            <!--/Form without header-->
+        </div>
+    </section>
+    <!-- /Start your project here-->
+    <!-- SCRIPTS -->
+    <!-- Page Javascript -->
+    <script type="text/javascript">
+        var mainUrl='@Url.Content("~/Apps/")';
+        var u_account = '@Url.Content("~/Account/")';
+        var coreapi = '@procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.CoreApi)';
+        var coredomain = '@procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.CoreDomain)'
+
+        @*var mainUrl ='http://apps.fastlogistics.com.ph/pmstest/@Url.Content("Apps/")';
+        var u_account = 'http://apps.fastlogistics.com.ph/pmstest/@Url.Content("Account/")';*@
+
+    </script>
+    <!-- JQuery -->
+    <script src="~/vendor/jquery/jquery-1.11.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script src="~/assets/js/popper.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/assets/bootstrap4/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script src="~/assets/js/mdb.min.js"></script>
+    <!-- AngularJS-->
+    <script src="~/Scripts/localforage/localforage.min.js"></script>
+    <script src="~/Scripts/lib/spin.min.js"></script>
+    <script src="~/Scripts/lib/angular.min.js"></script>
+    <script src="~/Scripts/apps/module/angular-localForage.js"></script>
+    <script src="~/Scripts/apps/directive/apps-directive.js"></script>
+    <script src="~/Scripts/apps/directive/angular-block-ui.min.js"></script>
+    <script src="~/Scripts/apps/service/rjg-cookie.js"></script>
+    <script src="~/Scripts/apps/directive/angular-animate.js"></script>
+    <script src="~/Scripts/apps/directive/toastr.js"></script>
+    <script src="~/Scripts/apps/directive/toastr.tpl.js"></script>
+    <script src="~/Scripts/apps/controller/app-login.js"></script>
+</body>
+
+</html>

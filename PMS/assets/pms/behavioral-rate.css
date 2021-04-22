@@ -1,0 +1,46 @@
+﻿.info-complete {
+     
+    float:left;
+    background-image: url('../Images/linekra.png');
+    width:400px;
+    height:12px;
+}
+
+
+.info-entry {
+    
+    float:left;
+    background-image: url('../Images/line2.png');
+    width:400px;
+    height:12px;
+}
+
+
+/*tabl style*/
+ .tblheadInfo {
+           width: 100%;
+        border: 1px;
+        border-collapse: collapse;
+        background-color:#fbf7f7;
+    }
+
+    .tblpaf {
+        width: 100%;
+        border: 1px #808080;
+        border-collapse: collapse;
+    }
+
+        .tblpaf tr, th, td {
+            border: 1px solid #808080;
+            font-family: Verdana;
+            font-size: 11px;
+            background-color: whitesmoke;
+        }
+
+    hr {
+        font-family: Verdana;
+    }
+
+.note {
+float: left; background-color: #ecf1d5; color: black; width: 100%; font-family: Verdana; font-size: 10px;
+}

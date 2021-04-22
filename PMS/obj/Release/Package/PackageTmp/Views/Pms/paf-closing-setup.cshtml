@@ -1,0 +1,191 @@
+﻿@{
+    Layout = null;
+}
+
+
+
+<section class="content" ng-init="onGetPanoDetails()">
+    <div class="panel panel-primary">
+
+        <div class="form-horizontal">
+            <div class="panel-body">
+                <h2 class="page-header">Behavioral Rate Entry</h2>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Employee ID:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" ng-model="self.empId">
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Name:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" ng-model="self.empName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Department:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" ng-model="self.department" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Position:</label>
+                    <div class="col-lg-3">
+                        <input type="text" disabled class="form-control" ng-model="self.position" required>
+                    </div>
+                </div>
+
+
+
+                <tabset>
+                    <tab ng-repeat="tab in kraData" heading="{{tab.kra_name}}">
+                        <div ng-if="tab.kra_name=='BEHAVIORAL INDICATORS' && self.isbehavioralrate==false">
+
+                            <table class="table table-hover" id="tbldata">
+                                <tr>
+                                    <th>KEY PERFORMANCE INDICATORS</th>
+                                    <th>WEIGHT</th>
+                                    <th>RATE</th>
+                                </tr>
+                                <tr ng-repeat="kpi in tab.kpi_list">
+                                    <td>
+                                        <input type="hidden" ng-model="kpi.KPI_MASTER_ID" />
+                                        <a class="pointer" ng-click="onViewBehavioralLog(kpi.KPI_MASTER_ID)">{{kpi.KEY_INDICATOR}}</a>
+                                    </td>
+                                    <td>{{kpi.KEY_PERCENT}}</td>
+                                    <td>
+                                        <input type="number" step="any" max="100" ng-model="kpi.kpirating" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3"><h5><strong>Percentage Scale = 1(1-60), 2(61-70), 3(71-80), 4(81-90), 5(91-100)</strong></h5></td>
+                                </tr>
+                            </table>
+
+                        </div>
+                        <div ng-if="tab.kra_name=='BEHAVIORAL INDICATORS' && self.isbehavioralrate==true">
+
+                            <accordion>
+                                <accordion-group ng-repeat="subkpi in tab.masterEntry">
+                                    <accordion-heading>
+                                        {{subkpi.subkpidescription}}
+                                    </accordion-heading>
+
+                                    <div style="width: 100%; text-anchor: start; text-decoration-line: none; display: block;" class="text-blue">
+                                        <p style="font-family:Verdana,Tahoma; font-size:11px; padding:0 0 0 5px;">Target:{{subkpi.target}} HIT:{{onCountHit(subkpi.RateEntry)}} MISSED:{{onCountMissed(subkpi.RateEntry)}} AVERAGE:{{onGetAverage(subkpi.RateEntry,subkpi.hitmissind,subkpi.computeType,subkpi.target) | number:2}}%</p>
+                                    </div>
+                                    <div class="accordion-inner" style="max-height: 500px; overflow-y: scroll; overflow-x: hidden;">
+                                        <div class="col-lg-9">
+                                            <table class="table table-condensed table-striped">
+                                                <tr>
+                                                    <th>#.</th>
+                                                    <th>Event Code</th>
+                                                    <th>Actual Rate</th>
+                                                    <th>Result</th>
+                                                    <th>Remarks</th>
+                                                </tr>
+                                                <tr ng-repeat="rEntry in subkpi.RateEntry">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{rEntry.eventcode}}</td>
+                                                    <td><input type="number" class="form-control input-sm" min="0" ng-model="rEntry.actualrate " ng-change="onSetEntryResult(rEntry,subkpi.target,subkpi.hitmissind,subkpi.subkpi)" ng-disabled="true"></td>
+                                                    <td>
+                                                        <label ng-class="onKPIResult(rEntry.rate_result) == 'HIT' ? 'rate-hit' : 'rate-miss' ">{{onKPIResult(rEntry.rate_result)}}</label>
+                                                    </td>
+                                                    <td><textarea rows="1" class=" form-control input-sm" ng-model="rEntry.remarks" ng-change="onSetEntryResult(rEntry,subkpi.target,subkpi.hitmissind,subkpi.subkpi)" ng-disabled="true"></textarea></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </accordion-group>
+                            </accordion>
+                        </div>
+                        <div ng-if="tab.kra_name!='BEHAVIORAL INDICATORS'">
+
+                            <accordion>
+                                <accordion-group ng-repeat="subkpi in tab.masterEntry">
+                                    <accordion-heading>
+                                        {{subkpi.subkpidescription}}
+                                    </accordion-heading>
+
+                                    <div style="width: 100%; text-anchor: start; text-decoration-line: none; display: block;" class="text-blue">
+                                        <p style="font-family:Verdana,Tahoma; font-size:11px; padding:0 0 0 5px;">Target:{{subkpi.target}} HIT:{{onCountHit(subkpi.RateEntry)}} MISSED:{{onCountMissed(subkpi.RateEntry)}} AVERAGE:{{onGetAverage(subkpi.RateEntry,subkpi.hitmissind,subkpi.computeType,subkpi.target) | number:2}}%</p>
+                                    </div>
+                                    <div class="accordion-inner" style="max-height: 500px; overflow-y: scroll; overflow-x: hidden;">
+                                        <div class="col-lg-9">
+                                            <table class="table table-condensed table-striped">
+                                                <tr>
+                                                    <th>#.</th>
+                                                    <th>Event Code</th>
+                                                    <th>Actual Rate</th>
+                                                    <th>Result</th>
+                                                    <th>Remarks</th>
+                                                </tr>
+                                                <tr ng-repeat="rEntry in subkpi.RateEntry">
+                                                    <td>{{$index + 1}}</td>
+                                                    <td>{{rEntry.eventcode}}</td>
+                                                    <td><input type="number" class="form-control input-sm" min="0" ng-model="rEntry.actualrate " ng-change="onSetEntryResult(rEntry,subkpi.target,subkpi.hitmissind,subkpi.subkpi)" ng-disabled="true"></td>
+                                                    <td>
+                                                        <label ng-class="onKPIResult(rEntry.rate_result) == 'HIT' ? 'rate-hit' : 'rate-miss' ">{{onKPIResult(rEntry.rate_result)}}</label>
+                                                    </td>
+                                                    <td><textarea rows="1" class=" form-control input-sm" ng-model="rEntry.remarks" ng-change="onSetEntryResult(rEntry,subkpi.target,subkpi.hitmissind,subkpi.subkpi)" ng-disabled="true"></textarea></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </accordion-group>
+                            </accordion>
+                        </div>
+
+                    </tab>
+
+                </tabset>
+
+            </div>
+            <div class="panel-footer text-right" ng-show="onGetSetting('isShowCloseButton')==1">
+                <button class="btn btn-warning btn-gradient btn-rounded" @*ng-show="IsClosePAF"*@ ng-show="showClosePAFButton" ng-click="onClosePAF(kraData)">{{btncation}}</button>
+
+                @*<pre class="text-left" style="background-color:#ed1111; color:#ffffff" ng-show="!IsClosePAF">In order to Close your Performance Appraisal Form, you need to make sure that all recorded performance under Record Performance activity has been completely acknowledged.
+PAF closing button will appear here when ready to close.
+</pre>*@
+            </div>
+            @*<pre>{{kraData|json:2}}</pre>*@
+        </div>
+    </div>
+</section>
+
+
+<!-- modal view for behaviorallog-->
+<div id="modal-behaviorallog" class="popup-basic popup-lg bg-none mfp-with-anim mfp-hide">
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicon glyphicon-tasks"></i>Behavioral List</span>
+        </div>
+        <div class="panel-body">
+
+            <div class="row no-padding">
+                <div style="height:300px; overflow: scroll; overflow-x: hidden;">
+                    <table class="table table-condensed table-striped">
+                        <tr class="tr-head-info">
+                            <th class="col-lg-1">Details</th>
+                        </tr>
+                        <tr ng-repeat="x in behavioralList">
+                            <td class="col-lg-1">{{x.details}}</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <div style="position:fixed; float:left;">Total No. {{behavioralList.length | number}}</div>
+            <button class="btn" ng-click="closeModalForm()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+

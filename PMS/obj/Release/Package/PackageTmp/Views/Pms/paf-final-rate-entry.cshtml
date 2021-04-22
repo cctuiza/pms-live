@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "PMS::Behavioral Rate";
+    Layout = "~/Views/Shared/_PmsLayoutMsg.cshtml";
+    PMS.Utils.Procedure procedure = new PMS.Utils.Procedure();
+}
+
+<div ng-app="pms" ng-cloak>
+    <div class="panel panel-info" data-ng-controller="pms.finalrate" data-ng-init="onInit()">
+        <link href="~/Content/pms/behavioral-rate.css" rel="stylesheet" />
+        <center><h3>Performance Appraisal System</h3></center>
+
+
+        <div class="text-info" >
+            <link href="~/Content/pms/behavioral-rate.css" rel="stylesheet" />
+            <strong>Note:</strong> please rate the behavioural to complete this appraisal period.
+
+        </div>
+
+        <div style="margin-top: 20px;" class="text-success">
+            <div><strong>KRA Rating</strong>(complete) </div>
+            <div class="info-complete">
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;" class="text-info">
+            <div><strong>Behavioral Rating</strong>(pending) </div>
+            <div class="info-entry">
+            </div>
+        </div>
+
+        <table class="table table-hover" id="tbldata">
+          
+                <tr>
+                    <th>KEY PERFORMANCE INDICATORS</th>
+                    <th>WEIGHT</th>
+                    <th>RATE</th>
+                </tr>
+            
+            <tr data-ng-repeat="kpi in pafprofile.behaveKRA.kpi_lst">
+                <td>
+                    <input type="hidden" data-ng-model="kpi.KPI_MASTER_ID" />{{kpi.KEY_INDICATOR}}
+                </td>
+                <td>{{kpi.KEY_PERCENT}}</td>
+                <td>
+                   
+                  <input type="number" step="any" data-ng-model="kpi.kpirating" />
+                </td>
+            </tr>
+                
+         
+
+        </table>
+
+        <div style="text-align:center; margin-top:20px; margin-bottom:5px;">
+
+            <input type="button" data-ng-click="onSave()" value="Save" class="btn btn-success btn-gradient btn-rounded" />
+        </div>
+    </div>
+</div>
+@section js{
+    <script>
+        var app = angular.module('pms', []);
+        var coreapi = '@procedure.GetUrlConfig(PMS.Utils.GlobalParams.configname.CoreApi)';
+        app.config(function ($httpProvider) {
+            $httpProvider.defaults.headers.common = {};
+            $httpProvider.defaults.headers.post = { 'Content-Type': 'application/json' };
+            $httpProvider.defaults.headers.put = { 'Content-Type': 'application/json'};
+            $httpProvider.defaults.headers.patch = {};
+            $httpProvider.defaults.headers.get = {};
+
+            //add global token
+            $httpProvider.interceptors.push(function ($q) {
+                return {
+                    'request': function (config) {
+
+                        config.headers['Token'] = 'MTMwMzgzMDo4ODkyZDgyNS1jZTQyLTQ0OGEtOTNlOS04ZTI1MWI4YWU3ZDd0c2Fm';
+                        return config;
+                    }
+                };
+            });
+        })
+        app.controller('pms.finalrate', ['$scope', '$http', function ($scope, $http) {
+            var hascode = '@ViewBag.hascode';
+      
+            $scope.pafprofile = {};
+
+
+            //init list
+            $scope.onInit = function () {
+                $http.get(coreapi +'pms/get-pano-details/' + hascode).success(function (data, status, headers, config) {
+                    if (!data.hasError) {
+                        $scope.pafprofile = data.data;
+                    } else {
+                        console.log('error:onCommit \n' + data.errorMessage);
+                    }
+
+                }).error(function (data, status, headers, config) {
+                    console.log('error:onCommit');
+                });
+            };
+
+            //save
+            $scope.onSave = function () {
+                $scope.pafprofile.status = 'C';
+                $scope.pafprofile.userId=
+                $http.post(coreapi +'pms/post-close-paf-details/', $scope.pafprofile).success(function (data, status, headers, config) {
+                    if (!data.hasError) {
+                        window.location.replace('@Url.Content("~/PMS/thankyou/")' + hascode);
+                    } else {
+                        console.log('error:onCommit \n' + data.errorMessage);
+                    }
+
+                }).error(function (data, status, headers, config) {
+                    console.log('error:onCommit');
+                });
+            };
+
+        }]);
+
+    </script>
+}
+
+
+
+

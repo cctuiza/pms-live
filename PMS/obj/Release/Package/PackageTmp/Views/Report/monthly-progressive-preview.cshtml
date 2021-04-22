@@ -1,0 +1,152 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+    .pms-mail-kpi  {
+    background-color:#A6CAF0;
+}
+</style>
+
+<section class="content" data-ng-init="onPreview()">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span class="panel-icon"><span class="glyphicon glyphicon-print"></span></span>
+            <span class="panel-title">Monthly Progressive Report</span>
+            <div class="panel-header-menu pull-right mr10">
+
+                <a class="btn btn-xs btn-default btn-gradient mr5 pointer" data-ng-click="onCallFilterModal()"> <i class="glyphicons glyphicons-filter"></i> </a>
+                <a href="javascript:window.print()" class="btn btn-xs btn-default btn-gradient mr5 pointer"> <i class="glyphicons glyphicons-print"></i>  </a>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <!--Header Report-->
+            <div class="text-center" data-ng-show="onshow">
+                <h2>Monthly Progressive Report</h2>
+                <h5>Covered By: {{strMonthFrom}} - {{strMonthTo}}  , {{filter.yr}}</h5>
+            </div>
+            <div class="text-left" data-ng-show="onshow">
+                <h5>Employee ID: {{reportData.header.employeeId}}</h5>
+                <h5>Name: {{reportData.header.employeename2}}</h5>
+                <h5>PAF Id: {{reportData.header.pafId}}</h5>
+                <h5>Position: {{reportData.header.positionname}}</h5>
+            </div>
+            <hr />
+            <!--Body Report-->
+            <div data-ng-repeat="kpi in reportData.body" data-ng-show="onshow">
+                <table>
+                    <tr>
+                        <td>PAF Group:</td>
+                        <td>{{kpi.paGroup}}</td>
+                    </tr>
+                    <tr>
+                        <td>Main KPI:</td>
+                        <td>{{kpi.mainKPIDescription}}</td>
+                    </tr>
+                    <tr>
+                        <td>Weight:</td>
+                        <td>{{kpi.mainKPIWeight}}</td>
+                    </tr>
+                </table>
+                <hr />
+                <div data-ng-repeat="sub in kpi.subKPI">
+                    <table width="100%">
+                        <tr>
+                            <th colspan="5">Sub Key Performance Indicator</th>
+                            <th>Target</th>
+                            <th>Occurence</th>
+                            <th>Compute Type</th>
+                            <th>Hit Indicator</th>
+                        </tr>
+                        <tr class="pms-mail-kpi">
+                            <td colspan="5">{{sub.subDescription}}</td>
+                            <td>{{sub.targetValue}}</td>
+                            <td>{{sub.occurence}}</td>
+                            <td class="text-center">{{sub.computetype}}</td>
+                            <td>{{sub.hitMissIndicator}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Event Code</th>
+                            <th>Actual Rating</th>
+                            <th>Hit?</th>
+                            <th colspan="4">Remarks</th>
+                        </tr>
+                        <tr data-ng-repeat="rating in sub.subKPIData">
+                            <td width="200px">{{rating.eventCode}}</td>
+                            <td width="200px">{{rating.actualRating | number:2}}</td>
+                            <td width="200px">{{rating.hitMissIndicator==1 ? 'Yes':'No'}}</td>
+                            <td colspan="4">{{rating.remarks}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="text-align:right;"><strong>Total Number of HIT >>></strong></td>
+                            <td>&nbsp;<b>{{sumRating(sub.subKPIData)}}</b></td>
+                            <td colspan="3" style="text-align:right;"><strong>SUB KPI Rating >>></strong></td>
+                            <td>&nbsp;<b>{{sumKPIAverage(sub.subKPIData,sub.hitMissIndicator,sub.computetype,sub.targetValue) | number:2}}%</b></td>
+                            @*<td>&nbsp;<b>{{sub.grading | number:0}}%</b></td>*@
+                        </tr>
+                        <tr>
+                            <td colspan="9"><hr style="border-style:dashed;" /></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="pull-left" data-ng-show="onshow">
+                <u>{{reportData.header.employeename2}}</u>
+                <br />
+                Signature Over Printed Name<br />
+                <strong>Subordinate</strong>
+            </div>
+            <div class="pull-right" data-ng-show="onshow">
+                <u>{{reportData.header.ImmediateName}}</u>
+                <br />
+                Signature Over Printed Name<br />
+                <strong>Immediate Head</strong>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</section>
+
+<!--modal report param for Transaction Ledger-->
+<div id="modal-report-prompt" class="popup-basic bg-none mfp-with-anim mfp-hide">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span class="panel-title"><i class="glyphicons glyphicons-filter"></i>Filter</span>
+        </div>
+        <div class="panel-body">
+            <!--Begin:Prompt Message-->
+            <div class="form-horizontal">
+                <p class="text-danger">{{requiredPrompt}}</p>
+                <div class="form-group" ng-hide="true">
+                    <label class="col-lg-3 control-label">Year:</label>
+                    <div class="col-lg-7 col-sm-4 sm">
+                        <select class="form-control upper-case" data-ng-options="item as item for item in iyr" data-ng-model="filter.yr"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Month From:</label>
+                    <div class="col-lg-7 col-sm-4 sm">
+                        <select class="form-control upper-case" data-ng-options="item as item for item in newMonthOption" data-ng-model="filter.monthfrom"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Month To:</label>
+                    <div class="col-lg-7 col-sm-4 sm">
+                        <select class="form-control upper-case" data-ng-options="item as item for item in newMonthOption" data-ng-model="filter.monthto"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button class="btn btn-primary" data-ng-click="onPreviewFilter();">Preview</button>
+
+        </div>
+    </div>
+</div>

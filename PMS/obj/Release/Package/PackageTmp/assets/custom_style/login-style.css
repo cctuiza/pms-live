@@ -1,0 +1,298 @@
+﻿/* Your custom styles */
+#sliderArea {
+    display: none;
+    position: relative;
+}
+
+    #sliderArea .slides {
+        width: 100%;
+        display: blok;
+    }
+
+    #sliderArea:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 50;
+    }
+
+.loginForm {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: table;
+    background-image: url(../img/overlays/absurdity.png);
+    background-color: #fff;
+}
+
+    .loginForm .card {
+        width: 28rem;
+        display: block;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .loginForm .form-elegant {
+        display: table-cell;
+        vertical-align: middle;
+        z-index: 100;
+    }
+
+        .loginForm .form-elegant img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+        }
+
+        .loginForm .form-elegant .my-3 {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .loginForm .form-elegant button.btn-rounded {
+            border-radius: 10em;
+        }
+
+        .loginForm .form-elegant button.blue-gradient {
+            background: -webkit-linear-gradient(50deg, #45cafc, #303f9f) !important;
+            background: linear-gradient(40deg, #45cafc, #303f9f) !important;
+        }
+
+        .loginForm .form-elegant .font-small {
+            font-size: 0.8rem;
+        }
+
+        .loginForm .form-elegant .z-depth-1a {
+            -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+            box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+        }
+
+        .loginForm .form-elegant .z-depth-1-half {
+            -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+            box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+        }
+
+        .loginForm .form-elegant .form-elegant .btn:hover {
+            -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+            box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+        }
+		
+		.loginForm .form-elegant .card .card-body form .error-message{
+			padding: 0.3rem 1rem;
+			margin-bottom: 0!important;
+		}
+		
+		.loginForm .form-elegant .card .card-body .md-form label{
+			font-size: 0.8rem;
+			padding-left: 20px;
+			display: none;
+		}
+		
+		.loginForm .form-elegant .card .card-body .md-form input{
+			font-size: 0.8rem;
+		}
+		
+		
+		.loginForm .form-elegant .card .card-body .username > label{
+			z-index: 1;
+		}
+		
+		.loginForm .form-elegant .card .card-body .username > input{
+			margin-top: 1rem !important;
+			position: relative;
+		}
+		
+		.loginForm .form-elegant .card .card-body .username:before{
+			font-family: Fontawesome;
+			font-size: 0.9rem;
+			content: "\f007";
+			display: inline-block;
+			width: 25px;
+			height: 29.59px;
+			line-height: 29.59px;
+			position: absolute;
+            z-index: 1;
+            text-align: center;
+		}
+		.loginForm .form-elegant .card .card-body .password:before{
+			font-family: Fontawesome;
+			font-size: 0.9rem;
+			content: "\f023";
+			display: inline-block;
+			width: 25px;
+			height: 29.59px;
+			line-height: 29.59px;
+			position: absolute;
+            text-align: center;
+		}
+		.loginForm .form-elegant .card .card-body .md-form .form-control{
+			padding: 0.3rem;
+			box-sizing: border-box;
+			padding-left: 25px;
+		}
+		.loginForm .form-elegant .card .card-body .md-form select{
+			font-size: 0.8rem;
+		}
+
+    .loginForm .modal-footer {
+        z-index: 100;
+        position: relative;
+    }
+	
+	fieldset{
+	position: relative; }
+	
+	.checkme > [type="radio"],
+	.checkme > [type="checkbox"] {
+		position: absolute;
+		left: -9999px;
+		visibility: hidden;}
+	
+	.checkme > [type="radio"] + label,
+	.checkme > [type="checkbox"] + label {
+	  font-size: 0.8rem; 
+	  padding-left: 30px;}
+
+	.checkme > input[type="checkbox"] + label:before {
+	  content: '';
+	  position: absolute;
+	  top: 3px;
+	  left: 0;
+	  width: 17px;
+	  height: 17px;
+	  z-index: 0;
+	  border: 1.5px solid #8a8a8a;
+	  border-radius: 1px;
+	  margin-top: 2px;
+	  -webkit-transition: 0.2s;
+	  transition: 0.2s; }
+
+	.checkme > input[type="checkbox"]:checked + label:before {
+	  top: -4px;
+	  left: -3px;
+	  width: 12px;
+	  height: 22px;
+	  border-style: solid;
+	  border-width: 2px;
+	  border-color: transparent #EB3573 #EB3573 transparent;
+	  -webkit-transform: rotate(40deg);
+	  -ms-transform: rotate(40deg);
+	  transform: rotate(40deg);
+	  -webkit-backface-visibility: hidden;
+	  -webkit-transform-origin: 100% 100%;
+	  -ms-transform-origin: 100% 100%;
+	  transform-origin: 100% 100%; }
+	  
+    /* spinner */
+    body {
+        background-color: #fff;
+    }
+
+    .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .loadContent {
+        width: 100%;
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 55%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .loader {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #9370DB;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+        .loader:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #BA55D3;
+            -webkit-animation: spin 3s linear infinite;
+            animation: spin 3s linear infinite;
+        }
+
+        .loader:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #FF00FF;
+            -webkit-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+        }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+	/*MOBILE PORTRAIT*/
+	@media (max-width: 480px) {
+	  .loginForm {
+		padding: 0 15px;
+	  }
+	  .loginForm .card {
+		width: 100%;
+	  }
+	}
+

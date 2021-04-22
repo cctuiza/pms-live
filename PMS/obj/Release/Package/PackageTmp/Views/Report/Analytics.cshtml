@@ -1,0 +1,144 @@
+﻿@{
+    Layout = null;
+
+}
+<style>
+    hc-pie-chart, hc-column-graph, hc-stack-column, hc-tree-map {
+        width: 100%;
+        display: block;
+    }
+
+    .form-control-bggreen {
+        display: block;
+        width: 100%;
+        height: 39px;
+        padding: 9px 12px;
+        font-size: 13px;
+        line-height: 1.5;
+        color: #555555;
+        background-color: #ffffff;
+        background-image: none;
+        border: 1px solid #dddddd;
+        border-radius: 0px;
+        -webkit-transition: border-color ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s;
+        transition: border-color ease-in-out .15s;
+    }
+
+        .form-control-bggreen:focus {
+            border-color: #11903e;
+            outline: 0;
+        }
+
+        .form-control-bggreen::-moz-placeholder {
+            color: #777777;
+            opacity: 1;
+        }
+
+        .form-control-bggreen:-ms-input-placeholder {
+            color: #777777;
+        }
+
+        .form-control-bggreen::-webkit-input-placeholder {
+            color: #777777;
+        }
+</style>
+
+
+<section class="content" ng-init="ctrl.onInit()">
+
+    <div id="skin-toolbox">
+        <div class="panel">
+            <div class="panel-heading" unselectable="on" style="user-select: none; background-color:gold;">
+                <span class="panel-icon">
+                    <i class="glyphicons glyphicons-filter"></i>
+                </span>
+                <span class="panel-title">PMS Analytics Report</span>
+            </div>
+            <div class="panel-body pn">
+
+
+                <form>
+                    <div class="form-group">
+                        <label for="sel1">Year:</label>
+                        <select class="form-control" data-ng-model="ctrl.currenYear">
+                            <option ng-repeat="years in ctrl.analyticsParameter.years | orderBy">{{years.PeriodYear}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Corporate Name:</label>
+                        <select class="form-control" data-ng-model="ctrl.corporate">
+                            <option ng-repeat="coporate in ctrl.analyticsParameter.corporateName | orderBy">{{coporate.CorporateName}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Business Group:</label>
+                        <select class="form-control" data-ng-model="ctrl.bgroup">
+                            <option ng-repeat="businessGrp in ctrl.analyticsParameter.businessGrp | orderBy">{{businessGrp.BusinessGroup}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel1">Period Month From:</label>
+                        <select class="form-control" ng-options="month.monthName for month in ctrl.months | orderBy"  ng-model="ctrl.periodMonthFrom">
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sel1">Period Month To:</label>
+                        <select class="form-control" ng-options="month.monthName for month in ctrl.months | orderBy" ng-model="ctrl.periodMonthTo"></select>
+                        
+                    </div>
+                    <div style=" margin:0 0 10px 0; ">
+                        <input class="btn btn-primary" style="width:100%;" type="submit" value="Generate" ng-click="ctrl.generateReport()">
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12"></div>
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12 " style="padding-top:0px;">
+                        <div class="panel">
+                            <div class="panel-body pn" style="border-width:thin; border-color:#555555">
+                                <div id="statusPerBusinessGroup"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 " style="padding-top:0px;">
+                        <div class="panel">
+                            <div class="panel-body pn" style="border-width:thin; border-color:#555555">
+                                <div id="statusPerBranch"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        // Toggles Theme Settings Tray
+        $('#skin-toolbox .panel-heading').on('click', function () {
+            $('#skin-toolbox').toggleClass('toolbox-open');
+        });
+        // Disable text selection
+        $('#skin-toolbox .panel-heading').disableSelection();
+
+
+    </script>
+
+</section>

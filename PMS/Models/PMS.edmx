@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="COREDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="pms_indicators">
+          <Key>
+            <PropertyRef Name="indicatorId" />
+          </Key>
+          <Property Name="indicatorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="targetdef" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="indicatortype" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="positioncode" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="positiondesc" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="indicatorkra" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="createdby" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="createdate" Type="datetime" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pms_mainkpi">
+          <Key>
+            <PropertyRef Name="KPIcode" />
+          </Key>
+          <Property Name="KPIcode" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PANO" Type="varchar" MaxLength="20" />
+          <Property Name="KPITarget" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="KPI_DESCRIPTION" Type="varchar" MaxLength="500" />
+          <Property Name="PAGROUP" Type="varchar" MaxLength="10" />
+          <Property Name="indicatorId" Type="int" Nullable="false" />
+          <Property Name="crea_by" Type="varchar" MaxLength="100" />
+          <Property Name="crea_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="pms_subkpi">
+          <Key>
+            <PropertyRef Name="SUBKPICODE" />
+            <PropertyRef Name="PA_CTRL_NO" />
+          </Key>
+          <Property Name="SUBKPICODE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PA_CTRL_NO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SUBDESCRIPTION" Type="varchar" MaxLength="1000" />
+          <Property Name="TARGET" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="OCCURENCE" Type="varchar" MaxLength="20" />
+          <Property Name="HTMSIND" Type="varchar" MaxLength="20" />
+          <Property Name="HIT_PERCENTAGE" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="ORDERBY" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpID" Type="varchar" MaxLength="20" />
+          <Property Name="AuthorityCde" Type="varchar" MaxLength="15" />
+          <Property Name="PaGroup" Type="varchar" MaxLength="10" />
+          <Property Name="pano" Type="varchar" MaxLength="20" />
+          <Property Name="remarks" Type="varchar" MaxLength="250" />
+          <Property Name="isackhead" Type="bit" />
+          <Property Name="isacksub" Type="bit" />
+          <Property Name="indicatorId" Type="int" Nullable="false" />
+          <Property Name="createdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="pms_subkpiperformancerate">
+          <Key>
+            <PropertyRef Name="SUB_KPICODE" />
+            <PropertyRef Name="EVENT_CODE" />
+            <PropertyRef Name="RATEID" />
+          </Key>
+          <Property Name="SUB_KPICODE" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="EVENT_CODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ACTUAL_VALUE" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="RESULT_VALUE" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="CREA_DATE" Type="datetime" />
+          <Property Name="CREA_BY" Type="varchar" MaxLength="50" />
+          <Property Name="WORKSTATION" Type="varchar" MaxLength="50" />
+          <Property Name="ISPOSTED" Type="bit" />
+          <Property Name="ISPOSTED2" Type="bit" />
+          <Property Name="remarks" Type="varchar" MaxLength="250" />
+          <Property Name="KPITYPE" Type="varchar" MaxLength="50" />
+          <Property Name="RATEID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ISREATED" Type="int" />
+        </EntityType>
+        <EntityType Name="pms_useraccess">
+          <Key>
+            <PropertyRef Name="accessId" />
+          </Key>
+          <Property Name="accessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="employeeid" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="employeename" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="canedit" Type="bit" />
+          <Property Name="createdate" Type="datetime" Nullable="false" />
+          <Property Name="createdby" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_pms_mainkpi_pms_indicators">
+          <End Role="pms_indicators" Type="Self.pms_indicators" Multiplicity="1" />
+          <End Role="pms_mainkpi" Type="Self.pms_mainkpi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pms_indicators">
+              <PropertyRef Name="indicatorId" />
+            </Principal>
+            <Dependent Role="pms_mainkpi">
+              <PropertyRef Name="indicatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pms_subkpi_pms_indicators">
+          <End Role="pms_indicators" Type="Self.pms_indicators" Multiplicity="1" />
+          <End Role="pms_subkpi" Type="Self.pms_subkpi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pms_indicators">
+              <PropertyRef Name="indicatorId" />
+            </Principal>
+            <Dependent Role="pms_subkpi">
+              <PropertyRef Name="indicatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="COREDBModelStoreContainer">
+          <EntitySet Name="pms_indicators" EntityType="Self.pms_indicators" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pms_mainkpi" EntityType="Self.pms_mainkpi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pms_subkpi" EntityType="Self.pms_subkpi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pms_subkpiperformancerate" EntityType="Self.pms_subkpiperformancerate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pms_useraccess" EntityType="Self.pms_useraccess" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_pms_mainkpi_pms_indicators" Association="Self.FK_pms_mainkpi_pms_indicators">
+            <End Role="pms_indicators" EntitySet="pms_indicators" />
+            <End Role="pms_mainkpi" EntitySet="pms_mainkpi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pms_subkpi_pms_indicators" Association="Self.FK_pms_subkpi_pms_indicators">
+            <End Role="pms_indicators" EntitySet="pms_indicators" />
+            <End Role="pms_subkpi" EntitySet="pms_subkpi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="COREDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="pms_indicators">
+          <Key>
+            <PropertyRef Name="indicatorId" />
+          </Key>
+          <Property Name="indicatorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="targetdef" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="indicatortype" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="positioncode" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="positiondesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="indicatorkra" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdby" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="createdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="pms_mainkpi" Relationship="Self.FK_pms_mainkpi_pms_indicators" FromRole="pms_indicators" ToRole="pms_mainkpi" />
+          <NavigationProperty Name="pms_subkpi" Relationship="Self.FK_pms_subkpi_pms_indicators" FromRole="pms_indicators" ToRole="pms_subkpi" />
+        </EntityType>
+        <EntityType Name="pms_mainkpi">
+          <Key>
+            <PropertyRef Name="KPIcode" />
+          </Key>
+          <Property Name="KPIcode" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PANO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="KPITarget" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="KPI_DESCRIPTION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PAGROUP" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="indicatorId" Type="Int32" Nullable="false" />
+          <Property Name="crea_by" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="crea_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="pms_indicators" Relationship="Self.FK_pms_mainkpi_pms_indicators" FromRole="pms_mainkpi" ToRole="pms_indicators" />
+        </EntityType>
+        <EntityType Name="pms_subkpi">
+          <Key>
+            <PropertyRef Name="SUBKPICODE" />
+            <PropertyRef Name="PA_CTRL_NO" />
+          </Key>
+          <Property Name="SUBKPICODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PA_CTRL_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SUBDESCRIPTION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TARGET" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="OCCURENCE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HTMSIND" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="HIT_PERCENTAGE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ORDERBY" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="AuthorityCde" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PaGroup" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pano" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="isackhead" Type="Boolean" />
+          <Property Name="isacksub" Type="Boolean" />
+          <Property Name="indicatorId" Type="Int32" Nullable="false" />
+          <Property Name="createdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="pms_indicators" Relationship="Self.FK_pms_subkpi_pms_indicators" FromRole="pms_subkpi" ToRole="pms_indicators" />
+        </EntityType>
+        <EntityType Name="pms_subkpiperformancerate">
+          <Key>
+            <PropertyRef Name="SUB_KPICODE" />
+            <PropertyRef Name="EVENT_CODE" />
+            <PropertyRef Name="RATEID" />
+          </Key>
+          <Property Name="SUB_KPICODE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EVENT_CODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACTUAL_VALUE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RESULT_VALUE" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CREA_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREA_BY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="WORKSTATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ISPOSTED" Type="Boolean" />
+          <Property Name="ISPOSTED2" Type="Boolean" />
+          <Property Name="remarks" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="KPITYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RATEID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ISREATED" Type="Int32" />
+        </EntityType>
+        <EntityType Name="pms_useraccess">
+          <Key>
+            <PropertyRef Name="accessId" />
+          </Key>
+          <Property Name="accessId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="employeeid" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="employeename" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="canedit" Type="Boolean" />
+          <Property Name="createdate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="createdby" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_pms_mainkpi_pms_indicators">
+          <End Role="pms_indicators" Type="Self.pms_indicators" Multiplicity="1" />
+          <End Role="pms_mainkpi" Type="Self.pms_mainkpi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pms_indicators">
+              <PropertyRef Name="indicatorId" />
+            </Principal>
+            <Dependent Role="pms_mainkpi">
+              <PropertyRef Name="indicatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pms_subkpi_pms_indicators">
+          <End Role="pms_indicators" Type="Self.pms_indicators" Multiplicity="1" />
+          <End Role="pms_subkpi" Type="Self.pms_subkpi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pms_indicators">
+              <PropertyRef Name="indicatorId" />
+            </Principal>
+            <Dependent Role="pms_subkpi">
+              <PropertyRef Name="indicatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="COREDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="pms_indicators" EntityType="Self.pms_indicators" />
+          <EntitySet Name="pms_mainkpi" EntityType="Self.pms_mainkpi" />
+          <EntitySet Name="pms_subkpi" EntityType="Self.pms_subkpi" />
+          <EntitySet Name="pms_subkpiperformancerate" EntityType="Self.pms_subkpiperformancerate" />
+          <EntitySet Name="pms_useraccess" EntityType="Self.pms_useraccess" />
+          <AssociationSet Name="FK_pms_mainkpi_pms_indicators" Association="Self.FK_pms_mainkpi_pms_indicators">
+            <End Role="pms_indicators" EntitySet="pms_indicators" />
+            <End Role="pms_mainkpi" EntitySet="pms_mainkpi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pms_subkpi_pms_indicators" Association="Self.FK_pms_subkpi_pms_indicators">
+            <End Role="pms_indicators" EntitySet="pms_indicators" />
+            <End Role="pms_subkpi" EntitySet="pms_subkpi" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="COREDBModelStoreContainer" CdmEntityContainer="COREDBEntities">
+          <EntitySetMapping Name="pms_indicators">
+            <EntityTypeMapping TypeName="COREDBModel.pms_indicators">
+              <MappingFragment StoreEntitySet="pms_indicators">
+                <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="targetdef" ColumnName="targetdef" />
+                <ScalarProperty Name="indicatortype" ColumnName="indicatortype" />
+                <ScalarProperty Name="positioncode" ColumnName="positioncode" />
+                <ScalarProperty Name="positiondesc" ColumnName="positiondesc" />
+                <ScalarProperty Name="indicatorkra" ColumnName="indicatorkra" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pms_mainkpi">
+            <EntityTypeMapping TypeName="COREDBModel.pms_mainkpi">
+              <MappingFragment StoreEntitySet="pms_mainkpi">
+                <ScalarProperty Name="KPIcode" ColumnName="KPIcode" />
+                <ScalarProperty Name="PANO" ColumnName="PANO" />
+                <ScalarProperty Name="KPITarget" ColumnName="KPITarget" />
+                <ScalarProperty Name="KPI_DESCRIPTION" ColumnName="KPI_DESCRIPTION" />
+                <ScalarProperty Name="PAGROUP" ColumnName="PAGROUP" />
+                <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+                <ScalarProperty Name="crea_by" ColumnName="crea_by" />
+                <ScalarProperty Name="crea_date" ColumnName="crea_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pms_subkpi">
+            <EntityTypeMapping TypeName="COREDBModel.pms_subkpi">
+              <MappingFragment StoreEntitySet="pms_subkpi">
+                <ScalarProperty Name="SUBKPICODE" ColumnName="SUBKPICODE" />
+                <ScalarProperty Name="PA_CTRL_NO" ColumnName="PA_CTRL_NO" />
+                <ScalarProperty Name="SUBDESCRIPTION" ColumnName="SUBDESCRIPTION" />
+                <ScalarProperty Name="TARGET" ColumnName="TARGET" />
+                <ScalarProperty Name="OCCURENCE" ColumnName="OCCURENCE" />
+                <ScalarProperty Name="HTMSIND" ColumnName="HTMSIND" />
+                <ScalarProperty Name="HIT_PERCENTAGE" ColumnName="HIT_PERCENTAGE" />
+                <ScalarProperty Name="ORDERBY" ColumnName="ORDERBY" />
+                <ScalarProperty Name="EmpID" ColumnName="EmpID" />
+                <ScalarProperty Name="AuthorityCde" ColumnName="AuthorityCde" />
+                <ScalarProperty Name="PaGroup" ColumnName="PaGroup" />
+                <ScalarProperty Name="pano" ColumnName="pano" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="isackhead" ColumnName="isackhead" />
+                <ScalarProperty Name="isacksub" ColumnName="isacksub" />
+                <ScalarProperty Name="indicatorId" ColumnName="indicatorId" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pms_subkpiperformancerate">
+            <EntityTypeMapping TypeName="COREDBModel.pms_subkpiperformancerate">
+              <MappingFragment StoreEntitySet="pms_subkpiperformancerate">
+                <ScalarProperty Name="SUB_KPICODE" ColumnName="SUB_KPICODE" />
+                <ScalarProperty Name="EVENT_CODE" ColumnName="EVENT_CODE" />
+                <ScalarProperty Name="ACTUAL_VALUE" ColumnName="ACTUAL_VALUE" />
+                <ScalarProperty Name="RESULT_VALUE" ColumnName="RESULT_VALUE" />
+                <ScalarProperty Name="CREA_DATE" ColumnName="CREA_DATE" />
+                <ScalarProperty Name="CREA_BY" ColumnName="CREA_BY" />
+                <ScalarProperty Name="WORKSTATION" ColumnName="WORKSTATION" />
+                <ScalarProperty Name="ISPOSTED" ColumnName="ISPOSTED" />
+                <ScalarProperty Name="ISPOSTED2" ColumnName="ISPOSTED2" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="KPITYPE" ColumnName="KPITYPE" />
+                <ScalarProperty Name="RATEID" ColumnName="RATEID" />
+                <ScalarProperty Name="ISREATED" ColumnName="ISREATED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pms_useraccess">
+            <EntityTypeMapping TypeName="COREDBModel.pms_useraccess">
+              <MappingFragment StoreEntitySet="pms_useraccess">
+                <ScalarProperty Name="accessId" ColumnName="accessId" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="employeeid" ColumnName="employeeid" />
+                <ScalarProperty Name="employeename" ColumnName="employeename" />
+                <ScalarProperty Name="canedit" ColumnName="canedit" />
+                <ScalarProperty Name="createdate" ColumnName="createdate" />
+                <ScalarProperty Name="createdby" ColumnName="createdby" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

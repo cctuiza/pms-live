@@ -1,0 +1,121 @@
+﻿@{
+    Layout = null;
+}
+<section class="content">
+    <div class="panel panel-solid">
+        <div class="panel-body" data-ng-init="ctrl.onInit()">
+            <h2 class="page-header">Record Potential Assessment</h2>
+            <h3>Potential Assessment</h3>
+            <h5 class="bg-info" ng-show="ctrl.behavioralHeader.isPosted">This transaction is already <span class="italic">POSTED</span></h5>
+            <form class="form-horizontal">
+                <table class="table table-condensed table-bordered">
+                    <tr>
+                        <th colspan="2">I. Skills and work competency areas</th>
+                        <th>self-assess</th>
+                        <th>2nd view</th>
+                        <th>Essential / Desirable</th>
+                    </tr>
+                    <tr ng-repeat="x in ctrl.GetEmployeeBa" ng-if="x.grpkra == 1">
+                        <td>{{$index + 1}}</td>
+                        <td>{{x.description}}</td>
+                        <td>
+                            <select ng-disabled="ctrl.setDisableSelection(ctrl.isNotMyPaf)" class="form-control" ng-model="x.baselfassess">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            @*<input type="number" min=0 max=5 ng-disabled="ctrl.isNotMyPaf" class="form-control" ng-model="x.baselfassess">*@
+                        </td>
+                        <td>
+                            @*<input type="number" ng-disabled="!ctrl.isNotMyPaf" class="form-control" ng-model="x.secondview">*@
+                            <select ng-disabled="ctrl.setDisableSelection(!ctrl.isNotMyPaf)" class="form-control" ng-model="x.secondview">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-control" ng-model="x.edvalue" ng-disabled="ctrl.behavioralHeader.isPosted">
+                                <option value="E">Essential</option>
+                                <option value="D">Desirable</option>
+                            </select>
+                            <!--<input type="text" ng-disabled="ctrl.isNotMyPaf" class="form-control text-uppercase" ng-model="x.edvalue">-->
+                        </td>
+</tr>
+                    <tr>
+                        <td colspan="2" style="text-align:right">Total >>></td>
+                        <td>{{ctrl.getAverageSumSelfAssesment(ctrl.GetEmployeeBa, 1).toFixed(2)}}</td>
+                        <td>{{ctrl.getAverageSecondView(ctrl.GetEmployeeBa, 1).toFixed(2)}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:right">Rating for 16 skills >>></td>
+                        <td colspan="3">{{ctrl.totalRatingSkilsnWorkCompetencyAreas(ctrl.getAverageSumSelfAssesment(ctrl.GetEmployeeBa, 1),ctrl.getAverageSecondView(ctrl.GetEmployeeBa, 1))}}</td>
+                    </tr>
+                </table>
+                <br />
+                <table class="table table-condensed table-bordered">
+                    <tr>
+                        <th colspan="2">II. Behaviours, attitudes and personal style</th>
+                        <th>self-assess</th>
+                        <th>2nd view</th>
+                        <th>Essential / Desirable</th>
+                    </tr>
+                    <tr ng-repeat="x in ctrl.GetEmployeeBa" ng-if="x.grpkra == 2">
+                        <td>{{$index + 1}}</td>
+                        <td>{{x.description}}</td>
+                        <td>
+                            <select ng-disabled="ctrl.setDisableSelection(ctrl.isNotMyPaf)" class="form-control" ng-model="x.baselfassess">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <!--input type="number" min=0 max=5 ng-disabled="ctrl.isNotMyPaf" class="form-control" ng-model="x.baselfassess">-->
+                        </td>
+                        <td>
+                            <!--<input type="number" ng-disabled="!ctrl.isNotMyPaf" class="form-control" ng-model="x.secondview">-->
+                            <select ng-disabled="ctrl.setDisableSelection(!ctrl.isNotMyPaf)" class="form-control" ng-model="x.secondview">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select ng-disabled="ctrl.behavioralHeader.isPosted" class="form-control" ng-model="x.edvalue">
+                                <option value="E">Essential</option>
+                                <option value="D">Desirable</option>
+                            </select>
+                            <!--<input type="text" ng-disabled="ctrl.isNotMyPaf" class="form-control text-uppercase" ng-model="x.edvalue">-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:right">Total >>></td>
+                        <td>{{ctrl.getAverageSumSelfAssesment(ctrl.GetEmployeeBa, 2).toFixed(2)}}</td>
+                        <td>{{ctrl.getAverageSecondView(ctrl.GetEmployeeBa, 2).toFixed(2)}}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:right">Rating for 13 skills >>></td>
+                        <td colspan="3">{{ctrl.totalRatingBehaviorAttitudePstyle(ctrl.getAverageSumSelfAssesment(ctrl.GetEmployeeBa, 2),ctrl.getAverageSecondView(ctrl.GetEmployeeBa, 2))}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:right">Overall Rating >>></td>
+                        <td colspan="3">{{ctrl.getAllTotal(ctrl.totalRatingSkilsnWorkCompetencyAreas(ctrl.getAverageSumSelfAssesment(ctrl.GetEmployeeBa, 1),ctrl.getAverageSecondView(ctrl.GetEmployeeBa, 1)) , ctrl.totalRatingBehaviorAttitudePstyle(ctrl.getAverageSumSelfAssesment(ctrl.GetEmployeeBa, 2),ctrl.getAverageSecondView(ctrl.GetEmployeeBa, 2)))}}</td>
+                    </tr>
+                </table>
+                <div class="panel-footer text-right" ng-hide="ctrl.behavioralHeader.isPosted">
+                    <button class="btn btn-success btn-gradient btn-rounded" ng-hide="ctrl.isNotMyPaf==true && ctrl.behavioralHeader.isPosted==false" ng-click="ctrl.onSaveChanges(false)">Save Changes</button>
+                    <button class="btn btn-success btn-gradient btn-rounded" ng-show="ctrl.isNotMyPaf==true && ctrl.behavioralHeader.isPosted==false" ng-click="ctrl.onSaveChanges(true)">Save & Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,133 @@
+﻿
+  <!-- Start: Header -->
+<header class="navbar navbar-fixed-top bg-light" ng-cloak>
+    <div class="navbar-branding">
+    
+        <a class="navbar-brand" href="/"> <img src="~/Images/apps/2.png" width="147" height="60" /></a>
+       
+
+        <span id="toggle_sidemenu_l" class="glyphicons glyphicons-show_lines" ></span>
+        <ul class="nav navbar-nav pull-right hidden">
+            <li>
+                <a href="#" class="sidebar-menu-toggle">
+                    <span class="octicon octicon-ruby fs20 mr10 pull-right "></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+        <li class="hidden-xs">
+            <a class="request-fullscreen toggle-active" href="#">
+                <span class="octicon octicon-screen-full fs18"></span>
+            </a>
+        </li>
+
+        <li>
+            <form class="navbar-form navbar-left navbar-search ml5" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search..." data-ng-model="search" ng-enter="onSearch()">
+
+                </div>
+
+            </form>
+        </li>
+        
+    </ul>
+   
+
+    <ul class="nav navbar-nav navbar-right">
+        
+        <li class="ph10 pv20 hidden-xs">
+            <i class="rate-hit fa fa-circle text-tp fs8"></i>
+        </li>
+
+
+        <li class="dropdown dropdown-item-slide" ng-hide="true">
+            <a class="dropdown-toggle pl10 pr10" data-toggle="dropdown" href="#">
+                <span class="octicon octicon-radio-tower fs18"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-hover dropdown-persist pn w350 bg-white animated animated-shorter fadeIn" role="menu">
+                <li class="bg-light p8">
+                    <span class="fw600 pl5 lh30"> Notifications</span>
+                    <span class="label label-warning label-sm pull-right lh20 h-20 mt5 mr5">12</span>
+                </li>
+                <li class="p10 br-t item-1">
+                    <div class="media">
+                        <a class="media-left" href="#"> <img src="~/assets/img/avatars/2.jpg" class="mw40" alt="holder-img"> </a>
+                        <div class="media-body va-m">
+                            <h5 class="media-heading mv5">Article <small class="text-muted">- 08/16/22</small> </h5> Last Updated 36 days ago by
+                            <a class="text-system" href="#"> Max </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="p10 br-t item-2">
+                    <div class="media">
+                        <a class="media-left" href="#"> <img src="~/assets/img/avatars/3.jpg" class="mw40" alt="holder-img"> </a>
+                        <div class="media-body va-m">
+                            <h5 class="media-heading mv5">Article <small class="text-muted">- 08/16/22</small> </h5> Last Updated 36 days ago by
+                            <a class="text-system" href="#"> Max </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="p10 br-t item-3">
+                    <div class="media">
+                        <a class="media-left" href="#"> <img src="~/assets/img/avatars/4.jpg" class="mw40" alt="holder-img"> </a>
+                        <div class="media-body va-m">
+                            <h5 class="media-heading mv5">Article <small class="text-muted">- 08/16/22</small> </h5> Last Updated 36 days ago by
+                            <a class="text-system" href="#"> Max </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="p10 br-t item-4">
+                    <div class="media">
+                        <a class="media-left" href="#"> <img src="~/assets/img/avatars/5.jpg" class="mw40" alt="holder-img"> </a>
+                        <div class="media-body va-m">
+                            <h5 class="media-heading mv5">Article <small class="text-muted">- 08/16/22</small> </h5> Last Updated 36 days ago by
+                            <a class="text-system" href="#"> Max </a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li >
+            @*<a class="toggle-active pointer" id="conversation" data-ng-click="viewOnlineFriend()">
+                <span class="glyphicons glyphicons-conversation"></span>
+                <span class="badge badge-hero badge-danger " data-ng-class="chatcounterclass" data-ng-hide="totalMsgCount<=0" id="totalMsgCount" style="display:none;">{{totalMsgCount}}</span>
+            </a>*@
+            @*<a href="http://apps.fastgroup.biz/messenger/"class="toggle-active pointer"  >
+                <span class="glyphicons glyphicons-conversation"></span>
+                <span class="badge badge-hero badge-danger " data-ng-class="chatcounterclass" data-ng-hide="totalMsgCount<=0" id="totalMsgCount" style="display:none;">{{totalMsgCount}}</span>
+            </a>*@
+
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle fw600 p15 pointer" data-toggle="dropdown">
+               
+                <span>Hi {{userFirstName}}</span>
+                <span class="caret caret-tp hidden-xs"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-persist pn w250 bg-white" role="menu">
+   
+          
+                <li class="br-t of-h">
+                    <a class="fw600 p12 animated animated-short fadeInDown pointer" data-ng-click="openModalForm('#modal-panel-settings');onGetAlias();">
+                        <span class="fa fa-gear pr5"></span> Account Settings
+                    </a>
+                </li>
+                <li class="br-t of-h">
+                    <a class="fw600 p12 animated animated-short fadeInDown pointer" data-ng-click="onReleaseNote()">
+                        <span class="fa fa-info-circle"></span> Release Notes
+                    </a>
+                </li>
+               
+                <li class="br-t of-h">
+                    <a class="pointer fw600 p12 animated animated-short fadeInDown" data-ng-click="onSignOut()">
+                        <span class="fa fa-power-off pr5"></span> Logout
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</header>
+<!-- End: Header -->
+

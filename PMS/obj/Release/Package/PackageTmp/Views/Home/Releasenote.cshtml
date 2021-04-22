@@ -1,0 +1,29 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+
+<section class="content">
+
+    <div class="panel panel-primary" ng-init="ctrl.onInit()">
+
+
+        <div class="panel-body no-padding">
+            <h3>Release Notes</h3>
+            <div ng-repeat="note in ctrl.releasenote | orderBy:'-versionId'">
+                <p><h3><b>{{note.verno}}</b></h3></p>
+
+                <div ng-bind-html="note.verreleasenote | to_trusted"></div>
+                <hr />
+            </div>
+
+
+
+        </div>
+        <div class="panel-footer"></div>
+    </div>
+
+
+</section>
